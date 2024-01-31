@@ -1,0 +1,50 @@
+let mapleader = " "
+
+set scrolloff=10
+set linenumber
+
+set showmode
+set showcmd
+set visualbell
+set clipboard+=unnamed
+
+set incsearch
+
+set hlsearch
+set surround
+
+map <leader>z <action>(ToggleFullScreen)
+
+
+map <leader>rn <Action>(RenameElement)
+map <leader>rm <Action>(ExtractMethod)
+map <leader>rv <Action>(IntroduceVariable)
+map <leader>rf <Action>(IntroduceField)
+map <leader>rs <Action>(ChangeSignature)
+map <leader>rr <Action>(Refactorings.QuickListPopupAction)
+
+nmap <leader>gd <Action>(GotoDeclaration)
+nmap <leader>gy <Action>(GotoTypeDeclaration)
+nmap <leader>gi <Action>(GotoImplementation)
+nmap <leader>gu <Action>(ShowUsages)
+nmap <leader>gt <Action>(GotoTest)
+nmap <leader>gf <Action>(Back)
+nmap <leader>gb <Action>(Forward)
+nmap <leader> <Action>(MethodUp)
+nmap <leader>] <Action>(MethodDown)
+
+map <leader>ff <action>(GotoFile)
+map <leader>fp <action>(FindInPath)
+
+map <leader><leader> <Action>(RecentFiles)
+
+map <leader>% <action>(NewScratchFile)
+map <leader>d <action>(NewPackage)
+
+
+nmap <C-e> <Action>(ShowBookmarks)
+nmap <leader>a <Action>(ToggleBookmark)
+nmap <C-p> <Action>(GotoPreviousBookmark)
+
+Plug 'machakann/vim-highlightedyank'
+Plug 'tpope/vim-commentary'
