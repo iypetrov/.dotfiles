@@ -1,0 +1,6 @@
+[includeIf "gitdir:$WORK"]
+  path = ~/.gitconfig-work
+
+[includeIf "gitdir:$PERSONAL"]
+  path = ~/.gitconfig-personal
+
