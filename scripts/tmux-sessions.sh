@@ -7,7 +7,13 @@ else
 	tmux attach -t "$session"
 fi
 
-if [[ "$session"=="work_bpa_master_data_api_feature_1" ]]; then
+if [[ "$session"=="common_dotfiles" ]]; then
+	cd "$COMMON/.dotfiles"
+elif [[ "$session"=="common_notes" ]]; then
+	cd "$COMMON/notes"
+elif [[ "$session"=="common_ledger" ]]; then
+	cd "$COMMON/ledger"
+elif [[ "$session"=="work_bpa_master_data_api_feature_1" ]]; then
 	cd "$BPA/master-data-api"
 	git checkout feature-1 -- src/main/java/com/iteconomics/bpa/masterdata/config/SecurityConfig.java
 	git checkout feature-1 -- src/main/resources/application-local.properties
@@ -44,4 +50,16 @@ elif [[ "$session"=="work_bpa_bpa_dev_tools" ]]; then
 	cd "$BPA/bpa-dev-tools"
 elif [[ "$session"=="work_bpa_bpa_testing" ]]; then
 	cd "$BPA/bpa-testing"
+elif [[ "$session"=="personal_foo" ]]; then
+	cd "$PERSONAL/foo"
+elif [[ "$session"=="personal_mini_shop" ]]; then
+	cd "$PERSONAL/mini-shop"
+elif [[ "$session"=="personal_mini_shop_client" ]]; then
+	cd "$PERSONAL/mini-shop-client"
+elif [[ "$session"=="personal_api_gateway" ]]; then
+	cd "$PERSONAL/api-gateway"
+elif [[ "$session"=="personal_go_calc" ]]; then
+	cd "$PERSONAL/go-calc"
+elif [[ "$session"=="personal_flink" ]]; then
+	cd "$PERSONAL/flink"
 fi

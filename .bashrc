@@ -43,13 +43,22 @@ alias work="cd $WORK"
 alias bpa="cd $BPA"
 alias personal="cd $PERSONAL"
 
-alias bpa_mda="cd $BPA/master-data-api"
-alias bpa_mdfe="cd $BPA/master-data-fe"
-alias bpa_test="cd $BPA/bpa-testing"
-alias bpa_build="cd $BPA/btp_build_image"
-alias bpa_tools="cd $BPA/bpa-dev-tools"
+alias c_dotfiles="cd $COMMON/.dotfiles"
+alias c_notes="cd $COMMON/notes"
+alias c_ledger="cd $COMMON/ledger"
 
-alias api_gateway="cd $PERSONAL/api-gateway"
+alias w_bpa_mda="cd $BPA/master-data-api"
+alias w_bpa_mdfe="cd $BPA/master-data-fe"
+alias w_bpa_test="cd $BPA/bpa-testing"
+alias w_bpa_build="cd $BPA/btp_build_image"
+alias w_bpa_tools="cd $BPA/bpa-dev-tools"
+
+alias p_foo="cd $PERSONAL/foo"
+alias p_mini_shop="cd $PERSONAL/mini-shop"
+alias p_mini_shop_client="cd $PERSONAL/mini-shop-client"
+alias p_api_gateway="cd $PERSONAL/api-gateway"
+alias p_go_calc="cd $PERSONAL/go-calc"
+alias p_flink="cd $PERSONAL/flink"
 
 # tmux
 alias t=tmux
