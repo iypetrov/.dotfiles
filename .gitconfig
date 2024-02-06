@@ -1,3 +1,6 @@
+[core]
+  autocrlf = input
+
 [includeIf "gitdir:$WORK"]
   path = ~/.gitconfig-work
 
