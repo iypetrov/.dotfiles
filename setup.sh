@@ -43,7 +43,8 @@ sudo apt-get install \
 	tmux \
 	ripgrep \
 	gh \
-	ansible
+	ansible \
+	dos2unix
 
 # nvim
 export VIMINIT="source ~/.config/vim/.vimrc"
