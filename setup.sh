@@ -28,6 +28,7 @@ rm .bashrc
 
 # dependencies
 sudo apt-add-repository ppa:ansible/ansible
+sudo add-apt-repository ppa:mbudde/ledger
 
 sudo apt-get install \
 	make \
@@ -44,6 +45,7 @@ sudo apt-get install \
 	ripgrep \
 	gh \
 	ansible \
+	ledger \
 	dos2unix
 
 # nvim

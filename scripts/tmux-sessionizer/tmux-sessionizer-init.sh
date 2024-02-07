@@ -3,6 +3,7 @@
 #common
 tmux new-session -t common_dotfiles -d
 tmux new-session -t common_notes -d
+tmux new-session -t common_ledger -d
 
 # work
 tmux new-session -t work_bpa_master_data_api_feature_1 -d

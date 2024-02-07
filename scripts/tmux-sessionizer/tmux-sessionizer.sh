@@ -9,6 +9,9 @@ pre_attach_action() {
 	elif [[ "$1" == "common_notes" ]]; then
 		cmd="cd '$COMMON/notes/' \
         && clear"
+	elif [[ "$1" == "common_ledger" ]]; then
+		cmd="cd '$COMMON/ledger/' \
+        && clear"
 	elif [[ "$1" == "work_bpa_master_data_api_feature_1" ]]; then
 		cmd="cd '$BPA/master-data-api' \
         && git checkout local -- src/main/java/com/iteconomics/bpa/masterdata/config/SecurityConfig.java > /dev/null 2>&1 \
