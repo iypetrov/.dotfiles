@@ -9,9 +9,6 @@ pre_attach_action() {
 	elif [[ "$1" == "common_notes" ]]; then
 		cmd="cd '$COMMON/notes/' \
         && clear"
-	elif [[ "$1" == "common_ledger" ]]; then
-		cmd="cd '$COMMON/ledger/' \
-        && clear"
 	elif [[ "$1" == "work_bpa_master_data_api_feature_1" ]]; then
 		cmd="cd '$BPA/master-data-api' \
         && git checkout local -- src/main/java/com/iteconomics/bpa/masterdata/config/SecurityConfig.java > /dev/null 2>&1 \
@@ -35,23 +32,23 @@ pre_attach_action() {
 		# issue with fe
 	elif [[ "$1" == "work_bpa_master_data_fe_local" ]]; then
 		cmd="cd '$BPA/master-data-fe/' \
-        && git checkout local -- BTP_FE/src/emvironments/environment.ts > /dev/null 2>&1 \
+        && git checkout local -- BTP_FE/src/environments/environment.ts > /dev/null 2>&1 \
         && clear"
 	elif [[ "$1" == "work_bpa_master_data_fe_feature_1" ]]; then
 		cmd="cd '$BPA/master-data-fe/' \
-        && git checkout feature-1 -- BTP_FE/src/emvironments/environment.ts > /dev/null 2>&1 \
+        && git checkout feature-1 -- BTP_FE/src/environments/environment.ts > /dev/null 2>&1 \
         && clear"
 	elif [[ "$1" == "work_bpa_master_data_fe_dev" ]]; then
 		cmd="cd '$BPA/master-data-fe/' \
-        && git checkout develop -- BTP_FE/src/emvironments/environment.ts > /dev/null 2>&1 \
+        && git checkout develop -- BTP_FE/src/environments/environment.ts > /dev/null 2>&1 \
         && clear"
 	elif [[ "$1" == "work_bpa_master_data_fe_test" ]]; then
 		cmd="cd '$BPA/master-data-fe/' \
-        && git checkout test -- BTP_FE/src/emvironments/environment.ts > /dev/null 2>&1 \
+        && git checkout test -- BTP_FE/src/environments/environment.ts > /dev/null 2>&1 \
         && clear"
 	elif [[ "$1" == "work_bpa_master_data_fe_staging" ]]; then
 		cmd="cd '$BPA/master-data-fe/' \
-        && git checkout staging -- BTP_FE/src/emvironments/environment.ts > /dev/null 2>&1 \
+        && git checkout staging -- BTP_FE/src/environments/environment.ts > /dev/null 2>&1 \
         && clear"
 	elif [[ "$1" == "work_bpa_btp_build_image" ]]; then
 		cmd="cd '$BPA/btp_build_image/' \
@@ -82,13 +79,13 @@ pre_attach_action() {
         && clear"
 	fi
 
-	tmux send-keys -t "$1:0" "$cmd" C-m
+	tmux send-keys -t "$2:0" "$cmd" C-m
 }
 
 session="$(tmux ls | cut -f1 -d":" | fzf)"
 target=$(echo "$session" | sed 's/-[0-9]*//')
 
-pre_attach_action "$target"
+pre_attach_action "$target" "$session"
 if [ -z "$TMUX" ]; then
 	tmux attach -t "$session"
 else
