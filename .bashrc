@@ -62,8 +62,8 @@ alias p_flink="cd $PERSONAL/flink"
 
 # tmux
 alias t=tmux
-alias ts="bash $COMMON/.dotfiles/scripts/tmux-sessions.sh"
-alias tsi="bash $COMMON/.dotfiles/scripts/tmux-sessions-init.sh"
+alias ts="source $COMMON/.dotfiles/scripts/tmux-sessionizer/tmux-sessionizer.sh"
+alias tsi="bash $COMMON/.dotfiles/scripts/tmux-sessionizer/tmux-sessionizer-init.sh"
 alias tsk="pkill -f tmux"
 
 #nvim
