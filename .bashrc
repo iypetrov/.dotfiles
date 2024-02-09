@@ -43,27 +43,10 @@ alias work="cd $WORK"
 alias bpa="cd $BPA"
 alias personal="cd $PERSONAL"
 
-alias c_dotfiles="cd $COMMON/.dotfiles"
-alias c_notes="cd $COMMON/notes"
-alias c_ledger="cd $COMMON/ledger"
-
-alias w_bpa_mda="cd $BPA/master-data-api"
-alias w_bpa_mdfe="cd $BPA/master-data-fe"
-alias w_bpa_test="cd $BPA/bpa-testing"
-alias w_bpa_build="cd $BPA/btp_build_image"
-alias w_bpa_tools="cd $BPA/bpa-dev-tools"
-
-alias p_foo="cd $PERSONAL/foo"
-alias p_mini_shop="cd $PERSONAL/mini-shop"
-alias p_mini_shop_client="cd $PERSONAL/mini-shop-client"
-alias p_api_gateway="cd $PERSONAL/api-gateway"
-alias p_go_calc="cd $PERSONAL/go-calc"
-alias p_flink="cd $PERSONAL/flink"
-
 # tmux
 alias t=tmux
 alias ts="source $COMMON/.dotfiles/scripts/tmux-sessionizer/tmux-sessionizer.sh"
-alias tsi="bash $COMMON/.dotfiles/scripts/tmux-sessionizer/tmux-sessionizer-init.sh"
+alias tsi="source $COMMON/.dotfiles/scripts/tmux-sessionizer/tmux-sessionizer-init.sh"
 alias tsk="pkill -f tmux"
 
 #nvim
@@ -76,3 +59,11 @@ alias v=nvim
 
 # scripts
 alias bpa_deploy="bash $HOME/scripts/bpa_deploy.sh"
+
+## ledger
+alias ldg_a="source $COMMON/ledger/payments-add.sh"
+alias ldg_s="source $COMMON/ledger/payments-stats.sh"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
