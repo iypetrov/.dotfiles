@@ -20,7 +20,6 @@ ln -sf "$PWD/auth_codes" "$HOME"/auth_codes
 ln -sf "$PWD/alacritty" "$HOME"/alacritty
 ln -sf "$PWD/vim" "$HOME"/.config/vim
 ln -sf "$PWD/nvim" "$HOME"/.config/nvim
-ln -sf "$BPA/master-data-fe" "$HOME"/master-data-fe
 
 cd "$HOME"
 rm .bash_history
