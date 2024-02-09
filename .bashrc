@@ -45,8 +45,8 @@ alias personal="cd $PERSONAL"
 
 # tmux
 alias t=tmux
-alias ts="source $COMMON/.dotfiles/scripts/tmux-sessionizer/tmux-sessionizer.sh"
-alias tsi="source $COMMON/.dotfiles/scripts/tmux-sessionizer/tmux-sessionizer-init.sh"
+alias ts="source $HOME/scripts/tmux-sessionizer/tmux-sessionizer.sh"
+alias tsi="source $HOME/scripts/tmux-sessionizer/tmux-sessionizer-init.sh"
 alias tsk="pkill -f tmux"
 
 #nvim
@@ -54,13 +54,14 @@ alias nvim="env -u VIMINIT nvim"
 alias v=nvim
 
 # docker
+alias docker="sudo docker"
 
 # kubectl
 
 # scripts
-alias bpa_deploy="bash $HOME/scripts/bpa_deploy.sh"
-
-## ledger
+alias ubu="source $HOME/scripts/ubuntu.sh"
+alias bpa_deploy="source $HOME/scripts/work/bpa/bpa_deploy.sh"
+alias bpa_test_bi="source $HOME/scripts/work/bpa/bpa_test_build_image.sh"
 alias ldg_a="source $COMMON/ledger/payments-add.sh"
 alias ldg_s="source $COMMON/ledger/payments-stats.sh"
 
