@@ -45,9 +45,7 @@ alias personal="cd $PERSONAL"
 
 # tmux
 alias t=tmux
-alias ts="source $HOME/scripts/tmux-sessionizer/tmux-sessionizer.sh"
-alias tsi="source $HOME/scripts/tmux-sessionizer/tmux-sessionizer-init.sh"
-alias tsk="pkill -f tmux"
+alias tk="pkill -f tmux"
 
 #nvim
 alias nvim="env -u VIMINIT nvim"
@@ -59,11 +57,10 @@ alias docker="sudo docker"
 # kubectl
 
 # scripts
-alias ubu="source $HOME/scripts/ubuntu.sh"
-alias bpa_deploy="source $HOME/scripts/work/bpa/bpa_deploy.sh"
-alias bpa_test_bi="source $HOME/scripts/work/bpa/bpa_test_build_image.sh"
-alias ldg_a="source $COMMON/ledger/payments-add.sh"
-alias ldg_s="source $COMMON/ledger/payments-stats.sh"
+alias ubu="source ~/scripts/ubuntu.sh"
+alias bpa_deploy="source ~/scripts/bpa_deploy.sh"
+alias bpa_ubu="source ~/scripts/bpa_ubuntu.sh"
+alias ldg="source $COMMON/ledger/payments.sh"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
