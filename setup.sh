@@ -83,8 +83,8 @@ export CHROME_BIN='/usr/bin/google-chrome'
 sudo apt istall python3
 
 # go dev
-wget https://go.dev/dl/go1.20.1.linux-amd64.tar.gz
-sudo tar -C /usr/local -xzf go1.20.1.linux-amd64.tar.gz
+wget https://go.dev/dl/go1.22.1.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.22.1.linux-amd64.tar.gz
 
 export PATH=$PATH:/usr/local/go/bin
 
