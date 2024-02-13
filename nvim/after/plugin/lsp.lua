@@ -3,18 +3,11 @@ local lsp = require("lsp-zero")
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-  'bashls',
-  'awk_ls',
-  'ansiblels',
   'dockerls',
-  'docker_compose_language_service',
-  'golangci_lint_ls',
+  'awk_ls',
+  'bashls',
+  'clangd',
   'gopls',
-  'jdtls',
-  'tsserver',
-  'cssls',
-  'eslint',
-  'angularls',
 })
 
 -- Fix Undefined global 'vim'
@@ -27,7 +20,6 @@ lsp.configure('lua-language-server', {
         }
     }
 })
-
 
 local cmp = require('cmp')
 
