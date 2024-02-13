@@ -33,7 +33,6 @@ if [[ "$target" == "master-data-api" ]]; then
 elif [[ "$target" == "master-data-fe" ]]; then
     option="$(echo "local feature-1 develop test staging" | tr ' ' '\n' | fzf)"
 
-
     if [[ "$option" == "local" ]]; then
         o_path="$PWD"
         cd "$BPA/master-data-fe/"
