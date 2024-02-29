@@ -1,14 +1,14 @@
 [core]
-    autocrlf = input
-    editor = nvim
-    excludesfile = ~/.gitignore
+autocrlf = input
+editor = nvim
+excludesfile = ~/.gitignore
 
 [includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/work/"]
-    path = ~/.gitconfig-work
+path = ~/.gitconfig-work
 
 [includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/personal/"]
-    path = ~/.gitconfig-personal
+path = ~/.gitconfig-personal
 
 [includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/common/"]
-    path = ~/.gitconfig-personal
+path = ~/.gitconfig-personal
 
