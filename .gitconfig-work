@@ -1,0 +1,9 @@
+[user]
+name = Ilia Petrov 
+email = ilia.petrov@soprasteria.com
+
+[gitlab]
+user = "ilia.petrov"
+
+[core]
+sshCommand = "ssh -i ~/.ssh/id_rsa_work"

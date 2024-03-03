@@ -43,6 +43,9 @@ alias work="cd $WORK"
 alias bpa="cd $BPA"
 alias personal="cd $PERSONAL"
 
+# curl
+alias curl="cmd.exe /C curl"
+
 # tmux
 alias t=tmux
 alias tk="pkill -f tmux"
