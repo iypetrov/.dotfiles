@@ -1,0 +1,9 @@
+[user]
+name = Ilia Petrov
+email = ilia.yavorov.petrov@gmail.com 
+
+[github]
+user = "iypetrov"
+
+[core]
+sshCommand = "ssh -i ~/.ssh/id_rsa_personal"

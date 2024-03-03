@@ -1,0 +1,28 @@
+[core]
+autocrlf = input
+editor = nvim
+excludesfile = ~/.gitignore
+pager = delta
+
+[interactive]
+diffFilter = delta --color-only
+
+[delta]
+navigate = true    
+light = true      
+line-numbers = true
+
+[merge]
+conflictstyle = diff3
+
+[diff]
+colorMoved = default
+        
+[includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/work/"]
+path = ~/.gitconfig-work
+
+[includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/personal/"]
+path = ~/.gitconfig-personal
+
+[includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/common/"]
+path = ~/.gitconfig-personal
