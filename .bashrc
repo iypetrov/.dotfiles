@@ -46,6 +46,9 @@ alias personal="cd $PERSONAL"
 # curl
 alias curl="cmd.exe /C curl"
 
+# git
+alias lazygit="sudo lazygit"
+
 # tmux
 alias t=tmux
 alias tk="pkill -f tmux"
