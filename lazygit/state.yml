@@ -1,13 +1,16 @@
 lastupdatecheck: 0
 recentrepos:
 - /mnt/c/Users/ipetrov/stuff/common/.dotfiles
+- /mnt/c/Users/ipetrov/stuff/personal/projects/operating-systems
+- /mnt/c/Users/ipetrov/stuff/personal/projects/ghtmx
+- /mnt/c/Users/ipetrov/stuff/common/ledger
 - /mnt/c/Users/ipetrov/stuff/personal/projects/chichak-chess-api
+- /mnt/c/Users/ipetrov/stuff/personal/projects/chichak-chess-client
 - /mnt/c/Users/ipetrov/stuff/work/projects/besudb/master-data-api
 - /mnt/c/Users/ipetrov/stuff/work/projects/besudb/master-data-fe
-- /mnt/c/Users/ipetrov/stuff/personal/projects/operating-systems
 startuppopupversion: 5
 customcommandshistory:
-- q
 - w
+- q
 hidecommandlog: false
 ignorewhitespaceindiffview: false

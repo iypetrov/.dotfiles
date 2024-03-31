@@ -5,8 +5,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-set -o vi
-
 bind -x '"\C-l":clear'
 
 # ~~~~~~~~~~~~~~~ Environment Variables ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -53,9 +51,9 @@ alias lazygit="sudo lazygit"
 alias t=tmux
 alias tk="pkill -f tmux"
 
-#nvim
+# nvim
 alias nvim="env -u VIMINIT nvim"
-alias v=nvim
+alias v=vim
 
 # docker
 alias docker="sudo docker"
@@ -68,6 +66,13 @@ alias bpa_deploy="source ~/scripts/bpa_deploy.sh"
 alias bpa_ubu="source ~/scripts/bpa_ubuntu.sh"
 alias ldg="source $COMMON/ledger/payments.sh"
 
+# ~~~~~~~~~~~~~~~ Variables ~~~~~~~~~~~~~~~~~~~~~~~~
+
+# nvim
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# go
+export GOPATH=$HOME/go
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin

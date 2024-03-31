@@ -52,4 +52,5 @@ return require('packer').startup(function(use)
 
   use("mbbill/undotree")
   use("nvim-treesitter/nvim-treesitter", {run = ":TSUpdate"})
+  use {'github/copilot.vim', branch = 'release' }
 end)
