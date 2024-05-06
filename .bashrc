@@ -14,11 +14,10 @@ parse_git_branch() {
 export PS1="\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\[\033[01;31m\]\$(parse_git_branch)\[\033[00m\] \[\033[01;33m\]\$ \[\033[00m\]"
 
 # dirs
-export MNT="/mnt/c/Users/ipetrov"
-export STUFF="$MNT/stuff"
+export STUFF="/home/ipetrov/stuff"
 export COMMON="$STUFF/common"
 export WORK="$STUFF/work"
-export PERSONAL="$STUFF/personal/projects"
+export PERSONAL="$STUFF/personal"
 
 # ~~~~~~~~~~~~~~~ History ~~~~~~~~~~~~~~~~~~~~~~~~
 export HISTFILE=~/.histfile
@@ -33,14 +32,10 @@ alias ll="ls -la"
 alias la="ls -lathr"
 
 # cd
-alias mnt="cd $MNT"
 alias stuff="cd $STUFF"
 alias common="cd $COMMON"
 alias work="cd $WORK"
 alias personal="cd $PERSONAL"
-
-# curl
-alias curl="cmd.exe /C curl"
 
 # git
 alias lazygit="sudo lazygit"
@@ -50,8 +45,8 @@ alias t=tmux
 alias tk="pkill -f tmux"
 
 # nvim
-alias nvim="env -u VIMINIT nvim"
 alias v=nvim
+export PATH=”~/neovim/bin:$PATH”
 
 # docker
 alias docker="sudo docker"
@@ -72,3 +67,4 @@ export NVM_DIR="$HOME/.nvm"
 # go
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+. "$HOME/.cargo/env"

@@ -78,6 +78,16 @@ lspconfig.dockerls.setup{
   single_file_support = true,
 }
 
+lspconfig.terraform_lsp.setup{
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  cmd = { "terraform-lsp" },
+  filetypes = {"terraform", "hcl"},
+  root_dir = util.root_pattern(".terraform", ".git"),
+  single_file_support = true,
+}
+
 lspconfig.jsonls.setup {
   on_attach = on_attach,
   on_init = on_init,

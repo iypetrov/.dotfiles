@@ -1,6 +1,9 @@
 #!/bin/bash
 
-target="$(find "$COMMON" "$PERSONAL" "$BPA" -mindepth 1 -maxdepth 1 -type d | fzf)"
+target="$(find "$COMMON" "$PERSONAL" -mindepth 1 -maxdepth 1 -type d)"
+target="$(echo "/home/ipetrov/vault $target" | tr ' ' '\n')"
+target="$(echo "/home/ipetrov/.dotfiles $target" | tr ' ' '\n')"
+target="$(echo "$target" | fzf)"
 if [[ -z $target ]]; then
     exit 0
 fi

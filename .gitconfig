@@ -18,11 +18,17 @@ conflictstyle = diff3
 [diff]
 colorMoved = default
         
-[includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/work/"]
+[includeIf "gitdir:/home/ipetrov/stuff/work/"]
 path = ~/.gitconfig-work
 
-[includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/personal/"]
+[includeIf "gitdir:/home/ipetrov/stuff/personal/"]
 path = ~/.gitconfig-personal
 
-[includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/common/"]
+[includeIf "gitdir:/home/ipetrov/stuff/common/"]
+path = ~/.gitconfig-personal
+
+[includeIf "gitdir:/home/ipetrov/vault/"]
+path = ~/.gitconfig-personal
+
+[includeIf "gitdir:/home/ipetrov/.dotfiles/"]
 path = ~/.gitconfig-personal
