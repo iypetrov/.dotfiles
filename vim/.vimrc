@@ -1,5 +1,5 @@
-colo elflord
 syntax on
+colo elflord
 
 set number relativenumber
 set tabstop=4
@@ -35,11 +35,11 @@ nnoremap N Nzzzv
 
 nnoremap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 
-nnoremap <leader>e :call LogWord()<CR>
+nnoremap <leader>p :call Print()<CR>
 
-function! LogWord()
+function! Print()
   let save_cursor = getpos('.')
   normal! "vyiw
   call setpos('.', save_cursor)
-  execute 'normal! oprintf("' . @v . ' -> %s\n", ' . @v . ');'
+  execute 'normal! odprintf(1, "' . @v . ' -> %s\n", ' . @v . ');'
 endfunction

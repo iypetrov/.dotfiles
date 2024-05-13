@@ -22,11 +22,7 @@ return {
   {
     "williamboman/mason.nvim",
     opts = {
-      ensure_installed = {
-        "lua-language-server", "stylua",
-        "gopls",
-        "typescript-language-server", "eslint-lsp", "prettier",
-      },
+      automatic_installation = true,
     },
   },
   {
@@ -34,7 +30,7 @@ return {
     opts = {
       ensure_installed = {
         "vim", "lua", "vimdoc",
-        "go",
+        "go", "java",
         "typescript", "javascript",
       },
     },
@@ -76,6 +72,9 @@ return {
     end,
   },
   {
+    "ThePrimeagen/vim-be-good",
+  },
+  {
     "olexsmir/gopher.nvim",
     ft = "go",
     config = function(_, opts)
@@ -91,5 +90,22 @@ return {
     branch = "override-list-prev-next",
     requires = { {"nvim-lua/plenary.nvim"} }
   },
-  { "github/copilot.vim" },
+  { "mfussenegger/nvim-jdtls" },
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    opts = {
+      panel = { enabled = false },
+      suggestion = { 
+        enabled = true, 
+        auto_trigger = true,
+      },
+      filetypes = {
+        markdown = true,
+        yaml = true,
+        help = true,
+      },
+    },
+  }
 }

@@ -4,6 +4,9 @@ editor = nvim
 excludesfile = ~/.gitignore
 pager = delta
 
+[credential]
+helper = cache --timeout=3600
+
 [interactive]
 diffFilter = delta --color-only
 

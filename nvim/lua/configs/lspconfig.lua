@@ -28,11 +28,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
 
         -- Go
-        vim.keymap.set("n", "<leader>ge", "<cmd>GoIfErr<CR>", opts)
-        vim.keymap.set("n", "<leader>gc", "<cmd>GoIfCmt<CR>", opts)
-        vim.keymap.set("n", "<leader>gt", "<cmd>GoTestAdd<CR>", opts)
-        vim.keymap.set("n", "<leader>ga", "<cmd>GoTestsAll<CR>", opts)
-        vim.keymap.set("n", "<leader>gj", "<cmd>GoTagAdd json<CR>", opts)
+        vim.keymap.set("n", "<leader>e", "<cmd>GoIfErr<CR>", opts)
+        vim.keymap.set("n", "<leader>c", "<cmd>GoIfCmt<CR>", opts)
+        vim.keymap.set("n", "<leader>t", "<cmd>GoTestAdd<CR>", opts)
+        vim.keymap.set("n", "<leader>ta", "<cmd>GoTestsAll<CR>", opts)
+        vim.keymap.set("n", "<leader>j", "<cmd>GoTagAdd json<CR>", opts)
     end
 })
 
@@ -54,6 +54,48 @@ lspconfig.gopls.setup {
   },
 }
 
+lspconfig.templ.setup{
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  cmd = { "templ", "lsp", "-http=localhost:7474", "-log=/tmp/templ.log" },
+  filetypes = { "templ"},
+  root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+}
+
+lspconfig.htmx.setup{
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  cmd = { "htmx-lsp"},
+  filetypes = { "html", "templ"},
+  root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+}
+
+lspconfig.tailwindcss.setup{
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  cmd = { "tailwindcss-language-server", "--stdio" },
+  filetypes = { "html", "templ"},
+  root_dir = util.root_pattern("tailwind.config.js"),
+  settings = {
+    tailwindCSS = {
+      classAttributes = { "class", "className", "class:list", "classList", "ngClass" },
+      lint = {
+        cssConflict = "warning",
+        invalidApply = "error",
+        invalidConfigPath = "error",
+        invalidScreen = "error",
+        invalidTailwindDirective = "error",
+        invalidVariant = "error",
+        recommendedVariantOrder = "warning"
+      },
+      validate = true
+    }
+  }
+}
+
 lspconfig.tsserver.setup {
   on_attach = on_attach,
   on_init = on_init,
@@ -68,13 +110,33 @@ lspconfig.tsserver.setup {
   },
 }
 
+lspconfig.clangd.setup {
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  cmd = { "clangd" },
+  filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+  root_dir = util.root_pattern(".git"),
+  single_file_support = true,
+}
+
 lspconfig.dockerls.setup{
   on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
   cmd = { "docker-langserver", "--stdio" },
-  filetypes = {"dockerfile"},
+  filetypes = { "dockerfile" },
   root_dir = util.root_pattern("Dockerfile"),
+  single_file_support = true,
+}
+
+lspconfig.terraform_lsp.setup{
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  cmd = { "terraform-lsp" },
+  filetypes = {"terraform", "hcl"},
+  root_dir = util.root_pattern(".terraform", ".git"),
   single_file_support = true,
 }
 
@@ -96,16 +158,27 @@ lspconfig.yamlls.setup{
   on_init = on_init,
   capabilities = capabilities,
   cmd = { "yaml-language-server", "--stdio" },
-  filetypes = { "yaml", "yaml.docker-compose" },
-  root_dir = util.find_git_ancestor,
+  filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },  
+  root_dir = util.find_git_ancestor,  
   single_file_support = true,
   settings = {
-    {
-      redhat = {
-        telemetry = {
-          enabled = false
-        }
-      }
+    yaml = {
+      schemas = {
+        kubernetes = "*.yaml",
+        ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+        ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+        ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
+        ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
+        ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+        ["http://json.schemastore.org/ansible-playbook"] = "*play*.{yml,yaml}",
+        ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+        ["https://json.schemastore.org/dependabot-v2"] = ".github/dependabot.{yml,yaml}",
+        ["https://json.schemastore.org/gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
+        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
+        ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "*api*.{yml,yaml}",
+        ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "*docker-compose*.{yml,yaml}",
+        ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "*flow*.{yml,yaml}",
+      },
     }
   },
 }
@@ -118,10 +191,9 @@ lspconfig.bashls.setup{
   root_dir = util.find_git_ancestor,
   single_file_support = true,
   settings = {
-    {
-      bashIde = {
-        globPattern = "*@(.sh|.inc|.bash|.command)"
-      }
+    bashIde = {
+      globPattern = "*@(.sh|.inc|.bash|.command)"
     }
-  },
+  }
 }
+

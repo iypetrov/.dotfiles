@@ -7,6 +7,8 @@
 
 bind -x '"\C-l":clear'
 
+export APP_ENV="dev"
+
 # ~~~~~~~~~~~~~~~ Environment Variables ~~~~~~~~~~~~~~~~~~~~~~~~
 parse_git_branch() {
 	git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
@@ -39,6 +41,12 @@ alias common="cd $COMMON"
 alias work="cd $WORK"
 alias personal="cd $PERSONAL"
 
+# clear
+alias cls="clear"
+
+# grep
+alias grep="grep --color"
+
 # curl
 alias curl="cmd.exe /C curl"
 
@@ -54,9 +62,22 @@ alias nvim="env -u VIMINIT nvim"
 alias v=nvim
 
 # docker
-alias docker="sudo docker"
+alias d="docker"
+alias dls="docker container ls"
+alias dps="docker ps -a"
+alias dcu="docker compose up -d"
+alias dcd="docker compose down"
+alias dd="docker stop $(docker ps -aq) && docker rm -f $(docker ps -aq)"
 
 # kubectl
+alias k8s="kubectl"
+
+# terraform
+alias tf="terraform"
+alias tfi="terraform init"
+alias tfp="terraform plan"
+alias tfa="terraform apply -auto-approve"
+alias tfd="terraform destroy -auto-approve"
 
 # scripts
 alias ubu="source ~/scripts/ubuntu.sh"
@@ -72,3 +93,16 @@ export NVM_DIR="$HOME/.nvm"
 # go
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+export PATH="$HOME/.cargo/bin:$PATH"
+
+alias tg="TEMPL_EXPERIMENT=rawgo templ generate"
+
+# java
+export JAVA_HOME_11=/usr/lib/jvm/java-11-openjdk-amd64
+export JAVA_HOME_17=/usr/lib/jvm/java-17-openjdk-amd64
+export JAVA_HOME=$JAVA_HOME_17
+export MAVEN_HOME=/usr/share/maven
+export GRADLE_HOME=/usr/share/gradle
+export PATH=$JAVA_HOME/bin:$JAVA_HOME_11/bin:$JAVA_HOME_17/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH
+
+alias grdg="./gradlew clean generateJava"

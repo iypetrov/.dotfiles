@@ -29,38 +29,11 @@ vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
-function LogCurrentVar()
-  local word = vim.fn.expand('<cword>')
-  local cursor_pos = vim.api.nvim_win_get_cursor(0)
-
-  vim.cmd('normal o')
-
-  local indent = vim.fn.indent(cursor_pos[1])
-  local log_line = ''
-  for _, client in pairs(vim.lsp.buf_get_clients()) do
-    if client.name == 'tsserver' then
-      log_line = string.rep(' ', indent) .. 'console.log(\'' .. word .. ' -> \' + ' .. word .. ')'
-      break
-    elseif client.name == 'gopls' then
-      log_line = string.rep(' ', indent) .. 'fmt.Println("' .. word .. ' -> " + ' .. word .. ')'
-      break
-    elseif client.name == 'bashls' then
-      log_line = string.rep(' ', indent) .. 'echo "' .. word .. ' -> ${' .. word .. '}"'
-      break
-    end
-  end
-
-  vim.api.nvim_put({ log_line }, '', true, true)
-end
-
-vim.api.nvim_set_keymap('n', '<Leader>p', ':lua LogCurrentVar()<CR>', { noremap = true, silent = true })
-
 -- Telescope
 local builtin = require('telescope.builtin')
 
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.git_files, {})
-vim.keymap.set('n', '<C-e>', function()
+vim.api.nvim_set_keymap('n', '<Leader>ff', ':lua require"telescope.builtin".find_files({ hidden = true })<CR>', {noremap = true, silent = true})
+vim.keymap.set('n', '<leader>fr', function()
   local git_dir = vim.fn.trim(vim.fn.system "git rev-parse --show-toplevel")
   builtin.oldfiles {
     cwd = git_dir,
@@ -86,3 +59,8 @@ end)
 vim.keymap.set("n", "<C-p>", function()
   harpoon:list():prev()
 end)
+
+-- Copilot
+local copilot = require("copilot.suggestion")
+
+vim.keymap.set("i", "<C-a>", copilot.accept)
