@@ -49,9 +49,22 @@ alias v=nvim
 export PATH=”~/neovim/bin:$PATH”
 
 # docker
-alias docker="sudo docker"
+alias d="docker"
+alias dls="docker container ls"
+alias dps="docker ps -a"
+alias dcu="docker compose up -d"
+alias dcd="docker compose down"
+alias dd="docker stop $(docker ps -aq) && docker rm -f $(docker ps -aq)"
 
 # kubectl
+alias k8s="kubectl"
+
+#terraform
+alias tf="terraform"
+alias tfi="terraform init"
+alias tfp="terraform plan"
+alias tfa="terraform apply"
+alias tfd="terraform destroy"
 
 # scripts
 alias ubu="source ~/scripts/ubuntu.sh"
@@ -67,4 +80,3 @@ export NVM_DIR="$HOME/.nvm"
 # go
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-. "$HOME/.cargo/env"

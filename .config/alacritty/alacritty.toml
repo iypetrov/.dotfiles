@@ -6,7 +6,7 @@ family="JetBrainsMono Nerd Font"
 
 [window]
 decorations = "none"
-opacity = 0.9
+opacity = 1
 
 [window.padding]
 x = 7

@@ -190,12 +190,14 @@ bar {
 }
 
 exec --no-startup-id nitrogen --restore
+exec_always "setxkbmap -model pc104 -layout us,bg -variant ,, -option grp:alt_shift_toggle"
 
 exec --no-startup-id firefox
 exec --no-startup-id alacritty 
 exec --no-startup-id obsidian
 exec --no-startup-id spotify
 exec --no-startup-id discord
+exec --no-startup-id teams-for-linux
 exec --no-startup-id slack 
 exec --no-startup-id postman 
 exec --no-startup-id ~/.local/share/JetBrains/Toolbox/apps/datagrip/bin/datagrip.sh
@@ -206,6 +208,7 @@ assign [class="Alacritty"] 2
 assign [class="obsidian"] 3
 assign [class="Spotify"] 4
 assign [class="discord"] 5
+assign [class="Microsoft Teams"] 5
 assign [class="Slack"] 5
 assign [class="Postman"] 6
 assign [class="datagrip"] 7
