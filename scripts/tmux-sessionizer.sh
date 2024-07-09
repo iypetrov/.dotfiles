@@ -1,20 +1,20 @@
 #!/bin/bash
 
-target="$(find "$COMMON" "$PERSONAL" "$BPA" -mindepth 1 -maxdepth 1 -type d | fzf)"
-if [[ -z $target ]]; then
+target="$(find "${COMMON}" "${PERSONAL}" "${SYMMEDIA}/devices" "${SYMMEDIA}/backend" "${SYMMEDIA}/infr" "${SYMMEDIA}/frontend" "${SYMMEDIA}/tests" -mindepth 1 -maxdepth 1 -type d | fzf)"
+if [[ -z $"{target}" ]]; then
     exit 0
 fi
 
-session="$(basename "$target" | tr . _)"
+session="$(basename "${target}" | tr '.' '_')"
 
 tmux_running=$(pgrep tmux)
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -s $session -c $target
-    exit 0
+if [[ -z "${TMUX}" ]] && [[ -z "${tmux_running}" ]]; then
+    tmux new-session -s "${session}" -c "${target}"
+    exit 1
 fi
 
-if ! tmux has-session -t=$session 2> /dev/null; then
-    tmux new-session -ds $session -c $target
+if ! tmux has-session -t="${session}" 2> /dev/null; then
+    tmux new-session -ds "${session}" -c "${target}"
 fi
 
-tmux switch-client -t $session
+tmux switch-client -t "${session}"

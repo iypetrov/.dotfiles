@@ -1,6 +1,9 @@
 [user]
 name = Ilia Petrov 
-email = ilia.petrov@soprasteria.com
+email = ilia.petrov@symmedia.de 
+
+[github]
+user = "ilia.petrov"
 
 [gitlab]
 user = "ilia.petrov"

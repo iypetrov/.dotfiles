@@ -1,6 +1,15 @@
 lastupdatecheck: 0
 recentrepos:
 - /mnt/c/Users/ipetrov/stuff/common/.dotfiles
+- /mnt/c/Users/ipetrov/stuff/work/projects/symmedia/backend/deployment-functions
+- /mnt/c/Users/ipetrov/stuff/work/projects/symmedia/devices/firewall-handler
+- /mnt/c/Users/ipetrov/stuff/work/projects/symmedia/infr/terraform-infrastructure
+- /mnt/c/Users/ipetrov/stuff/work/projects/symmedia/devices/unify-service
+- /mnt/c/Users/ipetrov/stuff/work/projects/symmedia/infr/gitops-apps
+- /mnt/c/Users/ipetrov/stuff/work/projects/symmedia/backend/ram-service
+- /mnt/c/Users/ipetrov/stuff/work/projects/symmedia/devices/update-scripts
+- /mnt/c/Users/ipetrov/stuff/work/projects/symmedia/devices/config-socket-daemon
+- /mnt/c/Users/ipetrov/stuff/work/projects/symmedia/infr/terraform-elastic
 - /mnt/c/Users/ipetrov/stuff/personal/projects/operating-systems
 - /mnt/c/Users/ipetrov/stuff/personal/projects/goshop
 - /mnt/c/Users/ipetrov/stuff/personal/projects/mech
@@ -17,7 +26,7 @@ recentrepos:
 - /mnt/c/Users/ipetrov/stuff/work/projects/besudb/master-data-fe
 startuppopupversion: 5
 customcommandshistory:
-- w
 - q
+- w
 hidecommandlog: false
 ignorewhitespaceindiffview: false
