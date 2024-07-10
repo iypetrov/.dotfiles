@@ -7,7 +7,7 @@ if [[ -z "${target}" ]]; then
   exit 1
 fi
 
-type="$(echo "default tmux" | tr ' ' '\n' | fzf)"
+type="$(echo "default tmux" | tr ' ' '\n' | fzf --tac)"
 if [[ -z "${type}" ]]; then
   exit 1
 fi

@@ -84,7 +84,6 @@ export PATH="$HOME/.tfenv/bin:$PATH"
 
 # boundary
 export BOUNDARY_ADDR="https://boundary.secure-service-hub.com"
-export BOUNDARY_TOKEN="at_1spT7FkyCZ_s13B4z3iEyu8iWMsQrQ5dELWtfDrTcnn5wPGuwM7bmcLRg8g2FGzFqs2fqbfmMTy5eMHoy2G15W9Bn8a7zxgKYLvwhhuUM7xNXpKsgwBSaRboGQERe"
 complete -C /usr/bin/boundary boundary
 
 k8s_conn() {
@@ -162,55 +161,51 @@ k8s_conn() {
   boundary connect -target-id "${BOUNDARY_TARGET_ID}" 
 }
 
-boundary-search-target-by-name-exact() {
-  [[ -z "$1" ]] && echo "Usage: boundary-search-target-by-name-exact <target-name>" && return 1
-  boundary targets list -recursive -filter '"/item/name" == "'"$1"'" and "authorize-session" in "/item/authorized_actions" and "/item/scope/type" == "project"'
-}
-
-run_argo() {
-  [[ ! $(command -v jq) ]] && echo "Error: You need to have jq installed" >&2 && return 1
-
-  case "$1" in
-  dev | development)
-    ARGO_TARGET_NAME="ArgoCD UI (Dev)"
-    ;;
-  test)
-    ARGO_TARGET_NAME="ArgoCD UI (Test)"
-    ;;
-  perf | performance)
-    ARGO_TARGET_NAME="ArgoCD UI (Perf)"
-    ;;
-  staging)
-    ARGO_TARGET_NAME="ArgoCD UI (Staging)"
-    ;;
-  prod | production)
-    ARGO_TARGET_NAME="ArgoCD UI (Prod)"
-    ;;
-  tools)
-    ARGO_TARGET_NAME="ArgoCD UI (Tools)"
-    ;;
-  *)
-    echo "Usage: run_argo <dev|test|perf|staging|prod|tools> [port]"
-    return 1
-    ;;
-  esac
-
-  [[ $2 =~ ^[0-9]+$ ]] && PORT="$2" || PORT="8080"
-  ARGO_TARGET_ID="$(BOUNDARY_CLI_FORMAT="json" boundary-search-target-by-name-exact "$ARGO_TARGET_NAME" | jq -r 'if .items | length == 1 then .items[0].id else error("Could not find Boundary target") end')"
-  [[ -n "$ARGO_TARGET_ID" ]] && boundary connect -target-id "$ARGO_TARGET_ID" -listen-port "$PORT"
-}
-
 # scripts
 alias dv="ssh digital@192.168.0.242 -t 'tmux'"
 alias ubu="source ~/scripts/ubuntu.sh"
 alias ldg="source $COMMON/ledger/payments.sh"
 
+ssh_dsync() {
+  if [[ $# -ne 1 ]]; then
+    echo "provide 1 arg" >&2
+    exit 1
+  fi
+
+  dir="$1"
+
+  if ! [[ -d "${dir}" ]]; then
+    echo "arg should be a dir" >&2
+    exit 1
+  fi
+
+  target="$(echo "sym-VM-eba7723976c1" | tr ' ' '\n' | fzf)"
+
+  if [[ -z "${target}" ]]; then
+    echo "No target selected" >&2
+    exit 1
+  fi
+
+  while true; do
+    echo "Reload changes..."
+    case "${target}" in
+      "sym-VM-eba7723976c1")
+        sshpass -p '123' rsync -av --delete "${dir}" digital@192.168.0.242:~/project/ > /dev/null 2>&1
+        ;;
+      *)
+        echo "Unknown target: ${target}" >&2
+        ;;
+    esac
+    sleep 5
+  done
+}
+
 # ~~~~~~~~~~~~~~~ Variables ~~~~~~~~~~~~~~~~~~~~~~~~
 
 # nvim
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # go
 export GOPATH=$HOME/go
