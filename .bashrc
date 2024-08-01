@@ -7,13 +7,8 @@
 
 bind -x '"\C-l":clear'
 
-export APP_ENV="dev"
+eval "$(oh-my-posh init bash --config ~/.poshthemes/theme.omp.json)"
 
-# ~~~~~~~~~~~~~~~ Environment Variables ~~~~~~~~~~~~~~~~~~~~~~~~
-parse_git_branch() {
-	git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
-}
-export PS1="\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\[\033[01;31m\]\$(parse_git_branch)\[\033[00m\] \[\033[01;33m\]\$ \[\033[00m\]"
 
 # dirs
 export MNT="/mnt/c/Users/ipetrov"
@@ -48,18 +43,21 @@ alias cls="clear"
 # grep
 alias grep="grep --color"
 
-# curl
+# networks 
 alias curl="cmd.exe /C curl"
+alias ips="ip -br a s"
+alias nets="netstat -tulpen"
 
-# git
+
 alias lazygit="sudo lazygit"
+#alias git="git --no-verify"
+
+# networks
+alias nvim="env -u VIMINIT nvim"
+alias nvim="env -u VIMINIT nvim"
 
 # tmux
 tmux > /dev/null 2>&1
-
-# nvim
-alias nvim="env -u VIMINIT nvim"
-alias v=nvim
 
 # docker
 alias d="docker"
