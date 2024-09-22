@@ -21,11 +21,11 @@ conflictstyle = diff3
 [diff]
 colorMoved = default
         
-[includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/work/"]
+[includeIf "gitdir:$XDG_DOCUMENTS_DIR/projects/work/"]
 path = ~/.gitconfig-work
 
-[includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/personal/"]
+[includeIf "gitdir:$XDG_DOCUMENTS_DIR/projects/personal/"]
 path = ~/.gitconfig-personal
 
-[includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/common/"]
+[includeIf "gitdir:$XDG_DOCUMENTS_DIR/projects/common/"]
 path = ~/.gitconfig-personal

@@ -1,6 +1,8 @@
 #!/bin/bash
 
-target="$(find "${COMMON}" "${PERSONAL}" "${SYMMEDIA}/devices" "${SYMMEDIA}/backend" "${SYMMEDIA}/infr" "${SYMMEDIA}/frontend" "${SYMMEDIA}/tests" -mindepth 1 -maxdepth 1 -type d | fzf)"
+[[ ! $(command -v fzf) ]] && echo "Error: You need to have fzf installed" >&2 && return 1
+
+target="$(find "${XDG_DOCUMENTS_DIR}/projects/common" "${XDG_DOCUMENTS_DIR}/projects/personal" -mindepth 1 -maxdepth 1 -type d | fzf)"
 if [[ -z $"{target}" ]]; then
     exit 0
 fi
