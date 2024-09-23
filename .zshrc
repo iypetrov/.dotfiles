@@ -131,7 +131,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_DOCUMENTS_DIR="$HOME/Documents"
 
 ### go
-export PATH=$PATH:/usr/local/go/bin:~/go/bin
+export PATH=$PATH:/usr/local/go/bin:~/go/bin:~/go/bin/templ
 
 ### docker
 alias d="docker"
@@ -140,7 +140,10 @@ alias dps="docker ps -a"
 alias dlog="docker logs -f"
 alias dcu="docker compose up -d"
 alias dcd="docker compose down"
-alias drm="docker rm -f $(docker ps -aq)"
+drm() {
+  docker stop $(docker ps -aq)
+  docker rm -f $(docker ps -aq)
+}
 
 ### kubectl
 alias k8s="kubectl"
