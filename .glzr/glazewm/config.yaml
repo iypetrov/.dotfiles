@@ -17,7 +17,7 @@ general:
     # Trigger for cursor jump:
     # - 'monitor_focus': Jump when focus changes between monitors.
     # - 'window_focus': Jump when focus changes between windows.
-    trigger: 'window_focus'
+    trigger: 'monitor_focus'
 
 gaps:
   # Gap between adjacent windows.
@@ -57,7 +57,7 @@ window_behavior:
       centered: false
 
       # Whether to show floating windows as always on top.
-      shown_on_top: true
+      shown_on_top: false 
 
     fullscreen:
       # Maximize the window if possible. If the window doesn't have a
@@ -282,12 +282,6 @@ keybindings:
   # Redraw all windows.
   - commands: ['wm-redraw']
     bindings: ['alt+shift+w']
-
-  # Launch CMD terminal. Alternatively, use `shell-exec --command wt` or
-  # `shell-exec --command %ProgramFiles%/Git/git-bash.exe` to start Windows
-  # Terminal and Git Bash respectively.
-  - commands: ['shell-exec --command cmd']
-    bindings: ['alt+enter']
 
   # Focus the next/previous workspace defined in `workspaces` config.
   - commands: ['focus --next-workspace']

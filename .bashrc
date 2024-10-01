@@ -7,9 +7,6 @@
 
 bind -x '"\C-l":clear'
 
-eval "$(oh-my-posh init bash --config ~/.poshthemes/theme.omp.json)"
-
-
 # dirs
 export MNT="/mnt/c/Users/ipetrov"
 export STUFF="$MNT/stuff"
@@ -43,11 +40,27 @@ alias cls="clear"
 # grep
 alias grep="grep --color"
 
+# logs
+alias logs="tail -f /var/log/syslog"
+
+# git
+git_init() {
+  repo_name="$(basename $(pwd))"
+  git init
+  touch README.md
+  git add .
+  git commit -m "init commit"
+  git remote add origin git@github.com:iypetrov/${repo_name}.git
+  git push -u origin master
+}
+
+# curl
+alias curl="cmd.exe /C curl"
+
 # networks 
 alias curl="cmd.exe /C curl"
 alias ips="ip -br a s"
 alias nets="netstat -tulpen"
-
 
 alias lazygit="sudo lazygit"
 #alias git="git --no-verify"
@@ -56,16 +69,14 @@ alias lazygit="sudo lazygit"
 alias nvim="env -u VIMINIT nvim"
 alias nvim="env -u VIMINIT nvim"
 
-# tmux
-tmux > /dev/null 2>&1
-
 # docker
 alias d="docker"
 alias dls="docker container ls"
 alias dps="docker ps -a"
 alias dcu="docker compose up -d"
 alias dcd="docker compose down"
-alias dd="docker stop $(docker ps -aq) && docker rm -f $(docker ps -aq)"
+alias drm="docker rm -f $(docker ps -aq)"
+alias dlog="docker logs -f"
 
 # kubectl
 alias k8s="kubectl"
@@ -80,89 +91,30 @@ alias tfd="terraform destroy -auto-approve"
 
 export PATH="$HOME/.tfenv/bin:$PATH"
 
+# aws
+export AWS_DEFAULT_PROFILE=sopra
+
+# azure
+az_key() {
+  if [ "$#" -ne 1 ]; then
+    echo "Usage: az_key <secret-name>"
+    return 1
+  fi
+
+  local secret_name="$1"
+  local key_vault_name="kv-k8s-apps-dev"
+
+
+  az keyvault secret show --name "$secret_name" --vault-name "$key_vault_name" --query value -o tsv
+}
+
+
 # boundary
 export BOUNDARY_ADDR="https://boundary.secure-service-hub.com"
 complete -C /usr/bin/boundary boundary
 
-k8s_conn() {
-  ENVIRONMENT="$(echo "dev test perf staging prod tools" | tr ' ' '\n' | fzf)"
-  case "$ENVIRONMENT" in
-    dev | development)
-      TARGET_NAME="K8s API server (Dev)"
-      CLUSTER_NAME="k8s-symmedia-apps-dev"
-      CLUSTER_SUBSCRIPTION="sym-cloudplatform-dev"
-      CLUSTER_RESOURCE_GROUP="rg-plat-kubernetes-dev"
-      BOUNDARY_TARGET_ID="ttcp_fWLXN1L5z6"
-      ;;
-    test)
-      TARGET_NAME="K8s API server (Test)"
-      CLUSTER_NAME="k8s-symmedia-apps-test"
-      CLUSTER_SUBSCRIPTION="sym-cloudplatform-test"
-      CLUSTER_RESOURCE_GROUP="rg-plat-kubernetes-test"
-      BOUNDARY_TARGET_ID="ttcp_UtoNmMexqI"
-      ;;
-    perf | performance)
-      TARGET_NAME="K8s API server (Perf)"
-      CLUSTER_NAME="k8s-symmedia-apps-perf"
-      CLUSTER_SUBSCRIPTION="sym-cloudplatform-performance"
-      CLUSTER_RESOURCE_GROUP="rg-plat-kubernetes-perf"
-      BOUNDARY_TARGET_ID="ttcp_1nO4HOWdHH"
-      ;;
-    staging)
-      TARGET_NAME="K8s API server (Staging)"
-      CLUSTER_NAME="k8s-symmedia-apps-staging"
-      CLUSTER_SUBSCRIPTION="sym-cloudplatform-dev"
-      CLUSTER_RESOURCE_GROUP="rg-plat-kubernetes-staging"
-      BOUNDARY_TARGET_ID="ttcp_RoBrrLQHG9"
-      ;;
-    prod | production)
-      TARGET_NAME="K8s API server (Prod)"
-      CLUSTER_NAME="k8s-symmedia-apps-prod"
-      CLUSTER_SUBSCRIPTION="sym-cloudplatform-prod"
-      CLUSTER_RESOURCE_GROUP="rg-plat-kubernetes-prod"
-      ;;
-    tools)
-      TARGET_NAME="K8s API server (Tools)"
-      CLUSTER_NAME="k8s-tools"
-      CLUSTER_SUBSCRIPTION="sym-cloudplatform-common"
-      CLUSTER_RESOURCE_GROUP="rg-k8s-tools"
-      ;;
-    *)
-      echo "Usage: ./boundary-k8s-login.sh <dev|test|perf|staging|prod|tools>" >&2
-      exit 1
-      ;;
-  esac
-
-  # Step 2: Get client port from Boundary
-  TARGET_ID=$(boundary targets list -recursive -filter '"/item/name" == "'"$TARGET_NAME"'" and "authorize-session" in "/item/authorized_actions" and "/item/scope/type" == "project"' -format json | jq -r 'if .items != null then .items[0].id else empty end')
-  [[ -z "$TARGET_ID" ]] && echo "Error: Could not find target \"$TARGET_NAME\"" >&2 && exit 1
-  CLIENT_PORT=$(boundary targets read -id "$TARGET_ID" -format json | jq -r '.item.attributes.default_client_port')
-  [[ $CLIENT_PORT =~ ^[0-9]+$ ]] || { echo "Error: Could not get client port from target" >&2 && exit 1; }
-
-  # Step 3: Get host address from Boundary
-  HOST_SET_ID=$(boundary targets read -id "$TARGET_ID" -format json | jq -r '.item.host_sources[0].id')
-  [[ -z "$HOST_SET_ID" ]] && echo "Error: Could not get host set ID from target" >&2 && exit 1
-  HOST_ID=$(boundary host-sets read -id "$HOST_SET_ID" -format json | jq -r '.item.host_ids[0]')
-  [[ -z "$HOST_ID" ]] && echo "Error: Could not get host ID from host set" >&2 && exit 1
-  HOST_ADDRESS=$(boundary hosts read -id "$HOST_ID" -format json | jq -r '.item.attributes.address')
-  [[ -z "$HOST_ADDRESS" ]] && echo "Error: Could not get host address from host" >&2 && exit 1
-
-  # Step 4: Get AKS credentials for the target cluster
-  # Automatically switches to the correct kubectl context too
-  az aks get-credentials --subscription "$CLUSTER_SUBSCRIPTION" --resource-group "$CLUSTER_RESOURCE_GROUP" --name "$CLUSTER_NAME" --overwrite-existing
-
-  # Step 5: Set kubeconfig to use the Boundary tunnel
-  kubectl config set "clusters.${CLUSTER_NAME}.server" "https://127.0.0.1:$CLIENT_PORT"
-  kubectl config set "clusters.${CLUSTER_NAME}.tls-server-name" "$HOST_ADDRESS"
-
-  # Step 6: Start the Boundary client
-  boundary connect -target-id "${BOUNDARY_TARGET_ID}" 
-}
-
 # scripts
-alias dv="ssh digital@192.168.0.242 -t 'tmux'"
 alias ubu="source ~/scripts/ubuntu.sh"
-alias ldg="source $COMMON/ledger/payments.sh"
 
 ssh_dsync() {
   if [[ $# -ne 1 ]]; then
@@ -199,7 +151,6 @@ ssh_dsync() {
 }
 
 # ~~~~~~~~~~~~~~~ Variables ~~~~~~~~~~~~~~~~~~~~~~~~
-
 # nvim
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -221,3 +172,7 @@ export GRADLE_HOME=/usr/share/gradle
 export PATH=$JAVA_HOME/bin:$JAVA_HOME_11/bin:$JAVA_HOME_17/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH
 
 alias grdg="./gradlew clean generateJava"
+
+# startup
+tmux > /dev/null 2>&1
+eval "$(oh-my-posh init bash --config ~/.poshthemes/theme.omp.json)"
