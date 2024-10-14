@@ -133,6 +133,43 @@ export XDG_DOCUMENTS_DIR="$HOME/Documents"
 ### go
 export PATH=$PATH:/usr/local/go/bin:~/go/bin:~/go/bin/templ
 
+### java
+alias mci="mvn clean install"
+alias mgen="mvn generate-sources  "
+alias mresolve="mvn dependency:purge-local-repository -DreResolve=true"
+
+export JAVA_11_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export JAVA_17_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export JAVA_21_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+export JAVA_23_HOME=/usr/lib/jvm/java-23-openjdk-amd64
+export MAVEN_HOME=/usr/share/maven
+export JAVA_HOME=$JAVA_21_HOME
+export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH
+
+use_java() {
+    case "$1" in
+        11)
+            export JAVA_HOME=$JAVA_11_HOME
+            ;;
+        17)
+            export JAVA_HOME=$JAVA_17_HOME
+            ;;
+        21)
+            export JAVA_HOME=$JAVA_21_HOME
+            ;;
+        23)
+            export JAVA_HOME=$JAVA_23_HOME
+            ;;
+        *)
+            echo "Usage: use_java {11|17|21|23}"
+            return 1
+            ;;
+    esac
+
+    export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH
+    java -version
+}
+
 ### docker
 alias d="docker"
 alias dls="docker container ls"

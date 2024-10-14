@@ -1,6 +1,6 @@
 [core]
 autocrlf = input
-editor = nvim
+editor = vim
 excludesfile = ~/.gitignore
 pager = delta
 
