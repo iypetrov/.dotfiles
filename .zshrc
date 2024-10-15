@@ -137,6 +137,7 @@ export PATH=$PATH:/usr/local/go/bin:~/go/bin:~/go/bin/templ
 alias mci="mvn clean install"
 alias mgen="mvn generate-sources  "
 alias mresolve="mvn dependency:purge-local-repository -DreResolve=true"
+alias sprrun="mvn spring-boot:run -Dspring-boot.run.jvmArguments=\"-Dspring.profiles.active=local -Dserver.port=8080\""
 
 export JAVA_11_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export JAVA_17_HOME=/usr/lib/jvm/java-17-openjdk-amd64
@@ -188,15 +189,16 @@ export KUBE_EDITOR=vim
 
 ### terraform
 alias tf="terraform"
+alias tffmt="terraform fmt"
 alias tfi="terraform init"
 alias tfp="terraform plan"
-alias tfa="terraform apply"
-alias tfd="terraform destroy"
+alias tfa="terraform apply -auto-approve"
+alias tfd="terraform destroy -auto-approve"
 
 export PATH="$HOME/.tfenv/bin:$PATH"
 
 ### aws
-export AWS_DEFAULT_PROFILE=sopra
+export AWS_DEFAULT_PROFILE=personal
 
 ### azure
 az_key() {
