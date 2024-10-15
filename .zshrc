@@ -135,15 +135,13 @@ export PATH=$PATH:/usr/local/go/bin:~/go/bin:~/go/bin/templ
 
 ### java
 alias mci="mvn clean install"
-alias mgen="mvn generate-sources  "
+alias mgen="mvn generate-sources"
 alias mresolve="mvn dependency:purge-local-repository -DreResolve=true"
 alias sprrun="mvn spring-boot:run -Dspring-boot.run.jvmArguments=\"-Dspring.profiles.active=local -Dserver.port=8080\""
 
-export JAVA_11_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-export JAVA_17_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-export JAVA_21_HOME=/usr/lib/jvm/java-21-openjdk-amd64
-export JAVA_23_HOME=/usr/lib/jvm/java-23-openjdk-amd64
-export MAVEN_HOME=/usr/share/maven
+export JAVA_17_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+export JAVA_21_HOME=/Library/Java/JavaVirtualMachines/zulu-21.jdk/Contents/Home
+export MAVEN_HOME=/opt/homebrew/opt/maven  
 export JAVA_HOME=$JAVA_21_HOME
 export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH
 
