@@ -212,3 +212,6 @@ az_key() {
 
 # Shell integrations
 eval "$(zoxide init --cmd cd zsh)"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/boundary boundary
