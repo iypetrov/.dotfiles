@@ -210,8 +210,10 @@ az_key() {
   az keyvault secret show --name "${secret_name}" --vault-name "${key_vault_name}" --query value -o tsv
 }
 
-# Shell integrations
+# shell integrations
 eval "$(zoxide init --cmd cd zsh)"
 
+# boundary
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/boundary boundary
+export BOUNDARY_ADDR=https://boundary.secure-service-hub.com
