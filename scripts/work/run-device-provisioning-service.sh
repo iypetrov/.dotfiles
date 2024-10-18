@@ -1,5 +1,15 @@
 #!/bin/bash
 
+az_key() {
+  if [ "$#" -ne 1 ]; then
+    echo "Usage: az_key <secret-name>"
+    return 1
+  fi
+  local secret_name="$1"
+  local key_vault_name="kv-k8s-apps-dev"
+  az keyvault secret show --name "${secret_name}" --vault-name "${key_vault_name}" --query value -o tsv
+}
+
 USER_ID="u_Uq6acX62iM"; boundary sessions list -format "json" -recursive -filter='"/item/user_id" == "'"$USER_ID"'"' | jq -r 'if .items != null then .items[].id else empty end' | xargs -I {} boundary sessions cancel -id {}
 
 # access-management-service
@@ -13,26 +23,6 @@ boundary connect -target-id ttcp_LN4jUBrqlE -listen-port 8095 & \
 # device-configuration-service
 boundary connect -target-id ttcp_PGj0fIUhQl -listen-port 8096 & \
 
-az_key() {
-  if [ "$#" -ne 1 ]; then
-    echo "Usage: az_key <secret-name>"
-    return 1
-  fi
-  local secret_name="$1"
-  local key_vault_name="kv-k8s-apps-dev"
-  az keyvault secret show --name "${secret_name}" --vault-name "${key_vault_name}" --query value -o tsv
-}
-
-export SPRING_DATASOURCE_USERNAME=$(az_key sqldb-deviceprovisioningservice-username)
-export SPRING_DATASOURCE_PASSWORD=$(az_key sqldb-deviceprovisioningservice-password)
-export DPS_ACCESS_KEY=$(az_key dps-deviceprovisioningservice-auth)
-export IOT_HUB_DEV_ACCESS_KEY_NAME=$(az_key deviceprovisioningservice-iothub-dev-sa-key)
-export IOT_HUB_TEST_ACCESS_KEY_NAME=$(az_key deviceprovisioningservice-iothub-test-sa-key)
-export IOT_HUB_STAGING_ACCESS_KEY_NAME=$(az_key deviceprovisioningservice-iothub-staging-sa-key)
-export SB_CONNECTION_ACCESS_KEY=$(az_key sbn-deviceprovisioningserviceaccesskey)
-export EVENT_STORAGE_CONNECTION_STRING=$(az_key domain-event-storage-connection)
-export DEPLOYFUNC_SB_CONNECTION_STRING=$(az_key sbt-deployment-function-commands-auth)
-
 export DB_URL="jdbc:sqlserver://sql-server-common-dev.database.windows.net:1433;database=sqldb-deviceprovisioningservice-dev;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"
 export DB_DRIVER_CLASSNAME="com.microsoft.sqlserver.jdbc.SQLServerDriver"
 export SB_DOMAIN_EVENT_TOPIC_NAME="sbt-domain-events"
@@ -44,6 +34,16 @@ export DEPLOYFUNC_SB_TOPIC_NAME="sbt-deployment-function-commands"
 export DEPLOYFUNC_SB_DEPOLY_DEFAULT_TO_FILTER="default-deployment-manifest"
 export DEPLOYFUNC_SB_INITIALIZE_TO_FILTER="initialize-deployment-manifest"
 export DEPLOYFUNC_SB_CHANGE_EDGE_DEVICE_LINKING_TO_FILTER="change-edge-device-linking"
+
+export SPRING_DATASOURCE_USERNAME=$(az_key sqldb-deviceprovisioningservice-username)
+export SPRING_DATASOURCE_PASSWORD=$(az_key sqldb-deviceprovisioningservice-password)
+export DPS_ACCESS_KEY=$(az_key dps-deviceprovisioningservice-auth)
+export IOT_HUB_DEV_ACCESS_KEY_NAME=$(az_key deviceprovisioningservice-iothub-dev-sa-key)
+export IOT_HUB_TEST_ACCESS_KEY_NAME=$(az_key deviceprovisioningservice-iothub-test-sa-key)
+export IOT_HUB_STAGING_ACCESS_KEY_NAME=$(az_key deviceprovisioningservice-iothub-staging-sa-key)
+export SB_CONNECTION_ACCESS_KEY=$(az_key sbn-deviceprovisioningserviceaccesskey)
+export EVENT_STORAGE_CONNECTION_STRING=$(az_key domain-event-storage-connection)
+export DEPLOYFUNC_SB_CONNECTION_STRING=$(az_key sbt-deployment-function-commands-auth)
 
 mvn clean spring-boot:run -Dspring-boot.run.profiles=local -Dspring.output.ansi.enabled=always \
   -DDB_URL="$DB_URL" \
