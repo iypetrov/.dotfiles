@@ -44,7 +44,7 @@ export KEY_VAULT_CLIENT_ID=$(az_key certificatemgmtservice-kv-client-id)
 export SB_CONNECTION_ACCESS_KEY=$(az_key sbn-certificatemanagementserviceaccesskey)
 export EVENT_STORAGE_CONNECTION_STRING=$(az_key domain-event-storage-connection)
 
-mvn clean spring-boot:run -Dspring-boot.run.profiles=local -Dspring.output.ansi.enabled=always \
+mvn clean spring-boot:run -Dspring-boot.run.profiles=prod -Dspring.output.ansi.enabled=always \
   -DSERVICE_NAME="$SERVICE_NAME" \
   -DDB_URL="$DB_URL" \
   -DDB_DRIVER_CLASSNAME="$DB_DRIVER_CLASSNAME" \
