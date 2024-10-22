@@ -29,7 +29,7 @@ export DEPLOYFUNC_SB_BULKUPDATE_TO_FILTER="bulk-update-system-module"
 export DEPLOYMENT_DB_CONNECTION=$(az_key cosmosdb-account-mongodb-connection)
 export DEPLOYFUNC_SB_CONNECTION_STRING=$(az_key sbt-deployment-function-commands-auth)
 
-mvn clean spring-boot:run -Dspring-boot.run.profiles=local -Dspring.output.ansi.enabled=always \
+mvn clean spring-boot:run -Dspring-boot.run.profiles=prod -Dspring.output.ansi.enabled=always \
   -DDEPLOYMENT_DB_DATABASE="$DEPLOYMENT_DB_DATABASE" \
   -DDEPLOYMENT_DB_DEPLOYMENTS_COLLECTION="$DEPLOYMENT_DB_DEPLOYMENTS_COLLECTION" \
   -DDEPLOYMENT_DB_REPORTED_RUNTIME_STATUS_COLLECTION="$DEPLOYMENT_DB_REPORTED_RUNTIME_STATUS_COLLECTION" \

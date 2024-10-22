@@ -29,7 +29,7 @@ export EVENT_STORAGE_CONNECTION_STRING=$(az_key domain-event-storage-connection)
 export NEXUS_TOKEN=$(az_key nexus-edgedevice-images-accesstoken)
 export APOLLO_KEY=$(az_key apollo-key)
 
-mvn clean spring-boot:run -Dspring-boot.run.profiles=local -Dspring.output.ansi.enabled=always \
+mvn clean spring-boot:run -Dspring-boot.run.profiles=prod -Dspring.output.ansi.enabled=always \
   -DSERVICE_NAME="$SERVICE_NAME" \
   -DDB_URL="$DB_URL" \
   -DDB_DRIVER_CLASSNAME="$DB_DRIVER_CLASSNAME" \

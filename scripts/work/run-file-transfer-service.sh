@@ -42,7 +42,7 @@ export AES_SALT=$(az_key filetransferservice-aes-salt)
 export EVENT_HUB_ACCESS_KEY_NAME=$(az_key filetransferservice-eventhub-sa-key)
 export SB_CONNECTION_ACCESS_KEY=$(az_key sbn-filetransferserviceaccesskey)
 
-mvn clean spring-boot:run -Dspring-boot.run.profiles=local -Dspring.output.ansi.enabled=always \
+mvn clean spring-boot:run -Dspring-boot.run.profiles=prod -Dspring.output.ansi.enabled=always \
   -DDB_DRIVER_CLASSNAME="$DB_DRIVER_CLASSNAME" \
   -DDB_URL="$DB_URL" \
   -DSTORAGE_ACCOUNT_NAME="$STORAGE_ACCOUNT_NAME" \

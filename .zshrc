@@ -135,7 +135,11 @@ export PATH=$PATH:/usr/local/go/bin:~/go/bin:~/go/bin/templ
 alias mci="mvn clean install"
 alias mgen="mvn generate-sources"
 alias mresolve="mvn dependency:purge-local-repository -DreResolve=true"
-alias sprrun="mvn spring-boot:run -Dspring-boot.run.jvmArguments=\"-Dspring.profiles.active=local -Dserver.port=8080\""
+alias mdeps="mvn dependency:tree"
+
+mdepi() {
+  mvn dependency:tree -Dincludes="$*"
+}
 
 export JAVA_17_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 export JAVA_21_HOME=/Library/Java/JavaVirtualMachines/zulu-21.jdk/Contents/Home

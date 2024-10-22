@@ -45,7 +45,7 @@ export SB_CONNECTION_ACCESS_KEY=$(az_key sbn-deviceprovisioningserviceaccesskey)
 export EVENT_STORAGE_CONNECTION_STRING=$(az_key domain-event-storage-connection)
 export DEPLOYFUNC_SB_CONNECTION_STRING=$(az_key sbt-deployment-function-commands-auth)
 
-mvn clean spring-boot:run -Dspring-boot.run.profiles=local -Dspring.output.ansi.enabled=always \
+mvn clean spring-boot:run -Dspring-boot.run.profiles=prod -Dspring.output.ansi.enabled=always \
   -DDB_URL="$DB_URL" \
   -DDB_DRIVER_CLASSNAME="$DB_DRIVER_CLASSNAME" \
   -DSB_DOMAIN_EVENT_TOPIC_NAME="$SB_DOMAIN_EVENT_TOPIC_NAME" \

@@ -1,0 +1,70 @@
+#!/bin/bash
+
+az_key() {
+  if [ "$#" -ne 1 ]; then
+    echo "Usage: az_key <secret-name>"
+    return 1
+  fi
+  local secret_name="$1"
+  local key_vault_name="kv-k8s-apps-dev"
+  az keyvault secret show --name "${secret_name}" --vault-name "${key_vault_name}" --query value -o tsv
+}
+
+USER_ID="u_Uq6acX62iM"
+boundary sessions list -format "json" -recursive -filter='"/item/user_id" == "'"$USER_ID"'"' | jq -r 'if .items != null then .items[].id else empty end' | xargs -I {} boundary sessions cancel -id {}
+
+export REMOTEACCESS_SERVICEBUS_SUBSCRIPTIONPATH="sbt-remoteaccess/subscriptions/remoteaccesssubscription"
+export REMOTEACCESS_SERVICEBUS_TOPICNAME="sbt-remoteaccess"
+export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AZURE_CLIENT_ID="e1572dee-d804-4568-a667-de673493bb20"
+export AZURE_ACTIVEDIRECTORY_TENANT_ID="71660f62-ed66-46b1-a9a6-59e052075879"
+export AZURE_ACTIVEDIRECTORY_CLIENT_ID="https://symcloudplatform.onmicrosoft.com/e1572dee-d804-4568-a667-de673493bb20"
+export AZURE_ACTIVEDIRECTORY_USER_GROUP_ALLOWED_GROUPS="Users"
+export ISSUER="https://symmediaplatformdev.b2clogin.com/5df3c350-4552-4960-94da-06bb744ad906/v2.0/"
+export PROVIDER_URL="https://symmediaplatformdev.b2clogin.com/symmediaplatformdev.onmicrosoft.com/b2c_1a_signin/discovery/v2.0/keys"
+export APPLICATION_ID_PLATFORM="5d054d41-3f2a-4856-9cdc-9ad91a43e152"
+export APPLICATION_ID_E2E_TEST_USER_PIA="aebad53a-49a1-4407-bf30-dcc945d23683"
+export SPRING_DATASOURCE_URL="jdbc:sqlserver://sql-server-common-dev.database.windows.net:1433;database=sqldb-ramservice-dev;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"
+export SPRING_DATASOURCE_DRIVER_CLASS_NAME="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+export DE_SYMMEDIA_RAM_SERVICE_ACCESS_MANAGEMENT_SERVICE_URL="http://accessmanagementservice.accessmanagement.svc.cluster.local/graphql"
+export DE_SYMMEDIA_RAM_SERVICE_MACHINE_SERVICE_URL="http://machine-service.machine.svc.cluster.local/graphql"
+export DE_SYMMEDIA_RAM_SERVICE_SCM_SERVICE_URL="http://scmservice.service-case-management.svc.cluster.local/graphql"
+export DE_SYMMEDIA_RAM_SERVICE_DEVICE_PROVISIONING_SERVICE_URL="http://device-provisioning-service.device-provisioning-service.svc.cluster.local/graphql"
+export DE_SYMMEDIA_RAM_SERVICE_TENANT_SERVICE_URL="http://tenantservice.tenant.svc.cluster.local/graphql"
+export REMOTEACCESS_TUNNEL_WEBVNCSTREAMURL="stream-tepsi-development.secure-service-hub.de"
+export REMOTEACCESS_TUNNEL_TEPSI_PROXY_ID="tepsi-dev"
+export DE_SYMMEDIA_RAM_SERVICE_NEXUS_PROXY_URL="http://nexus-service.nexus-proxy.svc.cluster.local"
+export LATEST_RELEASED_VERSION="3.10.10"
+
+export SPRING_DATASOURCE_USERNAME=$(az_key sqldb-ramservice-username)
+export SPRING_DATASOURCE_PASSWORD=$(az_key sqldb-ramservice-password)
+export REMOTEACCESS_SERVICEBUS_ENDPOINTCONNECTIONSTRING=$(az_key sbt-remoteaccess-auth)
+export SPRING_JMS_SERVICEBUS_CONNECTION_STRING=$(az_key sbn-ramserviceaccesskey)
+export NEXUS_SECRET_TOKEN=$(az_key ram-service-nexus-authorization-token)
+
+mvn clean spring-boot:run -Dspring-boot.run.profiles=prod -Dspring.output.ansi.enabled=always \
+  -DREMOTEACCESS_SERVICEBUS_SUBSCRIPTIONPATH="$REMOTEACCESS_SERVICEBUS_SUBSCRIPTIONPATH" \
+  -DREMOTEACCESS_SERVICEBUS_TOPICNAME="$REMOTEACCESS_SERVICEBUS_TOPICNAME" \
+  -DSPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AZURE_CLIENT_ID="$SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AZURE_CLIENT_ID" \
+  -DAZURE_ACTIVEDIRECTORY_TENANT_ID="$AZURE_ACTIVEDIRECTORY_TENANT_ID" \
+  -DAZURE_ACTIVEDIRECTORY_CLIENT_ID="$AZURE_ACTIVEDIRECTORY_CLIENT_ID" \
+  -DAZURE_ACTIVEDIRECTORY_USER_GROUP_ALLOWED_GROUPS="$AZURE_ACTIVEDIRECTORY_USER_GROUP_ALLOWED_GROUPS" \
+  -DISSUER="$ISSUER" \
+  -DPROVIDER_URL="$PROVIDER_URL" \
+  -DAPPLICATION_ID_PLATFORM="$APPLICATION_ID_PLATFORM" \
+  -DAPPLICATION_ID_E2E_TEST_USER_PIA="$APPLICATION_ID_E2E_TEST_USER_PIA" \
+  -DSPRING_DATASOURCE_URL="$SPRING_DATASOURCE_URL" \
+  -DSPRING_DATASOURCE_DRIVER_CLASS_NAME="$SPRING_DATASOURCE_DRIVER_CLASS_NAME" \
+  -DDE_SYMMEDIA_RAM_SERVICE_ACCESS_MANAGEMENT_SERVICE_URL="$DE_SYMMEDIA_RAM_SERVICE_ACCESS_MANAGEMENT_SERVICE_URL" \
+  -DDE_SYMMEDIA_RAM_SERVICE_MACHINE_SERVICE_URL="$DE_SYMMEDIA_RAM_SERVICE_MACHINE_SERVICE_URL" \
+  -DDE_SYMMEDIA_RAM_SERVICE_SCM_SERVICE_URL="$DE_SYMMEDIA_RAM_SERVICE_SCM_SERVICE_URL" \
+  -DDE_SYMMEDIA_RAM_SERVICE_DEVICE_PROVISIONING_SERVICE_URL="$DE_SYMMEDIA_RAM_SERVICE_DEVICE_PROVISIONING_SERVICE_URL" \
+  -DDE_SYMMEDIA_RAM_SERVICE_TENANT_SERVICE_URL="$DE_SYMMEDIA_RAM_SERVICE_TENANT_SERVICE_URL" \
+  -DREMOTEACCESS_TUNNEL_WEBVNCSTREAMURL="$REMOTEACCESS_TUNNEL_WEBVNCSTREAMURL" \
+  -DREMOTEACCESS_TUNNEL_TEPSI_PROXY_ID="$REMOTEACCESS_TUNNEL_TEPSI_PROXY_ID" \
+  -DDE_SYMMEDIA_RAM_SERVICE_NEXUS_PROXY_URL="$DE_SYMMEDIA_RAM_SERVICE_NEXUS_PROXY_URL" \
+  -DLATEST_RELEASED_VERSION="$LATEST_RELEASED_VERSION" \
+  -DSPRING_DATASOURCE_USERNAME="$SPRING_DATASOURCE_USERNAME" \
+  -DSPRING_DATASOURCE_PASSWORD="$SPRING_DATASOURCE_PASSWORD" \
+  -DREMOTEACCESS_SERVICEBUS_ENDPOINTCONNECTIONSTRING="$REMOTEACCESS_SERVICEBUS_ENDPOINTCONNECTIONSTRING" \
+  -DSPRING_JMS_SERVICEBUS_CONNECTION_STRING="$SPRING_JMS_SERVICEBUS_CONNECTION_STRING" \
+  -DNEXUS_SECRET_TOKEN="$NEXUS_SECRET_TOKEN"
