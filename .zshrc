@@ -103,7 +103,7 @@ ssh_dsync() {
     exit 1
   fi
 
-  target="$(echo "sym-VM-eba7723976c1" | tr ' ' '\n' | fzf)"
+  target="$(echo "sym-VM-eba7723976c1 sym-VM-904cc0fa0741" | tr ' ' '\n' | fzf)"
 
   if [[ -z "${target}" ]]; then
     echo "No target selected" >&2
@@ -115,6 +115,9 @@ ssh_dsync() {
     case "${target}" in
       "sym-VM-eba7723976c1")
         sshpass -p '123' rsync -av --delete "${dir}" digital@192.168.0.242:~/project/ > /dev/null 2>&1
+        ;;
+      "sym-VM-904cc0fa0741")
+        sshpass -p '123' rsync -av --delete -e "ssh -p 2222" "${dir}" digital@127.0.0.1:~/project/ > /dev/null 2>&1
         ;;
       *)
         echo "Unknown target: ${target}" >&2
@@ -144,32 +147,13 @@ mdepi() {
 export JAVA_17_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 export JAVA_21_HOME=/Library/Java/JavaVirtualMachines/zulu-21.jdk/Contents/Home
 export MAVEN_HOME=/opt/homebrew/opt/maven  
-export JAVA_HOME=$JAVA_21_HOME
-export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH
+export GRADLE_HOME=/opt/homebrew/opt/gradle
+export JAVA_HOME=$JAVA_17_HOME
+export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH
 
-use_java() {
-    case "$1" in
-        11)
-            export JAVA_HOME=$JAVA_11_HOME
-            ;;
-        17)
-            export JAVA_HOME=$JAVA_17_HOME
-            ;;
-        21)
-            export JAVA_HOME=$JAVA_21_HOME
-            ;;
-        23)
-            export JAVA_HOME=$JAVA_23_HOME
-            ;;
-        *)
-            echo "Usage: use_java {11|17|21|23}"
-            return 1
-            ;;
-    esac
-
-    export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH
-    java -version
-}
+### python
+# alias pip="my-venv/bin/pip"
+export PATH="/opt/homebrew/opt/python@3.13/libexec/bin:$PATH"
 
 ### docker
 alias d="docker"
@@ -178,6 +162,7 @@ alias dps="docker ps -a"
 alias dlog="docker logs -f"
 alias dcu="docker compose up -d"
 alias dcd="docker compose down"
+alias drmv="docker volume rm $(docker volume ls -q)"
 drm() {
   docker stop $(docker ps -aq)
   docker rm -f $(docker ps -aq)
