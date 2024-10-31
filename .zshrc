@@ -117,7 +117,7 @@ ssh_dsync() {
         sshpass -p '123' rsync -av --delete "${dir}" digital@192.168.0.242:~/project/ > /dev/null 2>&1
         ;;
       "sym-VM-904cc0fa0741")
-        sshpass -p '123' rsync -av --delete -e "ssh -p 2222" "${dir}" digital@127.0.0.1:~/project/ > /dev/null 2>&1
+        sshpass -p '123' rsync -av --delete -e "ssh -p 1035" "${dir}" digital@127.0.0.1:~/project/ > /dev/null 2>&1
         ;;
       *)
         echo "Unknown target: ${target}" >&2
@@ -127,9 +127,12 @@ ssh_dsync() {
   done
 }
 
-
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_DOCUMENTS_DIR="$HOME/Documents"
+
+# networks 
+alias ips="ip -br a s"
+alias nets="netstat -tulpen"
 
 ### go
 export PATH=$PATH:/usr/local/go/bin:~/go/bin:~/go/bin/templ
@@ -148,12 +151,16 @@ export JAVA_17_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 export JAVA_21_HOME=/Library/Java/JavaVirtualMachines/zulu-21.jdk/Contents/Home
 export MAVEN_HOME=/opt/homebrew/opt/maven  
 export GRADLE_HOME=/opt/homebrew/opt/gradle
-export JAVA_HOME=$JAVA_17_HOME
+export JAVA_HOME=$JAVA_21_HOME
 export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH
 
 ### python
-# alias pip="my-venv/bin/pip"
-export PATH="/opt/homebrew/opt/python@3.13/libexec/bin:$PATH"
+alias python='python3'
+alias pip='python3 -m pip'
+
+export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+
+source ~/.venv/bin/activate
 
 ### docker
 alias d="docker"
@@ -206,3 +213,5 @@ eval "$(zoxide init --cmd cd zsh)"
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/boundary boundary
 export BOUNDARY_ADDR=https://boundary.secure-service-hub.com
+# Created by `pipx` on 2024-10-31 14:20:59
+export PATH="$PATH:/Users/ipetrov/.local/bin"
