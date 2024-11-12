@@ -5,7 +5,6 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
-set cursorline
 
 set smartindent
 
@@ -17,8 +16,6 @@ set incsearch
 set scrolloff=8
 
 set updatetime=50
-
-set colorcolumn=80
 
 let mapleader = " "
 

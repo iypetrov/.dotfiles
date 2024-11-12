@@ -24,7 +24,7 @@ case "${target}" in
     if [[ "${type}" == "default" ]]; then
       ssh digital@127.0.0.1 -p 1035 
     elif [[ "${type}" == "tmux" ]]; then
-      ssh digital@127.0.0.1 -p 1035  -t 'tmux attach-session -t default || tmux new-session -s default'
+      ssh digital@127.0.0.1 -p 1035 -t 'tmux attach-session -t default || tmux new-session -s default'
     fi
     ;;
   *)

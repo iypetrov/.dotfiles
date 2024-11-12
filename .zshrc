@@ -45,6 +45,9 @@ autoload -Uz compinit && compinit
 
 zinit cdreplay -q
 
+# Shell integrations
+eval "$(zoxide init --cmd cd zsh)"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -117,7 +120,7 @@ ssh_dsync() {
         sshpass -p '123' rsync -av --delete "${dir}" digital@192.168.0.242:~/project/ > /dev/null 2>&1
         ;;
       "sym-VM-904cc0fa0741")
-        sshpass -p '123' rsync -av --delete -e "ssh -p 1035" "${dir}" digital@127.0.0.1:~/project/ > /dev/null 2>&1
+        sshpass -p 'digital' rsync -av --delete "${dir}" digital@127.0.0.1:1035:~/project > /dev/null 2>&1
         ;;
       *)
         echo "Unknown target: ${target}" >&2
@@ -159,6 +162,8 @@ alias python='python3'
 alias pip='python3 -m pip'
 
 export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+# Created by `pipx` on 2024-10-31 14:20:59
+export PATH="$PATH:/Users/ipetrov/.local/bin"
 
 source ~/.venv/bin/activate
 
@@ -206,12 +211,19 @@ az_key() {
   az keyvault secret show --name "${secret_name}" --vault-name "${key_vault_name}" --query value -o tsv
 }
 
-# shell integrations
-eval "$(zoxide init --cmd cd zsh)"
-
-# boundary
+### boundary
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/boundary boundary
 export BOUNDARY_ADDR=https://boundary.secure-service-hub.com
-# Created by `pipx` on 2024-10-31 14:20:59
-export PATH="$PATH:/Users/ipetrov/.local/bin"
+
+macos_set_boundary_dns_server() {
+  sudo networksetup -setdnsservers "Wi-FI" "20.31.11.195" 
+  sudo dscacheutil -flushcache
+  sudo killall -HUP mDNSResponder
+}
+
+macos_restore_original_dns_server() {
+  sudo networksetup -setdnsservers "Wi-Fi" empty
+  sudo dscacheutil -flushcache
+  sudo killall -HUP mDNSResponder
+}
