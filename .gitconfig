@@ -17,7 +17,14 @@
 	line-numbers = true   
 
 [merge]
+	tool = vimdiff
 	conflictstyle = diff3
+
+[diff]
+    tool = vimdiff
+
+[mergetool "vimdiff"]
+    trustExitCode = true 
 
 [includeIf "gitdir:~/Documents/projects/work/"]
 	path = ~/.gitconfig-work
