@@ -2,7 +2,7 @@
 
 [[ ! $(command -v fzf) ]] && echo "Error: You need to have fzf installed" >&2 && return 1
 
-target="$(find "${XDG_DOCUMENTS_DIR}/projects/common" "${XDG_DOCUMENTS_DIR}/projects/personal" "${XDG_DOCUMENTS_DIR}/projects/work/symmedia/common" "${XDG_DOCUMENTS_DIR}/projects/work/symmedia/libs" "${XDG_DOCUMENTS_DIR}/projects/work/symmedia/devices" "${XDG_DOCUMENTS_DIR}/projects/work/symmedia/infr" "${XDG_DOCUMENTS_DIR}/projects/work/symmedia/backend" "${XDG_DOCUMENTS_DIR}/projects/work/symmedia/frontend" -mindepth 1 -maxdepth 1 -type d | fzf)"
+target="$(find "${XDG_DOCUMENTS_DIR}/projects/common" "${XDG_DOCUMENTS_DIR}/projects/personal" "${XDG_DOCUMENTS_DIR}/projects/work/symmedia/common" "${XDG_DOCUMENTS_DIR}/projects/work/symmedia/libs" "${XDG_DOCUMENTS_DIR}/projects/work/symmedia/devices" "${XDG_DOCUMENTS_DIR}/projects/work/symmedia/infr" "${XDG_DOCUMENTS_DIR}/projects/work/symmedia/backend" "${XDG_DOCUMENTS_DIR}/projects/work/symmedia/frontend" "${XDG_DOCUMENTS_DIR}/projects/work/ip812" -mindepth 1 -maxdepth 1 -type d | fzf)"
 if [[ -z $"{target}" ]]; then
     exit 0
 fi
