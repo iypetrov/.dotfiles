@@ -29,6 +29,9 @@
 [includeIf "gitdir:~/Documents/projects/work/"]
 	path = ~/.gitconfig-work
 
+[includeIf "gitdir:~/Documents/projects/ip812/"]
+	path = ~/.gitconfig-personal
+
 [includeIf "gitdir:~/Documents/projects/personal/"]
 	path = ~/.gitconfig-personal
 
