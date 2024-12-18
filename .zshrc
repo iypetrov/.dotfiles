@@ -190,7 +190,7 @@ alias tffmt="terraform fmt"
 alias tfi="terraform init"
 alias tfp="terraform plan"
 alias tfa="terraform apply -auto-approve"
-alias tfd="terraform destroy -auto-approve"
+alias tfd="echo \"If you want to run destroy write the full command\""
 
 export PATH="$HOME/.tfenv/bin:$PATH"
 
