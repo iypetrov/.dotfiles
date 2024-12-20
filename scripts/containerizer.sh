@@ -12,12 +12,23 @@ fi
 
 case "${target}" in
   "docker")
-    target_docker="$(docker context ls --format {{.Name}} | fzf)"
-    if [[ -z "${target_docker}" ]]; then
-      exit 1
-    fi
+    target_docker="$(echo "config lazydocker" | tr ' ' '\n' | fzf)"
+    case "${target_docker}" in
+      "config")
+        target_docker_ctx="$(docker context ls --format {{.Name}} | fzf)"
+        if [[ -z "${target_docker_ctx}" ]]; then
+          exit 1
+        fi
     
-    docker context use "${target_docker}"
+        docker context use "${target_docker_ctx}"
+        ;;
+      "lazydocker")
+        lazydocker 
+        ;;
+      *)
+        echo "Something went wrong" >&2
+        ;;
+    esac
     ;;
   "k8s")
     target_k8s="$(echo "kubectx kubens k9s" | tr ' ' '\n' | fzf)"
