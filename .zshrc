@@ -30,23 +30,16 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+zinit ice lucid wait'0'
+zinit light joshskidmore/zsh-fzf-history-search
 
 # Add in snippets
-zinit snippet OMZP::git
-zinit snippet OMZP::sudo
-zinit snippet OMZP::archlinux
-zinit snippet OMZP::aws
-zinit snippet OMZP::kubectl
-zinit snippet OMZP::kubectx
-zinit snippet OMZP::command-not-found
+zinit snippet OMZP::colored-man-pages
 
 # Load completions
 autoload -Uz compinit && compinit
 
 zinit cdreplay -q
-
-# Shell integrations
-eval "$(zoxide init --cmd cd zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -75,9 +68,7 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
-# Custom
-
-### common
+### Common 
 alias ll='ls -la --color'
 alias cls='clear'
 alias grep="grep --color"
@@ -133,14 +124,17 @@ ssh_dsync() {
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_DOCUMENTS_DIR="$HOME/Documents"
 
-# networks 
+# Git
+alias g="git"
+
+# Networks 
 alias ips="ip -br a s"
 alias nets="netstat -tulpen"
 
-### go
+### Go
 export PATH=$PATH:/usr/local/go/bin:~/go/bin:~/go/bin/templ
 
-### java
+### Java
 alias mci="mvn clean install"
 alias mgen="mvn generate-sources"
 alias mresolve="mvn dependency:purge-local-repository -DreResolve=true"
@@ -157,7 +151,7 @@ export GRADLE_HOME=/opt/homebrew/opt/gradle
 export JAVA_HOME=$JAVA_21_HOME
 export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH
 
-### python
+### Python
 alias python='python3'
 alias pip='python3 -m pip'
 
@@ -167,7 +161,7 @@ export PATH="$PATH:/Users/ipetrov/.local/bin"
 
 source ~/.venv/bin/activate
 
-### docker
+### Docker
 alias d="docker"
 alias dls="docker container ls"
 alias dps="docker ps -a"
@@ -180,11 +174,11 @@ drm() {
   docker rm -f $(docker ps -aq)
 }
 
-### kubectl
+### Kubectl
 alias k8s="kubectl"
 export KUBE_EDITOR=vim
 
-### terraform
+### Terraform
 alias tf="terraform"
 alias tffmt="terraform fmt"
 alias tfi="terraform init"
@@ -194,36 +188,5 @@ alias tfd="echo \"If you want to run destroy write the full command\""
 
 export PATH="$HOME/.tfenv/bin:$PATH"
 
-### aws
+### AWS 
 export AWS_DEFAULT_PROFILE=personal
-
-### azure
-az_key() {
-  if [ "$#" -ne 1 ]; then
-    echo "Usage: az_key <secret-name>"
-    return 1
-  fi
-
-  local secret_name="$1"
-  local key_vault_name="kv-k8s-apps-dev"
-
-
-  az keyvault secret show --name "${secret_name}" --vault-name "${key_vault_name}" --query value -o tsv
-}
-
-### boundary
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/boundary boundary
-export BOUNDARY_ADDR=https://boundary.secure-service-hub.com
-
-macos_set_boundary_dns_server() {
-  sudo networksetup -setdnsservers "Wi-FI" "20.31.11.195" 
-  sudo dscacheutil -flushcache
-  sudo killall -HUP mDNSResponder
-}
-
-macos_restore_original_dns_server() {
-  sudo networksetup -setdnsservers "Wi-Fi" empty
-  sudo dscacheutil -flushcache
-  sudo killall -HUP mDNSResponder
-}
