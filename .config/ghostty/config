@@ -1,0 +1,4 @@
+font-size = 16
+font-family = "JetBrainsMono Nerd Font"
+theme = cobalt2
+macos-titlebar-proxy-icon = hidden
