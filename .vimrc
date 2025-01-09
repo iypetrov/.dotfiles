@@ -62,7 +62,7 @@ set wildignore+=*.swp         " Ignore vim backups
 " Make navigation up and down a lot more pleasent
 map j gj
 map k gk
-nnorema>p <C-d> <C-d>zz
+nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 nnoremap n nzzzv
 nnoremap N Nzzzv
@@ -112,27 +112,25 @@ call plug#begin()
 Plug 'nanotech/jellybeans.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'lvht/mru'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'preservim/nerdtree'
 
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 
-" cobalt2
+" jellybeans
 set termguicolors
 colorscheme jellybeans
 
 " fzf.vim
 nnoremap <leader>ff :GFiles<CR>
+nnoremap <Leader>fr :History<CR>
 nnoremap <leader>fp :Rg<CR>
-
-" mru
-let g:mru_file_list_size = 25
-let g:mru_ignore_patterns = 'fugitive\|\.git/\|\_^/tmp/'
-
-nnoremap <Leader>fr :Mru<CR>
 
 " nerdtree
 let NERDTreeShowHidden=1
@@ -149,30 +147,37 @@ nmap <leader><leader> <Plug>BookmarkShowAll
 nmap <C-p> <Plug>BookmarkPrev
 nmap <C-n> <Plug>BookmarkNext
 
+" vim-lsp
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    nnoremap <buffer> <expr><c-b> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
 " vim-go
 let g:go_def_mapping_enabled = 0
 let g:go_fmt_command = "goimports"
-
-" Go autocomplete
-au filetype go inoremap <buffer> . .<C-x><C-o>
-:set completeopt=longest,menuone
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-   \'<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-   \'<c-x><c-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-
-" LSP functions
-nnoremap <leader>gu :call GoToUsage()<CR>
-
-function! GoToUsage()
-  if &filetype == 'go'
-    execute ':GoFindReferences'
-  elseif &filetype == 'python'
-    echo "Python usage command"
-  else
-    echo "Unsupported file type"
-  endif
-endfunction
 
