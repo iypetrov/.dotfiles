@@ -12,7 +12,7 @@ set expandtab
 set hidden                " Allow buffers to be backgrounded without being saved
 set number relativenumber " Show the liner numbes in realtive mode
 set ruler                 " Show the line number and column in the status bar
-set scrolloff=999           " Keep the cursor with custom offset from the screen
+set scrolloff=999         " Keep the cursor int the center of the screen
 set showmatch             " Highlight matching braces
 set showmode              " Show the current mode on the open buffer
 set splitbelow            " Splits show up below by default
