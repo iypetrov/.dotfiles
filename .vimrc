@@ -12,7 +12,7 @@ set expandtab
 set hidden                " Allow buffers to be backgrounded without being saved
 set number relativenumber " Show the liner numbes in realtive mode
 set ruler                 " Show the line number and column in the status bar
-set scrolloff=8           " Keep the cursor with custom offset from the screen
+set scrolloff=999           " Keep the cursor with custom offset from the screen
 set showmatch             " Highlight matching braces
 set showmode              " Show the current mode on the open buffer
 set splitbelow            " Splits show up below by default
@@ -62,10 +62,6 @@ set wildignore+=*.swp         " Ignore vim backups
 " Make navigation up and down a lot more pleasent
 map j gj
 map k gk
-nnoremap <C-d> <C-d>zz
-nnoremap <C-u> <C-u>zz
-nnoremap n nzzzv
-nnoremap N Nzzzv
 
 " Make navigating around splits easier
 nnoremap <C-j> <C-w>j
@@ -112,8 +108,9 @@ call plug#begin()
 Plug 'nanotech/jellybeans.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'MattesGroeger/vim-bookmarks'
 Plug 'preservim/nerdtree'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'airblade/vim-gitgutter'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
@@ -147,6 +144,11 @@ nmap <leader><leader> <Plug>BookmarkShowAll
 nmap <C-p> <Plug>BookmarkPrev
 nmap <C-n> <Plug>BookmarkNext
 
+" vim-gitgutter
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '~'
+let g:gitgutter_sign_removed = '-'
+
 " vim-lsp
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
@@ -170,6 +172,9 @@ function! s:on_lsp_buffer_enabled() abort
 
     " refer to doc to add more commands
 endfunction
+
+nmap <leader>[[ :LspPreviousError<CR>
+nmap <leader>]] :LspNextError<CR>
 
 augroup lsp_install
     au!
