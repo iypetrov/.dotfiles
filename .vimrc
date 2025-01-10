@@ -57,6 +57,9 @@ set wildignore+=*.pyc         " Ignore Python compiled files
 set wildignore+=*.rbc         " Ignore Rubinius compiled files
 set wildignore+=*.swp         " Ignore vim backups
 
+" MacVim
+set guifont=Menlo\ Regular:h16
+
 " Key Mappings
 
 " Make navigation up and down a lot more pleasent
@@ -185,4 +188,6 @@ augroup END
 " vim-go
 let g:go_def_mapping_enabled = 0
 let g:go_fmt_command = "goimports"
+
+nmap <leader>err :GoIfErr<CR>
 
