@@ -30,7 +30,8 @@ case "${target}" in
   "ip812")
     if [[ "${type}" == "default" ]]; then
         while read -r instance_id; do
-            unbuffer aws ssm start-session --target ${instance_id} --region eu-central-1
+            # docker run --rm -it -v ~/.aws:/root/.aws -e AWS_PROFILE=personal -v $PWD:/aws awscli-local aws ssm start-session --target ${instance_id} --region eu-central-1 >/dev/tty 2>/dev/tty </dev/tty
+            aws ssm start-session --target ${instance_id} --region eu-central-1 >/dev/tty 2>/dev/tty </dev/tty
         done < <(aws ec2 describe-instances \
             --region eu-central-1 \
             --filters "Name=tag:Environment,Values=prod" "Name=tag:Organization,Values=ip812" "Name=instance-state-name,Values=running" \
@@ -38,11 +39,11 @@ case "${target}" in
             --output json | jq -r '.[]' | head -n 1)
     elif [[ "${type}" == "tmux" ]]; then
         while read -r instance_id; do
-            unbuffer aws ssm start-session \
+            aws ssm start-session \
                 --target ${instance_id} \
                 --region eu-central-1 \
                 --document-name AWS-StartInteractiveCommand \
-                --parameters '{"command": ["tmux attach-session -t default || tmux new-session -s default"]}'
+                --parameters '{"command": ["tmux attach-session -t default || tmux new-session -s default"]}' >/dev/tty 2>/dev/tty </dev/tty
         done < <(aws ec2 describe-instances \
             --region eu-central-1 \
             --filters "Name=tag:Environment,Values=prod" "Name=tag:Organization,Values=ip812" "Name=instance-state-name,Values=running" \
