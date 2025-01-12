@@ -129,14 +129,19 @@ colorscheme jellybeans
 
 " fzf.vim
 nnoremap <leader>ff :GFiles<CR>
-nnoremap <Leader>fr :History<CR>
+nnoremap <leader>fr :History<CR>
 nnoremap <leader>fp :Rg<CR>
 
 " nerdtree
 let NERDTreeShowHidden=1
 let g:NERDTreeHijackNetrw=0
+nnoremap <C-t> :NERDTreeToggle<CR>
 
 " vim-bookmarks
+let g:bookmark_sign = '>>'
+let g:bookmark_save_per_working_dir = 1
+let g:bookmark_manage_per_buffer = 1
+let g:bookmark_auto_close = 1
 let g:bookmark_no_default_key_mappings = 1
 let g:bookmark_auto_save = 1
 let g:bookmark_highlight_lines = 1
@@ -153,6 +158,14 @@ let g:gitgutter_sign_modified = '~'
 let g:gitgutter_sign_removed = '-'
 
 " vim-lsp
+nmap <leader>[[ :LspPreviousError<CR>
+nmap <leader>]] :LspNextError<CR>
+
+augroup LspCloseReferenceWindow
+  autocmd!
+  autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>
+augroup END
+
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
@@ -175,9 +188,6 @@ function! s:on_lsp_buffer_enabled() abort
 
     " refer to doc to add more commands
 endfunction
-
-nmap <leader>[[ :LspPreviousError<CR>
-nmap <leader>]] :LspNextError<CR>
 
 augroup lsp_install
     au!
