@@ -199,5 +199,10 @@ augroup END
 let g:go_def_mapping_enabled = 0
 let g:go_fmt_command = "goimports"
 
-nmap <leader>err :GoIfErr<CR>
+augroup go_mappings
+  autocmd!
+  autocmd FileType go nmap <leader>err :GoIfErr<CR>
+  autocmd FileType go nmap <leader>doc :GoDoc<CR>
+  autocmd FileType go nmap <leader>docb :GoDocBrowser<CR>
+augroup END
 
