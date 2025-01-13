@@ -176,7 +176,7 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> gr <plug>(lsp-references)
     nmap <buffer> gi <plug>(lsp-implementation)
     nmap <buffer> gt <plug>(lsp-type-definition)
-    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> rn <plug>(lsp-rename)
     nmap <buffer> [g <plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <plug>(lsp-next-diagnostic)
     nmap <buffer> K <plug>(lsp-hover)
@@ -202,7 +202,6 @@ let g:go_fmt_command = "goimports"
 augroup go_mappings
   autocmd!
   autocmd FileType go nmap <leader>err :GoIfErr<CR>
-  autocmd FileType go nmap <leader>doc :GoDoc<CR>
-  autocmd FileType go nmap <leader>docb :GoDocBrowser<CR>
+  autocmd FileType go nmap <leader>dc :GoDocBrowser<CR>
 augroup END
 
