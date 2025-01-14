@@ -20,14 +20,11 @@ set splitbelow            " Splits show up below by default
 set splitright            " Splits go to the right by default
 set title                 " Set the title for gvim
 set visualbell            " Use a visual bell to notify us
+set nowrap                " If the line is too long don't split it on the new line
 
 " Customize session options. Namely, I don't want to save hidden and
 " unloaded buffers or empty windows.
 set sessionoptions="curdir,folds,help,options,tabpages,winsize"
-
-if !has("win32")
-    set showbreak=↪       " The character to put to show a line has been wrapped
-end
 
 syntax on                 " Enable filetype detection by syntax
 
