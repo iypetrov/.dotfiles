@@ -5,6 +5,7 @@ set encoding=utf-8
 let mapleader=" "         " The <leader> key
 set autoread              " Reload files that have not been modified
 set backspace=2           " Makes backspace behave like you'd expect
+" set colorcolumn=80        " Highlight 80 character limit
 set tabstop=4             " Make tab spacing
 set softtabstop=4
 set shiftwidth=4
