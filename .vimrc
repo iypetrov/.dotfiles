@@ -106,7 +106,7 @@ endif
 
 call plug#begin()
 
-Plug 'itsjunetime/rose-pine-vim'
+Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
@@ -122,9 +122,10 @@ Plug 'elixir-editors/vim-elixir'
 
 call plug#end()
 
-" rose-pine-vim
+" gruvbox
 set termguicolors
-colorscheme rose-pine-dark
+set background=dark
+colorscheme gruvbox
 
 " fzf.vim
 nnoremap <leader>ff :GFiles<CR>
