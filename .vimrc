@@ -55,11 +55,6 @@ set wildignore+=*.pyc         " Ignore Python compiled files
 set wildignore+=*.rbc         " Ignore Rubinius compiled files
 set wildignore+=*.swp         " Ignore vim backups
 
-" Vim
-set guifont=Menlo\ Regular:h16
-
-" Key Mappings
-
 " Make navigation up and down a lot more pleasent
 map j gj
 map k gk
