@@ -106,7 +106,7 @@ endif
 
 call plug#begin()
 
-Plug 'nanotech/jellybeans.vim'
+Plug 'itsjunetime/rose-pine-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
@@ -122,9 +122,9 @@ Plug 'elixir-editors/vim-elixir'
 
 call plug#end()
 
-" jellybeans
+" rose-pine-vim
 set termguicolors
-colorscheme jellybeans
+colorscheme rose-pine-dark
 
 " fzf.vim
 nnoremap <leader>ff :GFiles<CR>
