@@ -55,7 +55,7 @@ set wildignore+=*.pyc         " Ignore Python compiled files
 set wildignore+=*.rbc         " Ignore Rubinius compiled files
 set wildignore+=*.swp         " Ignore vim backups
 
-" MacVim
+" Vim
 set guifont=Menlo\ Regular:h16
 
 " Key Mappings
