@@ -120,7 +120,7 @@ call plug#end()
 
 " gruvbox
 set termguicolors
-set background=dark
+set background=light
 colorscheme gruvbox
 
 " fzf.vim
