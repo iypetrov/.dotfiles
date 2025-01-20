@@ -11,12 +11,13 @@ session="$(basename "${target}" | tr '.' '_')"
 
 tmux_running="$(pgrep tmux)"
 if [[ -z "$TMUX" ]] && [[ -z "${tmux_running}" ]]; then
-    tmux new-session -s "${session}" -c "${target}"
-    exit 1
+    tmux new-session -s "${session}" -c "${target}" "vim ${target}"
+    tmux new-window -t "${session}:2" -c "${target}"
 fi
 
 if ! tmux has-session -t="${session}" 2> /dev/null; then
-    tmux new-session -ds "${session}" -c "${target}"
+    tmux new-session -ds "${session}" -c "${target}" "vim ${target}"
+    tmux new-window -t "${session}:2" -c "${target}"
 fi
 
 tmux switch-client -t "${session}"
