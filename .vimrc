@@ -154,7 +154,7 @@ let g:gitgutter_sign_modified = '~'
 let g:gitgutter_sign_removed = '-'
 
 " undotree
-nmap <C-u> :UndotreeToggle<CR>
+nmap <leader>h :UndotreeToggle<CR>
 
 " vim-lsp
 nmap <leader>[[ :LspPreviousError<CR>
