@@ -19,16 +19,16 @@ case "${target}" in
     case "${version}" in
         "11")
             export JAVA_HOME=$JAVA_11_HOME
-            sed -E -i '' "s/^export JAVA_HOME=.*/export JAVA_HOME=\$JAVA_11_HOME/" $XDG_DOCUMENTS_DIR/projects/common/.dotfiles/.zshrc 
+            sed -E -i '' "s/^export JAVA_HOME=.*/export JAVA_HOME=\$JAVA_11_HOME/" $XDG_DOCUMENTS_DIR/projects/common/.dotfiles/.zshrc
             ;;
         "17")
-            sed -E -i '' "s/^export JAVA_HOME=.*/export JAVA_HOME=\$JAVA_17_HOME/" $XDG_DOCUMENTS_DIR/projects/common/.dotfiles/.zshrc 
+            sed -E -i '' "s/^export JAVA_HOME=.*/export JAVA_HOME=\$JAVA_17_HOME/" $XDG_DOCUMENTS_DIR/projects/common/.dotfiles/.zshrc
             ;;
         "21")
-            sed -E -i '' "s/^export JAVA_HOME=.*/export JAVA_HOME=\$JAVA_21_HOME/" $XDG_DOCUMENTS_DIR/projects/common/.dotfiles/.zshrc 
+            sed -E -i '' "s/^export JAVA_HOME=.*/export JAVA_HOME=\$JAVA_21_HOME/" $XDG_DOCUMENTS_DIR/projects/common/.dotfiles/.zshrc
             ;;
         "23")
-            sed -E -i '' "s/^export JAVA_HOME=.*/export JAVA_HOME=\$JAVA_23_HOME/" $XDG_DOCUMENTS_DIR/projects/common/.dotfiles/.zshrc 
+            sed -E -i '' "s/^export JAVA_HOME=.*/export JAVA_HOME=\$JAVA_23_HOME/" $XDG_DOCUMENTS_DIR/projects/common/.dotfiles/.zshrc
             ;;
         *)
             echo "Usage: use_java {11|17|21|23}"
@@ -40,3 +40,4 @@ case "${target}" in
     echo "Something went wrong" >&2
     ;;
 esac
+

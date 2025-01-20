@@ -20,3 +20,4 @@ if ! tmux has-session -t="${session}" 2> /dev/null; then
 fi
 
 tmux switch-client -t "${session}"
+

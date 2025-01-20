@@ -17,3 +17,4 @@ max X restoreTab
 map < previousTab
 map > nextTab
 map gs toggleViewSource
+

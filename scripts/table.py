@@ -51,3 +51,4 @@ for row_idx, row in enumerate(df.values):
 
 file_path = "table.png"
 plt.savefig(file_path, bbox_inches="tight", dpi=300)
+

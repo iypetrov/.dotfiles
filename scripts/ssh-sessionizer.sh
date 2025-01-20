@@ -55,3 +55,4 @@ case "${target}" in
     echo "Something went wrong" >&2
     ;;
 esac
+

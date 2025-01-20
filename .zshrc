@@ -68,7 +68,7 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
-### Common 
+### Common
 alias ll='ls -la --color'
 alias cls='clear'
 alias grep="grep --color"
@@ -127,7 +127,7 @@ export XDG_DOCUMENTS_DIR="$HOME/Documents"
 # Git
 alias g="git"
 
-# Networks 
+# Networks
 alias ips="ip -br a s"
 alias nets="netstat -tulpen"
 
@@ -146,7 +146,7 @@ mdepi() {
 
 export JAVA_17_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 export JAVA_21_HOME=/Library/Java/JavaVirtualMachines/zulu-21.jdk/Contents/Home
-export MAVEN_HOME=/opt/homebrew/opt/maven  
+export MAVEN_HOME=/opt/homebrew/opt/maven
 export GRADLE_HOME=/opt/homebrew/opt/gradle
 export JAVA_HOME=$JAVA_21_HOME
 export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH
@@ -188,5 +188,6 @@ alias tfd="echo \"If you want to run destroy write the full command\""
 
 export PATH="$HOME/.tfenv/bin:$PATH"
 
-### AWS 
+### AWS
 export AWS_DEFAULT_PROFILE=personal
+

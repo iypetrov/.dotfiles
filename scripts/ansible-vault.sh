@@ -7,3 +7,4 @@ if [[ "$action" == "encrypt" ]];then
 elif [[ "$action" == "decrypt" ]];then
     ansible-vault decrypt --ask-vault-pass ~/auth_codes/*.txt ~/.ssh/id_rsa
 fi
+

@@ -1,12 +1,13 @@
 [user]
-name = Ilia Petrov 
-email = ilia.petrov@symmedia.de 
+    name = Ilia Petrov
+    email = ilia.petrov@symmedia.de
 
 [github]
-user = "ilia.petrov"
+    user = "ilia.petrov"
 
 [gitlab]
-user = "ilia.petrov"
+    user = "ilia.petrov"
 
 [core]
-sshCommand = "ssh -i ~/.ssh/id_rsa_work"
+    sshCommand = "ssh -i ~/.ssh/id_rsa_work"
+
