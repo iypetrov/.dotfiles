@@ -4,27 +4,21 @@
 	excludesfile = ~/.gitignore
 	pager = delta
 
-[credential]
-	helper = cache --timeout=3600
-
 [interactive]
-	diffFilter = delta --features=interactive
+    diffFilter = delta --color-only
 
 [delta]
-	navigate = true    
-	dark = false      
-	side-by-side = true  
-	line-numbers = true   
+    navigate = true
+    light = true
+    side-by-side = true
+    line-numbers = true
 
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
 
-[diff]
-    tool = vimdiff
-
 [mergetool "vimdiff"]
-    trustExitCode = true 
+    trustExitCode = true
 
 [includeIf "gitdir:~/Documents/projects/work/"]
 	path = ~/.gitconfig-work
