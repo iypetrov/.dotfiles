@@ -1,3 +1,7 @@
+core:
+  pager: "bat"
+  pager_arguments:
+    - "--theme=gruvbox-light"
 git:
   paging:
     pager: delta --light --paging=never
