@@ -4,6 +4,8 @@ map j scrollDown
 map k scrollUp
 map h scrollLeft
 map l scrollRight
+map gg scrollToTop
+map G scrollToBottom
 map <c-d> scrollPageDown
 map <c-u> scrollPageUp
 map yy copyCurrentUrl
