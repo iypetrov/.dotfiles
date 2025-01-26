@@ -108,6 +108,7 @@ Plug 'preservim/nerdtree'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree'
+Plug 'github/copilot.vim'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
