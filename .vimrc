@@ -177,18 +177,33 @@ nnoremap <Leader>fp :call FzfRgFiles("")<CR>
 " Harpoon
 let g:custom_tags = []
 
-function! AddCustomTag()
+function! ToggleCustomTag()
     let file_path = expand('%:p')
     let line_num = line('.')
     let line_text = getline('.')
 
-    call add(g:custom_tags, {
-        \ 'file': file_path,
-        \ 'line': line_num,
-        \ 'text': line_text
-    \ })
+    " Check if the tag already exists
+    let index_to_remove = -1
+    for i in range(len(g:custom_tags))
+        if g:custom_tags[i].file == file_path && g:custom_tags[i].line == line_num
+            let index_to_remove = i
+            break
+        endif
+    endfor
 
-    echo "Added tag at line " . line_num
+    if index_to_remove != -1
+        " If the tag exists, remove it
+        call remove(g:custom_tags, index_to_remove)
+        echo "Removed tag at line " . line_num
+    else
+        " If the tag doesn't exist, add it
+        call add(g:custom_tags, {
+            \ 'file': file_path,
+            \ 'line': line_num,
+            \ 'text': line_text
+        \ })
+        echo "Added tag at line " . line_num
+    endif
 endfunction
 
 function! JumpToPreviousTag()
@@ -258,9 +273,21 @@ function! ShowAllTags()
 
     call setqflist(qf_list)
     copen
+
+    " Map dd to delete the current entry from the quickfix list and g:custom_tags
+    nnoremap <buffer> dd :call DeleteFromQuickfix()<CR>
 endfunction
 
-nnoremap <leader>a :call AddCustomTag()<CR>
+function! DeleteFromQuickfix()
+    let current_line = line('.') - 1 " Quickfix list is 1-indexed
+    if current_line >= 0 && current_line < len(g:custom_tags)
+        call remove(g:custom_tags, current_line)
+        call setqflist([])
+        call ShowAllTags()
+    endif
+endfunction
+
+nnoremap <leader>a :call ToggleCustomTag()<CR>
 nnoremap <C-p> :call JumpToPreviousTag()<CR>
 nnoremap <C-n> :call JumpToNextTag()<CR>
 nnoremap <leader><leader> :call ShowAllTags()<CR>
