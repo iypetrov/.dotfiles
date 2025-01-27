@@ -101,7 +101,7 @@ endif
 
 call plug#begin()
 
-Plug 'lisposter/vim-blackboard'
+Plug 'aperezdc/vim-elrond'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
@@ -119,10 +119,10 @@ Plug 'elixir-editors/vim-elixir'
 
 call plug#end()
 
-" blackboard
+" elrond
 set termguicolors
 set background=dark
-colorscheme blackboard
+colorscheme elrond
 
 " fzf.vim
 nnoremap <leader>ff :GFiles<CR>
