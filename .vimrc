@@ -92,6 +92,97 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Don't fold anything.
 autocmd BufWinEnter * set foldlevel=999999
 
+let g:custom_tags = []
+
+function! AddCustomTag()
+    let file_path = expand('%:p')
+    let line_num = line('.')
+    let line_text = getline('.')
+
+    call add(g:custom_tags, {
+        \ 'file': file_path,
+        \ 'line': line_num,
+        \ 'text': line_text
+    \ })
+
+    echo "Added tag at line " . line_num
+endfunction
+
+function! JumpToPreviousTag()
+    if len(g:custom_tags) == 0
+        echo "No tags found."
+        return
+    endif
+
+    let current_index = -1
+    for i in range(len(g:custom_tags))
+        if g:custom_tags[i].file == expand('%:p') && g:custom_tags[i].line == line('.')
+            let current_index = i
+            break
+        endif
+    endfor
+
+    if current_index == -1
+        let current_index = len(g:custom_tags)
+    endif
+
+    let prev_index = (current_index - 1) % len(g:custom_tags)
+    let prev_tag = g:custom_tags[prev_index]
+
+    execute 'edit ' . prev_tag.file
+    execute prev_tag.line
+endfunction
+
+function! JumpToNextTag()
+    if len(g:custom_tags) == 0
+        echo "No tags found."
+        return
+    endif
+
+    let current_index = -1
+    for i in range(len(g:custom_tags))
+        if g:custom_tags[i].file == expand('%:p') && g:custom_tags[i].line == line('.')
+            let current_index = i
+            break
+        endif
+    endfor
+
+    if current_index == -1
+        let current_index = -1
+    endif
+
+    let next_index = (current_index + 1) % len(g:custom_tags)
+    let next_tag = g:custom_tags[next_index]
+
+    execute 'edit ' . next_tag.file
+    execute next_tag.line
+endfunction
+
+function! ShowAllTags()
+    if len(g:custom_tags) == 0
+        echo "No tags found."
+        return
+    endif
+
+    let qf_list = []
+    for tag in g:custom_tags
+        call add(qf_list, {
+            \ 'filename': tag.file,
+            \ 'lnum': tag.line,
+            \ 'text': tag.text
+        \ })
+    endfor
+
+    call setqflist(qf_list)
+    copen
+endfunction
+
+" harpoon
+nnoremap <leader>a :call AddCustomTag()<CR>
+nnoremap <C-p> :call JumpToPreviousTag()<CR>
+nnoremap <C-n> :call JumpToNextTag()<CR>
+nnoremap <leader><leader> :call ShowAllTags()<CR>
+
 " Plugins
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -105,7 +196,6 @@ Plug 'aperezdc/vim-elrond'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
-Plug 'MattesGroeger/vim-bookmarks'
 Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree'
 Plug 'github/copilot.vim'
@@ -133,21 +223,6 @@ nnoremap <leader>fp :Rg<CR>
 let NERDTreeShowHidden=1
 let g:NERDTreeHijackNetrw=0
 nnoremap <C-t> :NERDTreeToggle<CR>
-
-" vim-bookmarks
-let g:bookmark_sign = '>>'
-let g:bookmark_save_per_working_dir = 1
-let g:bookmark_manage_per_buffer = 1
-let g:bookmark_auto_close = 1
-let g:bookmark_no_default_key_mappings = 1
-let g:bookmark_auto_save = 1
-let g:bookmark_highlight_lines = 1
-let g:bookmark_disable_ctrlp = 1
-
-nmap <leader>a <Plug>BookmarkToggle
-nmap <leader><leader> <Plug>BookmarkShowAll
-nmap <C-p> <Plug>BookmarkPrev
-nmap <C-n> <Plug>BookmarkNext
 
 " vim-gitgutter
 let g:gitgutter_sign_added = '+'
