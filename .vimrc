@@ -160,14 +160,14 @@ function! FzfRgFiles(query)
 
   let git_files_relative = split(system('git ls-files'), '\n')
 
-  let rg_command = 'rg --column --line-number --no-heading --color=never --smart-case -- ' . shellescape(a:query) . ' ' . git_root
+  let rg_command = 'rg --column --line-number --no-heading --color=never --smart-case -e ' . shellescape(a:query) . ' ' . git_root
 
   let file_filter = join(map(copy(git_files_relative), { _, file -> shellescape(file) }), ' ')
   let rg_command .= ' ' . file_filter
 
   let rg_command .= ' | awk -v root="' . git_root . '/" ''{ sub(root, ""); print }'''
 
-  call fzf#vim#grep(rg_command, 1, fzf#vim#with_preview(), 0)
+  call fzf#vim#grep(rg_command, 1, fzf#vim#with_preview({'options': ['--nth=3..']}), 0)
 endfunction
 
 nnoremap <leader>ff :call FzfGitAllFiles()<CR>
