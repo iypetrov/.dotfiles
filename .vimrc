@@ -160,7 +160,7 @@ function! FzfRgFiles(query)
 
   let git_files_relative = split(system('git ls-files'), '\n')
 
-  let rg_command = 'rg --column --line-number --no-heading --color=never --smart-case -e ' . shellescape(a:query) . ' ' . git_root
+  let rg_command = 'rg --column --line-number --no-heading --color=never --smart-case -e ' . shellescape(a:query) . ' '
 
   let file_filter = join(map(copy(git_files_relative), { _, file -> shellescape(file) }), ' ')
   let rg_command .= ' ' . file_filter
