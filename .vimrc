@@ -336,6 +336,14 @@ let g:gitgutter_sign_removed = '-'
 nmap <leader>h :UndotreeToggle<CR>
 
 " vim-lsp
+let g:lsp_diagnostics_virtual_text_enabled = 1
+let g:lsp_diagnostics_virtual_text_align = 'after'
+
+highlight LspDiagnosticsVirtualTextError guifg=Red ctermfg=Red
+highlight LspDiagnosticsVirtualTextWarning guifg=Yellow ctermfg=Yellow
+highlight LspDiagnosticsVirtualTextInformation guifg=Blue ctermfg=Blue
+highlight LspDiagnosticsVirtualTextHint guifg=Green ctermfg=Green
+
 nmap <leader>[[ :LspPreviousError<CR>
 nmap <leader>]] :LspNextError<CR>
 
