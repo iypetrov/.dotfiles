@@ -5,7 +5,7 @@ set encoding=utf-8
 let mapleader=" "         " The <leader> key
 set autoread              " Reload files that have not been modified
 set backspace=2           " Makes backspace behave like you'd expect
-" set colorcolumn=80        " Highlight 80 character limit
+set colorcolumn=80        " Highlight 80 character limit
 set hidden                " Allow buffers to be backgrounded without being saved
 set number relativenumber " Show the liner numbes in realtive mode
 set ruler                 " Show the line number and column in the status bar
