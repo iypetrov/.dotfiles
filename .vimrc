@@ -55,6 +55,10 @@ set wildignore+=*.swp         " Ignore vim backups
 map j gj
 map k gk
 
+" Make splits
+nnoremap <leader>s :split<CR>
+nnoremap <leader>v :vsplit<CR>
+
 " Make navigating around splits easier
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -71,7 +75,7 @@ vnoremap <leader>Y "+Y
 nnoremap <leader>pv :Ex<CR>
 
 " Replace currrent word occurrences
-nnoremap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
+nnoremap <leader>r :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 
 " Get rid of search highlights
 noremap <silent><leader>/ :nohlsearch<cr>
