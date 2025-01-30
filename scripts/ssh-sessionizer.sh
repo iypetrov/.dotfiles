@@ -27,6 +27,13 @@ case "${target}" in
       ssh digital@127.0.0.1 -p 1035 -t 'tmux attach-session -t default || tmux new-session -s default'
     fi
     ;;
+  "access.gas-x.de")
+    if [[ "${type}" == "default" ]]; then
+      ssh -i ~/.ssh/id_gasx_ed25519 ipetrov@access.gas-x.de
+    elif [[ "${type}" == "tmux" ]]; then
+      ssh -i ~/.ssh/id_gasx_ed25519 ipetrov@access.gas-x.de
+    fi
+    ;;
   "ip812")
     if [[ "${type}" == "default" ]]; then
         while read -r instance_id; do
