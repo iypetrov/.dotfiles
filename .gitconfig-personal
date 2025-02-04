@@ -6,5 +6,5 @@
     user = "iypetrov"
 
 [core]
-    sshCommand = "ssh -i ~/.ssh/id_rsa_personal"
+    sshCommand = "ssh -i ~/.ssh/id_ed25519_personal"
 

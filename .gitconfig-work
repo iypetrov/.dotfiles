@@ -1,6 +1,6 @@
 [user]
     name = Ilia Petrov
-    email = ilia.petrov@symmedia.de
+    email = ilia.petrov@soprasteria.com
 
 [github]
     user = "ilia.petrov"
@@ -9,5 +9,5 @@
     user = "ilia.petrov"
 
 [core]
-    sshCommand = "ssh -i ~/.ssh/id_rsa_work"
+    sshCommand = "ssh -i ~/.ssh/id_ed25519_work"
 

@@ -9,7 +9,7 @@ fi
 
 case "${target}" in
   "access.gas-x.de")
-    ssh -i ~/.ssh/id_gasx_ed25519 ipetrov@access.gas-x.de
+    ssh -i ~/.ssh/id_ed25519_gasx ipetrov@access.gas-x.de
     ;;
   "ip812")
     while read -r instance_id; do
