@@ -18,8 +18,16 @@ with open('chart.data', 'r') as file:
 
 total, used, free, shared, buff_cache, available = zip(*memory_usage)
 
-plt.figure(figsize=(10, 6))
+# Too much samples, get every n-th sample
+n = 100
+timestamps = timestamps[::n]
+total = total[::n]
+used = used[::n]
+free = free[::n]
+buff_cache = buff_cache[::n]
+available = available[::n]
 
+plt.figure(figsize=(10, 6))
 plt.plot(timestamps, total, label='Total (Gi)', marker='o')
 plt.plot(timestamps, used, label='Used (Gi)', marker='o')
 plt.plot(timestamps, free, label='Free (Gi)', marker='o')
