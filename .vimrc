@@ -87,7 +87,7 @@ cmap w!! %!sudo tee > /dev/null %
 nnoremap <leader>d   :bd<cr>
 
 " Clear whitespace at the end of lines automatically
-autocmd BufWritePre * :%s/\s\+$//e
+" autocmd BufWritePre * :%s/\s\+$//e
 
 " Don't fold anything.
 autocmd BufWinEnter * set foldlevel=999999
