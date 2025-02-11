@@ -124,11 +124,6 @@ ssh_dsync() {
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_DOCUMENTS_DIR="$HOME/Documents"
 
-# Tmux
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-    tmux attach -t 0 || tmux new -s 0 
-fi
-
 # Git
 alias g="git"
 
