@@ -32,3 +32,5 @@
 [includeIf "gitdir:~/Documents/projects/common/"]
 	path = ~/.gitconfig-personal
 
+[credential]
+	helper = store
