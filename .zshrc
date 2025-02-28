@@ -175,7 +175,7 @@ drm() {
 }
 
 ### Kubectl
-alias k8s="kubectl"
+alias k="kubectl"
 export KUBE_EDITOR=vim
 
 ### Terraform
@@ -189,5 +189,9 @@ alias tfd="echo \"If you want to run destroy write the full command\""
 export PATH="$HOME/.tfenv/bin:$PATH"
 
 ### AWS
-export AWS_DEFAULT_PROFILE=personal
+export AWS_DEFAULT_PROFILE=034013843855_ipgx-infra-integration
 
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/ipetrov/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
