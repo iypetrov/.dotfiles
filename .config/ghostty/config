@@ -1,3 +1,5 @@
 font-size = 16
 font-family = "JetBrainsMono Nerd Font"
-theme = "Dracula+"
+# theme = "Dracula+"
+theme = "catppuccin-latte"
+font-feature = -liga

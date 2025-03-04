@@ -311,7 +311,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'preservim/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree'
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
@@ -324,7 +324,7 @@ call plug#end()
 
 " elrond
 set termguicolors
-set background=dark
+set background=light
 colorscheme papercolor
 
 " nerdtree
