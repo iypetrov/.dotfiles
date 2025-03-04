@@ -1,5 +1,4 @@
 font-size = 16
 font-family = "JetBrainsMono Nerd Font"
 # theme = "Dracula+"
-theme = "GitLab-Light"
-font-feature = -liga
+theme = "Apple System Colors Light"

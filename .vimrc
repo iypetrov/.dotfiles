@@ -306,6 +306,7 @@ endif
 call plug#begin()
 
 Plug 'nlknguyen/papercolor-theme'
+Plug 'JaySandhu/xcode-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'preservim/nerdtree'
 Plug 'airblade/vim-gitgutter'
@@ -320,10 +321,10 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 
-" elrond
 set termguicolors
 set background=light
-colorscheme papercolor
+" colorscheme papercolor
+colorscheme xcode
 
 " nerdtree
 let NERDTreeShowHidden=1
