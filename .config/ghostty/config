@@ -1,5 +1,5 @@
 font-size = 16
 font-family = "JetBrainsMono Nerd Font"
 # theme = "Dracula+"
-theme = "catppuccin-latte"
+theme = "GitLab-Light"
 font-feature = -liga

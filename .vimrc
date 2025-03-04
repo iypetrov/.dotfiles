@@ -305,7 +305,6 @@ endif
 
 call plug#begin()
 
-Plug 'aperezdc/vim-elrond'
 Plug 'nlknguyen/papercolor-theme'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'preservim/nerdtree'
@@ -318,7 +317,6 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'elixir-editors/vim-elixir'
 
 call plug#end()
 
