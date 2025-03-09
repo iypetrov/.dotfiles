@@ -156,10 +156,16 @@ alias python='python3'
 alias pip='python3 -m pip'
 
 export PATH="$(brew --prefix python)/libexec/bin:$PATH"
-# Created by `pipx` on 2024-10-31 14:20:59
 export PATH="$PATH:/Users/ipetrov/.local/bin"
 
 source ~/.venv/bin/activate
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv init -)"
 
 ### Docker
 alias d="docker"
@@ -182,15 +188,18 @@ export KUBE_EDITOR=vim
 alias tf="terraform"
 alias tffmt="terraform fmt"
 alias tfi="terraform init"
-alias tfp="terraform plan"
+alias tfp="terraform plan -lock=false"
 alias tfa="terraform apply -auto-approve"
 alias tfd="echo \"If you want to run destroy write the full command\""
 
 export PATH="$HOME/.tfenv/bin:$PATH"
 
 ### AWS
-export AWS_DEFAULT_PROFILE=034013843855_ipgx-infra-integration
+a() {
+    aws --profile="$(cat ~/.aws/current_acc)" "$@"
+}
 
+export AWS_DEFAULT_PROFILE=personal
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/ipetrov/.rd/bin:$PATH"

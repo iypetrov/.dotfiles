@@ -18,7 +18,7 @@ case "${targets}" in
     ;;
   "aws")
     acc="$(aws --no-cli-pager configure list-profiles 2>/dev/null | fzf)"
-    sed -i '' "s|export AWS_DEFAULT_PROFILE=[^ ]*|export AWS_DEFAULT_PROFILE=$acc|g" /Users/ipetrov/Documents/projects/common/.dotfiles/.zshrc
+    echo "${acc}" > ~/.aws/current_acc
     ;;
 
   *)
