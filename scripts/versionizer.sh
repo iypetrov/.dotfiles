@@ -3,7 +3,7 @@
 [[ ! $(command -v fzf) ]] && echo "Error: You need to have fzf installed" >&2 && return 1
 [[ ! $(command -v tfenv) ]] && echo "Error: You need to have tfenv installed" >&2 && return 1
 
-target="$(echo "terraform java" | tr ' ' '\n' | fzf)"
+target="$(echo "terraform java python" | tr ' ' '\n' | fzf)"
 if [[ -z "${target}" ]]; then
   exit 1
 fi
@@ -35,6 +35,10 @@ case "${target}" in
             return 1
             ;;
     esac
+    ;;
+  "python")
+    version="$(pyenv versions | cut -c 3- | cut -d ' ' -f 1 | grep -v system | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | fzf)"
+    pyenv global "${version}"
     ;;
   *)
     echo "Something went wrong" >&2

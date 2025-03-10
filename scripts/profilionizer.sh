@@ -4,12 +4,16 @@
 [[ ! $(command -v kubectx) ]] && echo "Error: You need to have kubectx installed" >&2 && return 1
 [[ ! $(command -v aws) ]] && echo "Error: You need to have k9s installed" >&2 && return 1
 
-targets="$(echo "kubens kubectx aws" | tr ' ' '\n' | fzf --tac)"
+targets="$(echo "python kubens kubectx aws" | tr ' ' '\n' | fzf --tac)"
 if [[ -z "${targets}" ]]; then
   exit 1
 fi
 
 case "${targets}" in
+  "python")
+      venv="$(pyenv virtualenvs | cut -c 3- | cut -d ' ' -f 1 | grep -v '/' | fzf)"
+      pyenv global "${venv}"
+    ;;
   "kubens")
     kubens
     ;;
