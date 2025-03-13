@@ -158,14 +158,10 @@ alias pip='python3 -m pip'
 export PATH="$(brew --prefix python)/libexec/bin:$PATH"
 export PATH="$PATH:/Users/ipetrov/.local/bin"
 
-source ~/.venv/bin/activate
-
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init --path)"
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
-eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 ### Docker
 alias d="docker"
@@ -182,23 +178,44 @@ drm() {
 
 ### Kubectl
 alias k="kubectl"
+
 export KUBE_EDITOR=vim
 
 ### Terraform
 alias tf="terraform"
 alias tffmt="terraform fmt"
 alias tfi="terraform init"
-alias tfp="terraform plan -lock=false"
-alias tfa="terraform apply -auto-approve"
-alias tfd="echo \"If you want to run destroy write the full command\""
+
+tfp() {
+    aws_profile="$(cat ~/.aws/current_acc)"
+    if [[ "${aws_profile}" == "personal" ]]; then
+        terraform plan
+    else
+        terraform plan -lock=false
+    fi
+}
+
+tfa() {
+    aws_profile="$(cat ~/.aws/current_acc)"
+    if [[ "${aws_profile}" == "personal" ]]; then
+        terraform apply -auto-approve
+    else
+        echo "Don't run apply from this account" 
+    fi
+}
+
+tfd() {
+    aws_profile="$(cat ~/.aws/current_acc)"
+    if [[ "${aws_profile}" == "personal" ]]; then
+        terraform destroy -auto-approve
+    else
+        echo "Don't run delete from this account" 
+    fi
+}
 
 export PATH="$HOME/.tfenv/bin:$PATH"
 
 ### AWS
-a() {
-    aws --profile="$(cat ~/.aws/current_acc)" "$@"
-}
-
 export AWS_DEFAULT_PROFILE=personal
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)

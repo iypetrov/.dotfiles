@@ -15,12 +15,12 @@ case "${target}" in
     acc="de_gasx"
     echo "${acc}" > ~/.aws/current_acc
     instance_id=$(aws ec2 describe-instances \
-            --region eu-central-1 \
-            --filters "Name=instance-state-name,Values=running" \
-            --query "Reservations[].Instances[].InstanceId" \
-            --output json \
-            --profile de_gasx | \
-            jq -r '.[]' | fzf --tac)
+        --region eu-central-1 \
+        --filters "Name=instance-state-name,Values=running" \
+        --query "Reservations[].Instances[].{ID: Instances[].InstanceId, Name: Instances[].Tags[?Key=='Name'].Value | [0]}" \
+        --output json \
+        --profile de_gasx | \
+        jq -r '.[] | .Name[0] + " " + .ID[0]' | fzf --tac | awk '{print $2}')
 
     aws ssm start-session \
         --target "${instance_id}" \

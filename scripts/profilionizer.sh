@@ -12,7 +12,7 @@ fi
 case "${targets}" in
   "python")
       venv="$(pyenv virtualenvs | cut -c 3- | cut -d ' ' -f 1 | grep -v '/' | fzf)"
-      pyenv global "${venv}"
+      pyenv activate "${venv}"
     ;;
   "kubens")
     kubens
@@ -21,8 +21,7 @@ case "${targets}" in
     kubectx
     ;;
   "aws")
-    acc="$(aws --no-cli-pager configure list-profiles 2>/dev/null | fzf)"
-    echo "${acc}" > ~/.aws/current_acc
+    aws configure sso
     ;;
 
   *)
