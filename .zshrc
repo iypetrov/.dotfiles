@@ -131,6 +131,9 @@ alias g="git"
 alias ips="ip -br a s"
 alias nets="netstat -tulpen"
 
+# Bat
+export BAT_THEME="GitHub"
+
 ### Go
 export PATH=$PATH:/usr/local/go/bin:~/go/bin:~/go/bin/templ
 
