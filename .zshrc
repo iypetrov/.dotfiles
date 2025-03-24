@@ -72,6 +72,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 alias ll='ls -la --color'
 alias cls='clear'
 alias grep="grep --color"
+alias man="batman"
 alias logs="tail -f /var/log/syslog"
 
 git_init() {

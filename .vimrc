@@ -92,92 +92,6 @@ nnoremap <leader>d   :bd<cr>
 " Don't fold anything.
 autocmd BufWinEnter * set foldlevel=999999
 
-" Telescope
-let g:recent_files = copy(v:oldfiles)
-
-function! AddToRecentFiles(file)
-  let file = expand(a:file)
-  call filter(g:recent_files, 'v:val !=# file')
-  call insert(g:recent_files, file)
-  if len(g:recent_files) > 100
-    let g:recent_files = g:recent_files[:99]
-  endif
-endfunction
-
-autocmd BufRead * call AddToRecentFiles(expand('<afile>:p'))
-
-function! FzfGitAllFiles()
-  let git_root = systemlist('git rev-parse --show-toplevel')[0]
-  if v:shell_error
-    echo 'Not in a Git repository'
-    return
-  endif
-
-  let git_files_relative = split(system('git ls-files'), '\n')
-
-  if empty(git_files_relative)
-    echo 'No files in the current Git project'
-    return
-  endif
-
-  call fzf#run(fzf#wrap({
-        \ 'source': git_files_relative,
-        \ 'sink': { file -> execute('e ' . git_root . '/' . file) },
-        \ 'options': '--prompt="> " --preview="bat --style=numbers --color=always --line-range :500 ' . git_root . '/{}"'
-        \ }))
-endfunction
-
-function! FzfGitRecentFiles()
-  let git_root = systemlist('git rev-parse --show-toplevel')[0]
-  if v:shell_error
-    echo 'Not in a Git repository'
-    return
-  endif
-
-  let git_files_relative = split(system('git ls-files'), '\n')
-
-  let git_files = map(git_files_relative, { _, file -> resolve(git_root . '/' . file) })
-
-  let recent_files = map(copy(g:recent_files), { _, file -> expand(file) })
-  let recent_git_files = filter(recent_files, { _, file -> index(git_files, file) >= 0 })
-
-  let recent_git_files_relative = map(recent_git_files, { _, file -> substitute(file, git_root . '/', '', '') })
-
-  if empty(recent_git_files_relative)
-    echo 'No recently visited files in the current Git project'
-    return
-  endif
-
-  call fzf#run(fzf#wrap({
-        \ 'source': recent_git_files_relative,
-        \ 'sink': { file -> execute('e ' . git_root . '/' . file) },
-        \ 'options': '--prompt="> " --preview="bat --style=numbers --color=always --line-range :500 ' . git_root . '/{}"'
-        \ }))
-endfunction
-
-function! FzfRgFiles(query)
-  let git_root = systemlist('git rev-parse --show-toplevel')[0]
-  if v:shell_error
-    echo 'Not in a Git repository'
-    return
-  endif
-
-  let git_files_relative = split(system('git ls-files'), '\n')
-
-  let rg_command = 'rg --column --line-number --no-heading --color=never --smart-case -e ' . shellescape(a:query) . ' '
-
-  let file_filter = join(map(copy(git_files_relative), { _, file -> shellescape(file) }), ' ')
-  let rg_command .= ' ' . file_filter
-
-  let rg_command .= ' | awk -v root="' . git_root . '/" ''{ sub(root, ""); print }'''
-
-  call fzf#vim#grep(rg_command, 1, fzf#vim#with_preview({'options': ['--nth=3..']}), 0)
-endfunction
-
-nnoremap <leader>ff :call FzfGitAllFiles()<CR>
-nnoremap <leader>fr :call FzfGitRecentFiles()<CR>
-nnoremap <Leader>fp :call FzfRgFiles("")<CR>
-
 " Harpoon
 let g:custom_tags = []
 
@@ -325,6 +239,29 @@ set termguicolors
 set background=light
 " colorscheme papercolor
 colorscheme xcode
+
+" fzf
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.3, 'relative': v:true, 'yoffset': 1.0 } }
+
+nnoremap <leader>ff :call fzf#run(fzf#wrap({
+    \ 'source': 'find . -type d \( -name .git -o -name node_modules -o -name vendor -o -name tmp \) -prune -o -type f -print',
+    \ 'sink': { file -> execute('e ' . file) },
+    \ 'options': '--preview="bat --color=always --style=numbers {}"'
+\ }))<CR>
+
+nnoremap <leader>fr :call fzf#run(fzf#wrap({
+    \ 'source': 'find . -type d \( -name .git -o -name node_modules -o -name vendor -o -name tmp \) -prune -o -type f -exec stat -f "%a %N" {} \; \| sort -nr -k1 \| cut -d " " -f2-',
+    \ 'sink': { file -> execute('e ' . file) },
+    \ 'options': '--preview="bat --color=always --style=numbers {}"'
+\ }))<CR>
+
+noremap <leader>fp :call fzf#run(fzf#wrap({
+    \ 'source': 'ag --vimgrep ""',
+    \ 'sink': { line -> execute('e ' . split(line, ':')[0] . ' \| ' . split(line, ':')[1]) },
+    \ 'options': '--bind "change:reload:ag --vimgrep {q}" ' .
+    \            '--delimiter : --nth 4 ' .
+    \            '--preview="~/scripts/fzf-keyword-preview.sh {1} {2}"'
+\ }))<CR>
 
 " nerdtree
 let NERDTreeShowHidden=1
