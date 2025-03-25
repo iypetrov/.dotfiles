@@ -332,3 +332,36 @@ augroup go_mappings
   autocmd FileType go nmap <leader>dc :GoDocBrowser<CR>
 augroup END
 
+" terraform
+function! OpenURL(url)
+  if a:url != ''
+    let l:command = '!open ' . shellescape(a:url) . ' > /dev/null 2>&1 &'
+    execute l:command
+  endif
+endfunction
+
+function! TerraformDocBrowser()
+    let word = expand("<cword>")
+    let l:line = getline('.')
+
+    let block_pattern = '^\s*\(resource\|data\)\s\+"\([^"]\+\)"\s\+"\([^"]\+\)"'
+    if l:line =~ l:block_pattern
+        let l:block = matchstr(l:line, '^\s*\(resource\|data\)')
+        if l:block == 'resource'
+            let l:block_type = 'resources'
+        elseif l:block == 'data'
+            let l:block_type = 'data-sources'
+        endif
+
+        let l:resource_name = substitute(matchstr(l:line, l:block_pattern), '^\s*\(resource\|data\)\s\+"\([^"]\+\)"\s\+"\([^"]\+\)"', '\2', '')
+        let l:provider = matchstr(l:resource_name, '^[^_]\+')
+        let l:target = matchstr(l:resource_name, '_\zs.*')
+        let l:url = 'https://registry.terraform.io/providers/hashicorp/' . l:provider . '/latest/docs/' . l:block_type . '/' . l:target
+        call OpenURL(l:url)
+    endif
+endfunction
+
+augroup terraform_mappings
+  autocmd!
+  autocmd FileType terraform nnoremap <leader>dc :call TerraformDocBrowser()<CR><CR>
+augroup END
