@@ -341,10 +341,12 @@ function! OpenURL(url)
 endfunction
 
 function! TerraformDocBrowser()
-    let word = expand("<cword>")
     let l:line = getline('.')
 
-    let block_pattern = '^\s*\(resource\|data\)\s\+"\([^"]\+\)"\s\+"\([^"]\+\)"'
+    let l:block_pattern = '^\s*\(resource\|data\)\s\+"\([^"]\+\)"\s\+"\([^"]\+\)"'
+    let l:field_pattern = '^\s*\w\+\s*='
+    let l:field_block_pattern = '^\s*\(\w\+\)\s*{'
+
     if l:line =~ l:block_pattern
         let l:block = matchstr(l:line, '^\s*\(resource\|data\)')
         if l:block == 'resource'
@@ -358,6 +360,29 @@ function! TerraformDocBrowser()
         let l:target = matchstr(l:resource_name, '_\zs.*')
         let l:url = 'https://registry.terraform.io/providers/hashicorp/' . l:provider . '/latest/docs/' . l:block_type . '/' . l:target
         call OpenURL(l:url)
+    elseif l:line =~ l:field_pattern || l:line =~ l:field_block_pattern
+        if l:line =~ l:field_pattern
+            let l:field = matchstr(l:line, '^\s*\zs\w\+\ze\s*=')
+        else
+            let l:field = matchstr(l:line, '^\s*\zs\w\+\ze\s*{')
+        endif
+
+        let l:block_line_num = search(l:block_pattern, 'bnW')
+        if l:block_line_num > 0
+            let l:block_line = getline(l:block_line_num)
+            let l:block = matchstr(l:block_line, '^\s*\(resource\|data\)')
+            if l:block == 'resource'
+                let l:block_type = 'resources'
+            elseif l:block == 'data'
+                let l:block_type = 'data-sources'
+            endif
+
+            let l:resource_name = substitute(matchstr(l:block_line, l:block_pattern), '^\s*\(resource\|data\)\s\+"\([^"]\+\)"\s\+"\([^"]\+\)"', '\2', '')
+            let l:provider = matchstr(l:resource_name, '^[^_]\+')
+            let l:target = matchstr(l:resource_name, '_\zs.*')
+            let l:url = 'https://registry.terraform.io/providers/hashicorp/' . l:provider . '/latest/docs/' . l:block_type . '/' . l:target . '\#'. l:field . '-1'
+            call OpenURL(l:url)
+        endif
     endif
 endfunction
 
