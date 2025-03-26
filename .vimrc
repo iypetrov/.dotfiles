@@ -340,6 +340,15 @@ function! OpenURL(url)
   endif
 endfunction
 
+function! ConvertProviderToFull(provider_short) abort
+    let providers = {
+        \ 'aws': 'hashicorp/aws',
+        \ 'cloudflare': 'cloudflare/cloudflare',
+        \ 'github': 'integrations/github',
+    \ }
+    return get(providers, a:provider_short, '')
+endfunction
+
 function! TerraformDocBrowser()
     let l:line = getline('.')
 
@@ -356,9 +365,10 @@ function! TerraformDocBrowser()
         endif
 
         let l:resource_name = substitute(matchstr(l:line, l:block_pattern), '^\s*\(resource\|data\)\s\+"\([^"]\+\)"\s\+"\([^"]\+\)"', '\2', '')
-        let l:provider = matchstr(l:resource_name, '^[^_]\+')
+        let l:provider_short = matchstr(l:resource_name, '^[^_]\+')
+        let l:provider = ConvertProviderToFull(l:provider_short)
         let l:target = matchstr(l:resource_name, '_\zs.*')
-        let l:url = 'https://registry.terraform.io/providers/hashicorp/' . l:provider . '/latest/docs/' . l:block_type . '/' . l:target
+        let l:url = 'https://registry.terraform.io/providers/' . l:provider . '/latest/docs/' . l:block_type . '/' . l:target
         call OpenURL(l:url)
     elseif l:line =~ l:field_pattern || l:line =~ l:field_block_pattern
         if l:line =~ l:field_pattern
@@ -378,9 +388,10 @@ function! TerraformDocBrowser()
             endif
 
             let l:resource_name = substitute(matchstr(l:block_line, l:block_pattern), '^\s*\(resource\|data\)\s\+"\([^"]\+\)"\s\+"\([^"]\+\)"', '\2', '')
-            let l:provider = matchstr(l:resource_name, '^[^_]\+')
+            let l:provider_short = matchstr(l:resource_name, '^[^_]\+')
+            let l:provider = ConvertProviderToFull(l:provider_short)
             let l:target = matchstr(l:resource_name, '_\zs.*')
-            let l:url = 'https://registry.terraform.io/providers/hashicorp/' . l:provider . '/latest/docs/' . l:block_type . '/' . l:target . '\#'. l:field . '-1'
+            let l:url = 'https://registry.terraform.io/providers/' . l:provider . '/latest/docs/' . l:block_type . '/' . l:target . '\#'. l:field . '-1'
             call OpenURL(l:url)
         endif
     endif
