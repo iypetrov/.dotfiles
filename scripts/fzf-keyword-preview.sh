@@ -18,16 +18,16 @@ fi
 LINE=$2
 
 MIN_LINES=1
-MAX_LINES=$(wc -l < "$FILE")
+MAX_LINES=$(wc -l < "$FILE" | xargs)
 
 START_LINE=$((LINE - 10))
 END_LINE=$((LINE + 10))
 
-if [[ $START_LINE -lt $MIN_LINES ]]; then
+if [[ $START_LINE -le $MIN_LINES ]]; then
     START_LINE=$MIN_LINES
 fi
 
-if [[ $END_LINE -gt $MAX_LINES ]]; then
+if [[ $END_LINE -ge $MAX_LINES ]]; then
     END_LINE=$MAX_LINES
 fi
 
