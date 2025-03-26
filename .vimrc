@@ -244,15 +244,15 @@ colorscheme xcode
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.3, 'relative': v:true, 'yoffset': 1.0 } }
 
 nnoremap <leader>ff :call fzf#run(fzf#wrap({
-    \ 'source': 'find . -type d \( -name .git -o -name node_modules -o -name vendor -o -name tmp \) -prune -o -type f -print',
+    \ 'source': 'find . -type d \( -name .git -o -name node_modules -o -name vendor -o -name tmp -o -name .terraform \) -prune -o -type f -print',
     \ 'sink': { file -> execute('e ' . file) },
-    \ 'options': '--preview="bat --color=always --style=numbers {}"'
+    \ 'options': '--preview="bat --color=always --style=numbers {}" --preview-window=40%'
 \ }))<CR>
 
 nnoremap <leader>fr :call fzf#run(fzf#wrap({
-    \ 'source': 'find . -type d \( -name .git -o -name node_modules -o -name vendor -o -name tmp \) -prune -o -type f -exec stat -f "%a %N" {} \; \| sort -nr -k1 \| cut -d " " -f2-',
+    \ 'source': 'find . -type d \( -name .git -o -name node_modules -o -name vendor -o -name tmp -o -name .terraform \) -prune -o -type f -exec stat -f "%a %N" {} \; \| sort -nr -k1 \| cut -d " " -f2-',
     \ 'sink': { file -> execute('e ' . file) },
-    \ 'options': '--preview="bat --color=always --style=numbers {}"'
+    \ 'options': '--preview="bat --color=always --style=numbers {}" --preview-window=40%'
 \ }))<CR>
 
 noremap <leader>fp :call fzf#run(fzf#wrap({
@@ -260,7 +260,7 @@ noremap <leader>fp :call fzf#run(fzf#wrap({
     \ 'sink': { line -> execute('e ' . split(line, ':')[0] . ' \| ' . split(line, ':')[1]) },
     \ 'options': '--bind "change:reload:ag --vimgrep {q}" ' .
     \            '--delimiter : --nth 4 ' .
-    \            '--preview="~/scripts/fzf-keyword-preview.sh {1} {2}"'
+    \            '--preview="~/scripts/fzf-keyword-preview.sh {1} {2}" --preview-window=40%'
 \ }))<CR>
 
 " nerdtree
