@@ -71,6 +71,13 @@ vnoremap <leader>y "+y
 nnoremap <leader>Y "+Y
 vnoremap <leader>Y "+Y
 
+" Shortcut for pasting from without changing the vim buffer
+nnoremap <leader>p "_dP
+vnoremap <leader>p "_dP
+
+" Shortcut for deleting from without changing the vim buffer
+vnoremap <leader>d "_d
+
 " Go back to the file tree
 nnoremap <leader>pv :Ex<CR>
 
@@ -343,6 +350,7 @@ endfunction
 function! ConvertProviderToFull(provider_short) abort
     let providers = {
         \ 'aws': 'hashicorp/aws',
+        \ 'awscc': 'hashicorp/awscc',
         \ 'cloudflare': 'cloudflare/cloudflare',
         \ 'github': 'integrations/github',
     \ }
@@ -378,6 +386,7 @@ function! TerraformDocBrowser()
         endif
 
         let l:block_line_num = search(l:block_pattern, 'bnW')
+        let l:field_block_line_num = search(l:field_block_pattern, 'bnW')
         if l:block_line_num > 0
             let l:block_line = getline(l:block_line_num)
             let l:block = matchstr(l:block_line, '^\s*\(resource\|data\)')
