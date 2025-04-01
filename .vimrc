@@ -349,8 +349,10 @@ endfunction
 
 function! ConvertProviderToFull(provider_short) abort
     let providers = {
+        \ 'hcp': 'hashicorp/hcp',
         \ 'aws': 'hashicorp/aws',
         \ 'awscc': 'hashicorp/awscc',
+        \ 'vaultt': 'hashicorp/vault',
         \ 'cloudflare': 'cloudflare/cloudflare',
         \ 'github': 'integrations/github',
     \ }

@@ -192,7 +192,7 @@ alias tfi="terraform init"
 
 tfp() {
     aws_profile="$(cat ~/.aws/config | wc -l | xargs)"
-    if [[ "${aws_profile}" == "8" ]]; then
+    if [[ "${aws_profile}" == "3" ]]; then
         terraform plan
     else
         terraform plan -lock=false
@@ -201,7 +201,7 @@ tfp() {
 
 tfa() {
     aws_profile="$(cat ~/.aws/config | wc -l | xargs)"
-    if [[ "${aws_profile}" == "8" ]]; then
+    if [[ "${aws_profile}" == "3" ]]; then
         terraform apply -auto-approve
     else
         echo "Don't run apply from this account" 
@@ -210,7 +210,7 @@ tfa() {
 
 tfd() {
     aws_profile="$(cat ~/.aws/config | wc -l | xargs)"
-    if [[ "${aws_profile}" == "8" ]]; then
+    if [[ "${aws_profile}" == "3" ]]; then
         terraform destroy -auto-approve
     else
         echo "Don't run delete from this account" 

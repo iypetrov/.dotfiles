@@ -3,6 +3,8 @@ core:
   pager_arguments:
     - "--theme=gruvbox-light"
 git:
+  merging:
+    args: mergetool
   paging:
     pager: delta --light --paging=never
     colorArg: never
