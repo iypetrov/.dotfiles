@@ -16,7 +16,12 @@ case "${target}" in
         --region eu-central-1 \
         --query "Reservations[].Instances[]" \
         --output json | \
-        jq -r '.[] | select(.State.Name == "running") | .InstanceId + " " + (.Tags[] | select(.Key == "Name") | .Value) + " " + .State.Name' | \
+        jq -r '.[] | select(.State.Name == "running") | .InstanceId + " " + (.Tags[] | select(.Key == "Name") | .Value)' | \
+        while read -r id name state; do
+            status_check=$(aws ec2 describe-instance-status --instance-ids "$id" --region eu-central-1 \
+                --query "InstanceStatuses[].InstanceStatus.Status" --output text)
+            echo "$id $name $state $status_check"
+        done | \
         fzf --tac | \
         awk '{print $1}')
     
