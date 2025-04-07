@@ -16,7 +16,7 @@ case "${target}" in
         --region eu-central-1 \
         --query "Reservations[].Instances[]" \
         --output json | \
-        jq -r '.[] | select(.State.Name == "running") | .InstanceId + " " + (.Tags[] | select(.Key == "Name") | .Value)' | \
+        jq -r '.[] | select(.State.Name == "running") | .InstanceId + " " + (.Tags[] | select(.Key == "Name") | .Value) + " " + .State.Name' | \
         fzf --tac | \
         awk '{print $1}')
     
