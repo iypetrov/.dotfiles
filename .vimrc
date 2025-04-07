@@ -249,6 +249,7 @@ colorscheme xcode
 
 " fzf
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.3, 'relative': v:true, 'yoffset': 1.0 } }
+let g:fzf_vim_relative_paths = 1
 
 nnoremap <leader>ff :call fzf#run(fzf#wrap({
     \ 'source': 'find . -type d \( -name .git -o -name node_modules -o -name vendor -o -name tmp -o -name .terraform \) -prune -o -type f -print',
