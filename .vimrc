@@ -375,7 +375,7 @@ function! TerraformDocBrowser()
         let l:provider_short = matchstr(l:resource_name, '^[^_]\+')
         let l:provider = ConvertProviderToFull(l:provider_short)
         let l:target = matchstr(l:resource_name, '_\zs.*')
-        let l:url = 'https://registry.terraform.io/providers/' . l:provider . '/latest/docs/' . l:block_type . '/' . l:target
+        let l:url = 'https://registry.terraform.io/providers/' . l:provider . '/docs/' . l:block_type . '/' . l:target
         call OpenURL(l:url)
     elseif l:line =~ l:field_pattern || l:line =~ l:field_block_pattern
         if l:line =~ l:field_pattern
