@@ -346,12 +346,12 @@ endfunction
 
 function! ConvertProviderToFull(provider_short) abort
     let providers = {
-        \ 'hcp': 'hashicorp/hcp',
-        \ 'aws': 'hashicorp/aws',
-        \ 'awscc': 'hashicorp/awscc',
-        \ 'vaultt': 'hashicorp/vault',
-        \ 'cloudflare': 'cloudflare/cloudflare',
-        \ 'github': 'integrations/github',
+        \ 'hcp': 'hashicorp/hcp/latest',
+        \ 'aws': 'hashicorp/aws/latest',
+        \ 'awscc': 'hashicorp/awscc/latest',
+        \ 'vaultt': 'hashicorp/vault/latest',
+        \ 'cloudflare': 'cloudflare/cloudflare/4.52.0',
+        \ 'github': 'integrations/github/latest',
     \ }
     return get(providers, a:provider_short, '')
 endfunction
@@ -401,9 +401,9 @@ function! TerraformDocBrowser()
             let l:target = matchstr(l:resource_name, '_\zs.*')
 
             if l:line =~ l:field_pattern 
-                let l:url = 'https://registry.terraform.io/providers/' . l:provider . '/latest/docs/' . l:block_type . '/' . l:target . '\#'. l:field . '-1'
+                let l:url = 'https://registry.terraform.io/providers/' . l:provider . '/docs/' . l:block_type . '/' . l:target . '\#'. l:field . '-1'
             elseif l:line =~ l:field_block_pattern
-                let l:url = 'https://registry.terraform.io/providers/' . l:provider . '/latest/docs/' . l:block_type . '/' . l:target . '\#'. l:field
+                let l:url = 'https://registry.terraform.io/providers/' . l:provider . '/docs/' . l:block_type . '/' . l:target . '\#'. l:field
             endif
             call OpenURL(l:url)
         endif

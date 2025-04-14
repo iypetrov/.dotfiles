@@ -75,6 +75,8 @@ alias grep="grep --color"
 alias man="batman"
 alias logs="tail -f /var/log/syslog"
 
+export APP_ENV=local
+
 git_init() {
   repo_name="$(basename $(pwd))"
   git init
@@ -175,6 +177,7 @@ alias dlog="docker logs -f"
 alias dcu="docker compose up -d"
 alias dcd="docker compose down"
 alias drmv="docker volume rm $(docker volume ls -q)"
+alias dive="docker run -ti --rm  -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive"
 drm() {
   docker stop $(docker ps -aq)
   docker rm -f $(docker ps -aq)
@@ -192,7 +195,7 @@ alias tfi="terraform init"
 
 tfp() {
     aws_profile="$(cat ~/.aws/config | wc -l | xargs)"
-    if [[ "${aws_profile}" == "3" ]]; then
+    if [[ "${aws_profile}" == "8" ]]; then
         terraform plan
     else
         terraform plan -lock=false
@@ -201,7 +204,7 @@ tfp() {
 
 tfa() {
     aws_profile="$(cat ~/.aws/config | wc -l | xargs)"
-    if [[ "${aws_profile}" == "3" ]]; then
+    if [[ "${aws_profile}" == "8" ]]; then
         terraform apply -auto-approve
     else
         echo "Don't run apply from this account" 
@@ -210,7 +213,7 @@ tfa() {
 
 tfd() {
     aws_profile="$(cat ~/.aws/config | wc -l | xargs)"
-    if [[ "${aws_profile}" == "3" ]]; then
+    if [[ "${aws_profile}" == "8" ]]; then
         terraform destroy -auto-approve
     else
         echo "Don't run delete from this account" 

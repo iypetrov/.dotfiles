@@ -12,19 +12,15 @@ case "${target}" in
     ssh -i ~/.ssh/id_ed25519_gasx ipetrov@access.gas-x.de
     ;;
   "aws")
-    instance_id=$(aws ec2 describe-instances \
+   instance_id=$(
+      aws ec2 describe-instances \
         --region eu-central-1 \
-        --query "Reservations[].Instances[]" \
-        --output json | \
-        jq -r '.[] | select(.State.Name == "running") | .InstanceId + " " + (.Tags[] | select(.Key == "Name") | .Value)' | \
-        while read -r id name state; do
-            status_check=$(aws ec2 describe-instance-status --instance-ids "$id" --region eu-central-1 \
-                --query "InstanceStatuses[].InstanceStatus.Status" --output text)
-            echo "$id $name $state $status_check"
-        done | \
-        fzf --tac | \
-        awk '{print $1}')
-    
+        --query "Reservations[].Instances[?State.Name=='running'].[InstanceId, Tags[?Key=='Name']|[0].Value, State.Name]" \
+        --output text | \
+      fzf --tac | \
+      awk '{print $1}'
+    )
+ 
     if [ -n "$instance_id" ]; then
         aws ssm start-session \
             --target "${instance_id}" \
