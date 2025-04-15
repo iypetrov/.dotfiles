@@ -17,6 +17,7 @@ case "${target}" in
         --region eu-central-1 \
         --query "Reservations[].Instances[?State.Name=='running'].[InstanceId, Tags[?Key=='Name']|[0].Value, State.Name]" \
         --output text | \
+      xargs | \
       fzf --tac | \
       awk '{print $1}'
     )
