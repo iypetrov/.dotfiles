@@ -2,12 +2,12 @@
 
 [[ ! $(command -v fzf) ]] && echo "Error: You need to have fzf installed" >&2 && return 1
 
-target="$(find "${XDG_DOCUMENTS_DIR}/projects/common" "${XDG_DOCUMENTS_DIR}/projects/personal" "${XDG_DOCUMENTS_DIR}/projects/ip812" "${XDG_DOCUMENTS_DIR}/projects/work/cpx/gasx" -mindepth 1 -maxdepth 1 -type d | fzf)"
+target="$(find "${XDG_DOCUMENTS_DIR}/projects/common" "${XDG_DOCUMENTS_DIR}/projects/personal" "${XDG_DOCUMENTS_DIR}/projects/ip812" "${XDG_DOCUMENTS_DIR}/projects/avalon" "${XDG_DOCUMENTS_DIR}/projects/work/cpx/gasx" -mindepth 1 -maxdepth 1 -type d | fzf)"
 if [[ -z $"{target}" ]]; then
     exit 0
 fi
 
-session="$(basename "${target}" | tr '.' '_')"
+session="$(realpath "${target}" | cut -d '/' -f6- | tr '.' '_')"
 
 tmux_running="$(pgrep tmux)"
 if [[ -z "$TMUX" ]] && [[ -z "${tmux_running}" ]]; then
@@ -23,4 +23,3 @@ if ! tmux has-session -t="${session}" 2> /dev/null; then
 fi
 
 tmux switch-client -t "${session}"
-
