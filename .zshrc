@@ -152,9 +152,10 @@ mdepi() {
 
 export JAVA_17_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 export JAVA_21_HOME=/Library/Java/JavaVirtualMachines/zulu-21.jdk/Contents/Home
+export JAVA_24_HOME=$(/usr/libexec/java_home -v 24)
 export MAVEN_HOME=/opt/homebrew/opt/maven
 export GRADLE_HOME=/opt/homebrew/opt/gradle
-export JAVA_HOME=$JAVA_21_HOME
+export JAVA_HOME=$JAVA_24_HOME
 export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$PATH
 
 ### Python

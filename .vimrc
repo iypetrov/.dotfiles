@@ -352,6 +352,7 @@ function! ConvertProviderToFull(provider_short) abort
         \ 'vaultt': 'hashicorp/vault/latest',
         \ 'cloudflare': 'cloudflare/cloudflare/4.52.0',
         \ 'github': 'integrations/github/latest',
+        \ 'gitlab': 'gitlabhq/gitlab/latest',
     \ }
     return get(providers, a:provider_short, '')
 endfunction
