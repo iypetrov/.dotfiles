@@ -100,121 +100,136 @@ nnoremap <leader>d   :bd<cr>
 autocmd BufWinEnter * set foldlevel=999999
 
 " Harpoon
-let g:custom_tags = []
+" Persistent custom marks stored in ~/.vim-marks by default
+let s:marks_file = expand('$HOME') . '/.vim-marks'
 
-function! ToggleCustomTag()
-    let file_path = expand('%:p')
-    let line_num = line('.')
-    let line_text = getline('.')
-
-    " Check if the tag already exists
-    let index_to_remove = -1
-    for i in range(len(g:custom_tags))
-        if g:custom_tags[i].file == file_path && g:custom_tags[i].line == line_num
-            let index_to_remove = i
-            break
-        endif
-    endfor
-
-    if index_to_remove != -1
-        " If the tag exists, remove it
-        call remove(g:custom_tags, index_to_remove)
-        echo "Removed tag at line " . line_num
-    else
-        " If the tag doesn't exist, add it
-        call add(g:custom_tags, {
-            \ 'file': file_path,
-            \ 'line': line_num,
-            \ 'text': line_text
-        \ })
-        echo "Added tag at line " . line_num
+" Load marks from file on startup
+function! LoadCustomTags() abort
+  if !filereadable(s:marks_file)
+    let g:custom_tags = []
+    return
+  endif
+  let lines = readfile(s:marks_file)
+  let g:custom_tags = []
+  for l in lines
+    let parts = split(l, '\t')
+    if len(parts) >= 3
+      let file = parts[0]
+      let lnum = str2nr(parts[1])
+      let text = parts[2]
+      call add(g:custom_tags, {'file': file, 'line': lnum, 'text': text})
     endif
+  endfor
 endfunction
 
-function! JumpToPreviousTag()
-    if len(g:custom_tags) == 0
-        echo "No tags found."
-        return
-    endif
-
-    let current_index = -1
-    for i in range(len(g:custom_tags))
-        if g:custom_tags[i].file == expand('%:p') && g:custom_tags[i].line == line('.')
-            let current_index = i
-            break
-        endif
-    endfor
-
-    if current_index == -1
-        let current_index = len(g:custom_tags)
-    endif
-
-    let prev_index = (current_index - 1) % len(g:custom_tags)
-    let prev_tag = g:custom_tags[prev_index]
-
-    execute 'edit ' . prev_tag.file
-    execute prev_tag.line
+" Save marks to file whenever g:custom_tags changes
+function! SaveCustomTags() abort
+  let lines = []
+  for tag in g:custom_tags
+    call add(lines, tag.file . "\t" . tag.line . "\t" . substitute(tag.text, '\t', '    ', 'g'))
+  endfor
+  call writefile(lines, s:marks_file)
 endfunction
 
-function! JumpToNextTag()
-    if len(g:custom_tags) == 0
-        echo "No tags found."
-        return
+" Initialize storage and load existing marks
+if !exists('g:custom_tags')
+  let g:custom_tags = []
+endif
+autocmd VimEnter * call LoadCustomTags()
+
+" Toggle a mark at the current file and line
+function! ToggleCustomTag() abort
+  let file_path = expand('%:p')
+  let line_num = line('.')
+  let line_text = getline('.')
+  let idx = -1
+  for i in range(len(g:custom_tags))
+    if g:custom_tags[i].file == file_path && g:custom_tags[i].line == line_num
+      let idx = i
+      break
     endif
-
-    let current_index = -1
-    for i in range(len(g:custom_tags))
-        if g:custom_tags[i].file == expand('%:p') && g:custom_tags[i].line == line('.')
-            let current_index = i
-            break
-        endif
-    endfor
-
-    if current_index == -1
-        let current_index = -1
-    endif
-
-    let next_index = (current_index + 1) % len(g:custom_tags)
-    let next_tag = g:custom_tags[next_index]
-
-    execute 'edit ' . next_tag.file
-    execute next_tag.line
+  endfor
+  if idx != -1
+    call remove(g:custom_tags, idx)
+    echo 'Removed tag at ' . file_path . ':' . line_num
+  else
+    call add(g:custom_tags, {'file': file_path, 'line': line_num, 'text': line_text})
+    echo 'Added tag at ' . file_path . ':' . line_num
+  endif
+  call SaveCustomTags()
 endfunction
 
-function! ShowAllTags()
-    if len(g:custom_tags) == 0
-        echo "No tags found."
-        return
+" Jump to previous stored mark
+function! JumpToPreviousTag() abort
+  if empty(g:custom_tags)
+    echo 'No tags found.'
+    return
+  endif
+  let cur = expand('%:p') . ':' . line('.')
+  let idx = -1
+  for i in range(len(g:custom_tags))
+    if g:custom_tags[i].file . ':' . g:custom_tags[i].line == cur
+      let idx = i
+      break
     endif
-
-    let qf_list = []
-    for tag in g:custom_tags
-        call add(qf_list, {
-            \ 'filename': tag.file,
-            \ 'lnum': tag.line,
-            \ 'text': tag.text
-        \ })
-    endfor
-
-    call setqflist(qf_list)
-    copen
-
-    " Map dd to delete the current entry from the quickfix list and g:custom_tags
-    nnoremap <buffer> dd :call DeleteFromQuickfix()<CR>
+  endfor
+  if idx == -1
+    let idx = len(g:custom_tags)
+  endif
+  let prev = (idx - 1 + len(g:custom_tags)) % len(g:custom_tags)
+  execute 'edit ' . g:custom_tags[prev].file
+  call cursor(g:custom_tags[prev].line, 1)
 endfunction
 
-function! DeleteFromQuickfix()
-    let current_line = line('.') - 1 " Quickfix list is 1-indexed
-    if current_line >= 0 && current_line < len(g:custom_tags)
-        call remove(g:custom_tags, current_line)
-        call setqflist([])
-        call ShowAllTags()
+" Jump to next stored mark
+function! JumpToNextTag() abort
+  if empty(g:custom_tags)
+    echo 'No tags found.'
+    return
+  endif
+  let cur = expand('%:p') . ':' . line('.')
+  let idx = -1
+  for i in range(len(g:custom_tags))
+    if g:custom_tags[i].file . ':' . g:custom_tags[i].line == cur
+      let idx = i
+      break
     endif
+  endfor
+  let next = (idx + 1) % len(g:custom_tags)
+  execute 'edit ' . g:custom_tags[next].file
+  call cursor(g:custom_tags[next].line, 1)
 endfunction
 
+" Show all tags in quickfix
+function! ShowAllTags() abort
+  if empty(g:custom_tags)
+    echo 'No tags found.'
+    return
+  endif
+  let qf = []
+  for tag in g:custom_tags
+    call add(qf, {'filename': tag.file, 'lnum': tag.line, 'text': tag.text})
+  endfor
+  call setqflist(qf)
+  copen
+  nnoremap <buffer> dd :call DeleteFromQuickfix()<CR>
+endfunction
+
+" Delete mark from quickfix and save
+function! DeleteFromQuickfix() abort
+  let idx = line('.') - 1
+  if idx >= 0 && idx < len(g:custom_tags)
+    call remove(g:custom_tags, idx)
+    call SaveCustomTags()
+    call setqflist([])
+    call ShowAllTags()
+  endif
+endfunction
+
+" Key mappings
 nnoremap <leader>a :call ToggleCustomTag()<CR>
-nnoremap <C-p> :call JumpToPreviousTag()<CR>
-nnoremap <C-n> :call JumpToNextTag()<CR>
+nnoremap <C-p>   :call JumpToPreviousTag()<CR>
+nnoremap <C-n>   :call JumpToNextTag()<CR>
 nnoremap <leader><leader> :call ShowAllTags()<CR>
 
 " Plugins
@@ -252,20 +267,11 @@ let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.3, 'relative': v:true, 
 let g:fzf_vim_relative_paths = 1
 
 nnoremap <leader>ff :call fzf#run(fzf#wrap({
-    \ 'source': 'find . -type d \( -name .git -o -name node_modules -o -name vendor -o -name tmp -o -name .terraform \) -prune -o -type f -print',
+    \ 'source': 'find . -type d \( -name .git -o -name node_modules -o -name dist -o -name target -o -name vendor -o -name tmp -o -name .terraform \) -prune -o -type f -print',
     \ 'sink': { file -> execute('e ' . file) },
     \ 'options': '--preview="bat --color=always --style=numbers {}" --preview-window=40%'
 \ }))<CR>
-
 nnoremap <leader>fp :RG<CR>
-
-" noremap <leader>fp :call fzf#run(fzf#wrap({
-"     \ 'source': 'rg --vimgrep ""',
-"     \ 'sink': { line -> execute('e ' . split(line, ':')[0] . ' \| ' . split(line, ':')[1]) },
-"     \ 'options': '--bind "change:reload:rg --vimgrep {q}" ' .
-"     \            '--delimiter : --nth 4 ' .
-"     \            '--preview="~/scripts/fzf-keyword-preview.sh {1} {2}" --preview-window=40%'
-" \ }))<CR>
 
 " nerdtree
 let NERDTreeShowHidden=1
@@ -349,10 +355,11 @@ function! ConvertProviderToFull(provider_short) abort
         \ 'hcp': 'hashicorp/hcp/latest',
         \ 'aws': 'hashicorp/aws/latest',
         \ 'awscc': 'hashicorp/awscc/latest',
-        \ 'vaultt': 'hashicorp/vault/latest',
+        \ 'vault': 'hashicorp/vault/latest',
         \ 'cloudflare': 'cloudflare/cloudflare/4.52.0',
         \ 'github': 'integrations/github/latest',
         \ 'gitlab': 'gitlabhq/gitlab/latest',
+        \ 'grafana': 'grafana/grafana/latest',
     \ }
     return get(providers, a:provider_short, '')
 endfunction
