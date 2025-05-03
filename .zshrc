@@ -191,6 +191,7 @@ export KUBE_EDITOR=vim
 
 ### Terraform
 alias tf="terraform"
+alias tfv="terraform validate"
 alias tffmt="terraform fmt"
 alias tfi="terraform init"
 
