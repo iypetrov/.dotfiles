@@ -2,7 +2,7 @@
 
 [[ ! $(command -v fzf) ]] && echo "Error: You need to have fzf installed" >&2 && return 1
 
-target="$(find "${XDG_DOCUMENTS_DIR}/projects/common" "${XDG_DOCUMENTS_DIR}/projects/personal" "${XDG_DOCUMENTS_DIR}/projects/ip812" "${XDG_DOCUMENTS_DIR}/projects/avalon" "${XDG_DOCUMENTS_DIR}/projects/work/cpx/gasx" -mindepth 1 -maxdepth 1 -type d | fzf)"
+target="$(find "${XDG_DOCUMENTS_DIR}/projects/common" "${XDG_DOCUMENTS_DIR}/projects/personal" "${XDG_DOCUMENTS_DIR}/projects/ip812" "${XDG_DOCUMENTS_DIR}/projects/avalonpharma" "${XDG_DOCUMENTS_DIR}/projects/avalon" "${XDG_DOCUMENTS_DIR}/projects/work/cpx/gasx" -mindepth 1 -maxdepth 1 -type d | fzf)"
 if [[ -z $"{target}" ]]; then
     exit 0
 fi

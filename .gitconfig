@@ -29,6 +29,9 @@
 [includeIf "gitdir:~/Documents/projects/avalon/"]
 	path = ~/.gitconfig-personal
 
+[includeIf "gitdir:~/Documents/projects/avalonpharma/"]
+	path = ~/.gitconfig-personal
+
 [includeIf "gitdir:~/Documents/projects/personal/"]
 	path = ~/.gitconfig-personal
 
