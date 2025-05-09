@@ -34,7 +34,6 @@ zinit ice lucid wait'0'
 zinit light joshskidmore/zsh-fzf-history-search
 
 # Add in snippets
-zinit snippet OMZP::colored-man-pages
 
 # Load completions
 autoload -Uz compinit && compinit
@@ -72,7 +71,6 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 alias ll='ls -la --color'
 alias cls='clear'
 alias grep="grep --color"
-alias man="batman"
 alias logs="tail -f /var/log/syslog"
 
 export APP_ENV=local
