@@ -2,24 +2,29 @@
 
 [[ ! $(command -v fzf) ]] && echo "Error: You need to have fzf installed" >&2 && return 1
 
+last_session_file="${HOME}/.tmux/last_session"
+
 target="$(find "${XDG_DOCUMENTS_DIR}/projects/common" "${XDG_DOCUMENTS_DIR}/projects/personal" "${XDG_DOCUMENTS_DIR}/projects/ip812" "${XDG_DOCUMENTS_DIR}/projects/avalonpharma" "${XDG_DOCUMENTS_DIR}/projects/avalon" "${XDG_DOCUMENTS_DIR}/projects/work/cpx/gasx" -mindepth 1 -maxdepth 1 -type d | fzf)"
 if [[ -z $"{target}" ]]; then
     exit 0
 fi
 
-session="$(realpath "${target}" | cut -d '/' -f6- | tr '.' '_')"
+curr_session="$(realpath "${target}" | cut -d '/' -f6- | tr '.' '_')"
 
 tmux_running="$(pgrep tmux)"
 if [[ -z "$TMUX" ]] && [[ -z "${tmux_running}" ]]; then
-    tmux new-session -s "${session}" -c "${target}" "vim ${target}"
-    tmux new-window -t "${session}:2" -c "${target}"
-    tmux select-window -t "${session}:1"
+    tmux new-session -s "${curr_session}" -c "${target}" "vim ${target}"
+    tmux new-window -t "${curr_session}:2" -c "${target}"
+    tmux select-window -t "${curr_session}:1"
 fi
 
-if ! tmux has-session -t="${session}" 2> /dev/null; then
-    tmux new-session -ds "${session}" -c "${target}" "vim ${target}"
-    tmux new-window -t "${session}:2" -c "${target}"
-    tmux select-window -t "${session}:1"
+if ! tmux has-session -t="${curr_session}" 2> /dev/null; then
+    tmux new-session -ds "${curr_session}" -c "${target}" "vim ${target}"
+    tmux new-window -t "${curr_session}:2" -c "${target}"
+    tmux select-window -t "${curr_session}:1"
+else
+    last_session="$(tmux display-message -p '#S')"
+    echo "${last_session}" > "${last_session_file}"
 fi
 
-tmux switch-client -t "${session}"
+tmux switch-client -t "${curr_session}"
