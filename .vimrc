@@ -248,6 +248,7 @@ Plug 'preservim/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree'
 Plug 'github/copilot.vim'
+Plug 'APZelos/blamer.nvim'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
@@ -285,6 +286,10 @@ let g:gitgutter_sign_removed = '-'
 
 " undotree
 nmap <leader>h :UndotreeToggle<CR>
+
+" blamer
+let g:blamer_enabled = 1
+let g:blamer_template = '<committer>, <committer-time> • <summary>, <commit-long>'
 
 " vim-lsp
 let g:lsp_diagnostics_virtual_text_enabled = 1
