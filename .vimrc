@@ -288,7 +288,7 @@ let g:gitgutter_sign_removed = '-'
 nmap <leader>h :UndotreeToggle<CR>
 
 " blamer
-let g:blamer_enabled = 1
+let g:blamer_enabled = 0
 let g:blamer_template = '<committer>, <committer-time> • <summary>, <commit-long>'
 
 " vim-lsp
