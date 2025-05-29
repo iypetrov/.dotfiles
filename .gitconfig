@@ -31,3 +31,6 @@
 
 [credential]
 	helper = store
+[user]
+	email = ilia.yavorov.petrov@gmail.com
+	name = iypetrov
