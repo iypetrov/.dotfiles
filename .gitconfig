@@ -1,31 +1,33 @@
 [core]
-autocrlf = input
-editor = nvim
-excludesfile = ~/.gitignore
-pager = delta
-
-[credential]
-helper = cache --timeout=3600
+	autocrlf = input
+	editor = vim
+	excludesfile = ~/.gitignore
+	pager = delta
 
 [interactive]
-diffFilter = delta --color-only
+    diffFilter = delta --color-only
 
 [delta]
-navigate = true    
-light = true      
-line-numbers = true
+    navigate = true
+    light = true
+    side-by-side = true
+    line-numbers = true
 
 [merge]
-conflictstyle = diff3
+	tool = vimdiff
+	conflictstyle = diff3
 
-[diff]
-colorMoved = default
-        
-[includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/work/"]
-path = ~/.gitconfig-work
+[mergetool "vimdiff"]
+    trustExitCode = true
 
-[includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/personal/"]
-path = ~/.gitconfig-personal
+[includeIf "gitdir:/home/ipetrov/projects/work/"]
+	path = ~/.gitconfig-work
 
-[includeIf "gitdir:/mnt/c/Users/ipetrov/stuff/common/"]
-path = ~/.gitconfig-personal
+[includeIf "gitdir:/home/ipetrov/projects/personal/"]
+	path = ~/.gitconfig-personal
+
+[includeIf "gitdir:/home/ipetrov/projects/common/"]
+	path = ~/.gitconfig-personal
+
+[credential]
+	helper = store
