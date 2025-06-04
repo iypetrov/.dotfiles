@@ -122,6 +122,13 @@ ssh_dsync() {
   done
 }
 
+kill_pids_on_port() {
+    port=$1
+    while read pid; do
+        kill -9 ${pid}
+    done < <(lsof -i :${port} | tail -n +2 | tr -s "[:space:]" " " | cut -d ' ' -f 2)
+}
+
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_DOCUMENTS_DIR="$HOME/Documents"
 
