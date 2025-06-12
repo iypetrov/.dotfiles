@@ -365,6 +365,9 @@ function! ConvertProviderToFull(provider_short) abort
         \ 'github': 'integrations/github/latest',
         \ 'gitlab': 'gitlabhq/gitlab/latest',
         \ 'grafana': 'grafana/grafana/latest',
+        \ 'artifactory': 'jfrog/artifactory/latest',
+        \ 'platform': 'jfrog/platform/latest',
+        \ 'project': 'jfrog/project/latest',
     \ }
     return get(providers, a:provider_short, '')
 endfunction
