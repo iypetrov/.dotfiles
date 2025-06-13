@@ -102,9 +102,6 @@ alias nets="netstat -tulpen"
 # bat
 export BAT_THEME="GitHub"
 
-# asdf
-. /Users/ipetrov/.asdf/asdf.sh
-
 # go
 
 # java
