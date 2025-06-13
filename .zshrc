@@ -157,3 +157,4 @@ tfd() {
 
 ### AWS
 export AWS_DEFAULT_PROFILE=personal
+. /Users/ipetrov/.asdf/asdf.sh
