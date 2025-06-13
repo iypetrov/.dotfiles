@@ -62,60 +62,11 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
-### Common
+# Common
 alias ll='ls -la --color'
 alias cls='clear'
 alias grep="grep --color"
 alias logs="tail -f /var/log/syslog"
-
-export APP_ENV=local
-
-git_init() {
-  repo_name="$(basename $(pwd))"
-  git init
-  touch README.md
-  git add .
-  git commit -m "init commit"
-  git remote add origin git@github.com:iypetrov/${repo_name}.git
-  git push -u origin master
-}
-
-ssh_dsync() {
-  if [[ $# -ne 1 ]]; then
-    echo "provide 1 arg" >&2
-    exit 1
-  fi
-
-  dir="$1"
-
-  if ! [[ -d "${dir}" ]]; then
-    echo "arg should be a dir" >&2
-    exit 1
-  fi
-
-  target="$(echo "sym-VM-eba7723976c1 sym-VM-904cc0fa0741" | tr ' ' '\n' | fzf)"
-
-  if [[ -z "${target}" ]]; then
-    echo "No target selected" >&2
-    exit 1
-  fi
-
-  while true; do
-    echo "Reload changes..."
-    case "${target}" in
-      "sym-VM-eba7723976c1")
-        sshpass -p '123' rsync -av --delete "${dir}" digital@192.168.0.242:~/project/ > /dev/null 2>&1
-        ;;
-      "sym-VM-904cc0fa0741")
-        sshpass -p 'digital' rsync -av --delete "${dir}" digital@127.0.0.1:1035:~/project > /dev/null 2>&1
-        ;;
-      *)
-        echo "Unknown target: ${target}" >&2
-        ;;
-    esac
-    sleep 5
-  done
-}
 
 kill_pids_on_port() {
     port=$1
@@ -136,10 +87,12 @@ alias nets="netstat -tulpen"
 # Bat
 export BAT_THEME="GitHub"
 
-### Go
-export PATH=$PATH:/usr/local/go/bin:~/go/bin:~/go/bin/templ
+# ASDF
+echo ". $HOME/.asdf/asdf.sh" >> ~/.zshrc
 
-### Java
+# Go
+
+# Java
 alias mci="mvn clean install"
 alias mgen="mvn generate-sources"
 alias mresolve="mvn dependency:purge-local-repository -DreResolve=true"
@@ -149,9 +102,9 @@ mdepi() {
   mvn dependency:tree -Dincludes="$*"
 }
 
-### Python
+# Python
 
-### Docker
+# Docker
 alias d="docker"
 alias dls="docker container ls"
 alias dps="docker ps -a"
@@ -167,7 +120,6 @@ drm() {
 
 ### Kubectl
 alias k="kubectl"
-
 export KUBE_EDITOR=vim
 
 ### Terraform
@@ -202,8 +154,6 @@ tfd() {
         echo "Don't run delete from this account" 
     fi
 }
-
-export PATH="$HOME/.tfenv/bin:$PATH"
 
 ### AWS
 export AWS_DEFAULT_PROFILE=personal
