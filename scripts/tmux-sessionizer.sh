@@ -2,9 +2,10 @@
 
 [[ ! $(command -v fzf) ]] && echo "Error: You need to have fzf installed" >&2 && return 1
 
-last_session_file="/home/ipetrov/.tmux/last_session"
+USERNAME="ipetrov"
+last_session_file="/home/$USERNAME/.tmux/last_session"
 
-target="$(find "/home/ipetrov/projects/common" "/home/ipetrov/projects/personal" "/home/ipetrov/projects/ip812" "/home/ipetrov/projects/avalon" "/home/ipetrov/projects/work" -mindepth 1 -maxdepth 1 -type d | fzf)"
+target="$(find "/home/$USERNAME/projects/common" "/home/$USERNAME/projects/personal" "/home/$USERNAME/projects/ip812" "/home/$USERNAME/projects/avalon" "/home/$USERNAME/projects/work" -mindepth 1 -maxdepth 1 -type d | fzf)"
 if [[ -z $"{target}" ]]; then
     exit 0
 fi
