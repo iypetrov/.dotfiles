@@ -20,20 +20,20 @@
 [mergetool "vimdiff"]
     trustExitCode = true
 
-[includeIf "gitdir:/home/ipetrov/projects/work/"]
-	path = ~/.gitconfig-work
+[includeIf "gitdir:/root/projects/work/"]
+	path = /root/.gitconfig-work
 
-[includeIf "gitdir:/home/ipetrov/projects/common/"]
-	path = ~/.gitconfig-personal
+[includeIf "gitdir:/root/projects/common/"]
+	path = /root/.gitconfig-personal
 
-[includeIf "gitdir:/home/ipetrov/projects/personal/"]
-	path = ~/.gitconfig-personal
+[includeIf "gitdir:/root/projects/personal/"]
+	path = /root/.gitconfig-personal
 
-[includeIf "gitdir:/home/ipetrov/projects/ip812/"]
-	path = ~/.gitconfig-personal
+[includeIf "gitdir:/root/projects/ip812/"]
+	path = /root/.gitconfig-personal
 
-[includeIf "gitdir:/home/ipetrov/projects/avalon/"]
-	path = ~/.gitconfig-personal
+[includeIf "gitdir:/root/projects/avalon/"]
+	path = /root/.gitconfig-personal
 
 [credential]
 	helper = store
