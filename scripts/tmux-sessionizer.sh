@@ -8,7 +8,7 @@ if [[ -z $"{target}" ]]; then
     exit 0
 fi
 
-curr_session="$(realpath "${target}" | cut -d '/' -f6- | tr '.' '_')"
+curr_session="$(realpath "${target}" | rev | cut -d '/' -f1,2,3 | rev | tr '.' '_')"
 
 tmux_running="$(pgrep tmux)"
 if [[ -z "$TMUX" ]] && [[ -z "${tmux_running}" ]]; then
