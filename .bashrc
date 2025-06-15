@@ -169,3 +169,6 @@ tfd() {
 
 # aws
 export AWS_DEFAULT_PROFILE=personal
+
+# asdf
+. "/root/.asdf/asdf.sh"
