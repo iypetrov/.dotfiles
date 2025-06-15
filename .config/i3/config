@@ -44,8 +44,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
-bindsym $mod+Return exec alacritty 
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+q kill
@@ -192,8 +191,8 @@ bar {
 exec --no-startup-id nitrogen --restore
 exec_always "setxkbmap -model pc104 -layout us,bg -variant ,, -option grp:alt_shift_toggle"
 
-exec --no-startup-id brave
-exec --no-startup-id terminal
+exec --no-startup-id brave-browser
+exec --no-startup-id i3-sensible-terminal
 exec --no-startup-id postman 
 exec --no-startup-id dbeaver
 
