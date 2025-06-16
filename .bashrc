@@ -170,7 +170,3 @@ tfd() {
 
 # aws
 export AWS_DEFAULT_PROFILE=personal
-
-# asdf
-. "/root/.asdf/asdf.sh"
-. "/root/.asdf/completions/asdf.bash"
