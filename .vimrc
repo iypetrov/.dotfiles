@@ -349,7 +349,7 @@ augroup END
 " terraform
 function! OpenURL(url)
   if a:url != ''
-    let l:command = '!open ' . shellescape(a:url) . ' > /dev/null 2>&1 &'
+    let l:command = '!sudo -u ipetrov xdg-open ' . shellescape(a:url) . ' > /dev/null 2>&1 &'
     execute l:command
   endif
 endfunction
