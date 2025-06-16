@@ -101,6 +101,7 @@ alias nets="netstat -tulpen"
 
 # bat
 export BAT_THEME="GitHub"
+alias bat="batcat"
 
 # go
 

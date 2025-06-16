@@ -241,9 +241,9 @@ endif
 
 call plug#begin()
 
-Plug 'morhetz/gruvbox'
 Plug 'JaySandhu/xcode-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree'
@@ -260,7 +260,6 @@ call plug#end()
 
 set termguicolors
 set background=light
-" colorscheme gruvbox
 colorscheme xcode
 
 " fzf
@@ -270,7 +269,7 @@ let g:fzf_vim_relative_paths = 1
 nnoremap <leader>ff :call fzf#run(fzf#wrap({
     \ 'source': 'find . -type d \( -name .git -o -name node_modules -o -name dist -o -name target -o -name vendor -o -name tmp -o -name .terraform \) -prune -o -type f -print',
     \ 'sink': { file -> execute('e ' . file) },
-    \ 'options': '--preview="bat --color=always --style=numbers {}" --preview-window=40%'
+    \ 'options': '--preview="batcat --color=always --style=numbers {}" --preview-window=40%'
 \ }))<CR>
 nnoremap <leader>fp :RG<CR>
 
