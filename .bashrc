@@ -112,6 +112,11 @@ if [ -z "$TMUX" ]; then
   exit
 fi
 
+# ssh
+eval $(ssh-agent -s)
+ssh-add /root/.ssh/id_ed25519_personal
+ssh-add /root/.ssh/id_ed25519_work
+
 # bat
 export BAT_THEME="GitHub"
 alias bat="batcat"
