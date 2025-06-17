@@ -109,12 +109,6 @@ alias gp="git push"
 alias ips="ip -br a s"
 alias nets="netstat -tulpen"
 
-# tmux
-if [ -z "$TMUX" ]; then
-  tmux
-  exit
-fi
-
 # bat
 export BAT_THEME="GitHub"
 alias bat="batcat"
