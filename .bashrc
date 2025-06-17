@@ -101,6 +101,9 @@ sa() {
 
 # git
 alias g="git"
+alias gc="git commit -s"
+alias gt="git tag"
+alias gp="git push"
 
 # networks
 alias ips="ip -br a s"
@@ -111,11 +114,6 @@ if [ -z "$TMUX" ]; then
   tmux
   exit
 fi
-
-# ssh
-eval $(ssh-agent -s)
-ssh-add /root/.ssh/id_ed25519_personal
-ssh-add /root/.ssh/id_ed25519_work
 
 # bat
 export BAT_THEME="GitHub"
