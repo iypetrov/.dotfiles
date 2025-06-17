@@ -1,8 +1,7 @@
 #!/bin/bash
 
-USERNAME="ipetrov"
 curr_session="$(tmux display-message -p '#S')"
-last_session_file="/home/$USERNAME/.tmux/last_session"
+last_session_file="/root/.tmux/last_session"
 last_session="$(cat "${last_session_file}")"
 
 tmux switch-client -t "${last_session}"
