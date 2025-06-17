@@ -8,6 +8,8 @@
     "sqlc@1.29.0",
     "templ@0.3.865",
     "nodejs@24.1.0",
+    "python@3.13.3",
+    "pyenv@2.6.1",
     "postgresql@17.5",
     "terraform@1.9.4",
     "awscli2@2.27.2",
