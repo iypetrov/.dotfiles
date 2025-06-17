@@ -23,16 +23,7 @@
 [includeIf "gitdir:/root/projects/work/"]
 	path = /root/.gitconfig-work
 
-[includeIf "gitdir:/root/projects/common/"]
-	path = /root/.gitconfig-personal
-
-[includeIf "gitdir:/root/projects/personal/"]
-	path = /root/.gitconfig-personal
-
-[includeIf "gitdir:/root/projects/ip812/"]
-	path = /root/.gitconfig-personal
-
-[includeIf "gitdir:/root/projects/avalon/"]
+[includeIf "gitdir:/root/projects/"]
 	path = /root/.gitconfig-personal
 
 [credential]
