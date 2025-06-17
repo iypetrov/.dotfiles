@@ -17,5 +17,10 @@
     "eksctl@0.209.0",
     "kubectx@0.9.5",
     "k9s@0.50.6"
-  ]
+  ],
+  "shell": {
+        "init_hook": [
+            "tmux"
+        ],
+   }
 }

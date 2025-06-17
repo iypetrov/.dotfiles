@@ -84,6 +84,7 @@ alias ll='ls -la --color'
 alias cls='clear'
 alias grep="grep --color"
 alias logs="tail -f /var/log/syslog"
+alias dbs="devbox shell --config /root/devbox.json"
 
 kill_pids_on_port() {
     port=$1
@@ -92,12 +93,24 @@ kill_pids_on_port() {
     done < <(lsof -i :${port} | tail -n +2 | tr -s "[:space:]" " " | cut -d ' ' -f 2)
 }
 
+sa() {
+    eval "$(ssh-agent -s)"
+    ssh-add /root/.ssh/id_ed25519_personal
+    ssh-add /root/.ssh/id_ed25519_work
+}
+
 # git
 alias g="git"
 
 # networks
 alias ips="ip -br a s"
 alias nets="netstat -tulpen"
+
+# tmux
+if [ -z "$TMUX" ]; then
+  tmux
+  exit
+fi
 
 # bat
 export BAT_THEME="GitHub"
