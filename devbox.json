@@ -13,6 +13,7 @@
     "awscli2@2.27.2",
     "kubectl@1.33.1",
     "eksctl@0.209.0",
-    "kubectx@0.9.5"
+    "kubectx@0.9.5",
+    "k9s@0.50.6"
   ]
 }
