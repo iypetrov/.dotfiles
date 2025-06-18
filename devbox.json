@@ -13,6 +13,7 @@
     "postgresql@17.5",
     "terraform@1.9.4",
     "awscli2@2.27.2",
+    "ssm-session-manager-plugin@1.2.707.0",
     "kubectl@1.33.1",
     "eksctl@0.209.0",
     "kubectx@0.9.5",
