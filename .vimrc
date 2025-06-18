@@ -367,6 +367,7 @@ function! ConvertProviderToFull(provider_short) abort
         \ 'artifactory': 'jfrog/artifactory/latest',
         \ 'platform': 'jfrog/platform/latest',
         \ 'project': 'jfrog/project/latest',
+        \ 'kubernetes': 'hashicorp/kubernetes/latest',
     \ }
     return get(providers, a:provider_short, '')
 endfunction
