@@ -20,14 +20,11 @@
 [mergetool "vimdiff"]
     trustExitCode = true
 
-[includeIf "gitdir:/root/projects/work/"]
-	path = /root/.gitconfig-work
-
 [includeIf "gitdir:/root/projects/"]
 	path = /root/.gitconfig-personal
 
+[includeIf "gitdir:/root/projects/work/"]
+	path = /root/.gitconfig-work
+
 [credential]
 	helper = store
-[user]
-	email = ilia.yavorov.petrov@gmail.com
-	name = Ilia Petrov
