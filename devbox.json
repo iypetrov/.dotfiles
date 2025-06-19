@@ -11,13 +11,14 @@
     "python@3.13.3",
     "pyenv@2.6.1",
     "postgresql@17.5",
-    "terraform@1.9.4",
+    "terraform@1.9.7",
     "awscli2@2.27.2",
     "ssm-session-manager-plugin@1.2.707.0",
     "kubectl@1.33.1",
     "eksctl@0.209.0",
     "kubectx@0.9.5",
-    "k9s@0.50.6"
+    "k9s@0.50.6",
+    "jfrog-cli@2.76.1"
   ],
   "shell": {
         "init_hook": [
