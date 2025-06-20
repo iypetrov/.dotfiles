@@ -84,7 +84,7 @@ alias ll='ls -la --color'
 alias cls='clear'
 alias grep="grep --color"
 alias logs="tail -f /var/log/syslog"
-alias dbs="devbox shell --config /root/devbox.json"
+alias dbs="devbox shell --config /root/projects/common/dev-config/devbox.json"
 
 kill_pids_on_port() {
     port=$1
