@@ -293,6 +293,52 @@ let g:blamer_template = '<committer>, <committer-time> • <summary>, <commit-lo
 " vim-lsp
 let g:lsp_diagnostics_virtual_text_enabled = 1
 let g:lsp_diagnostics_virtual_text_align = 'after'
+let g:lsp_settings = {
+\  'go': {
+\    'cmd': ['gopls'],
+\    'allowlist': ['go'],
+\  },
+\  'javascript': {
+\    'cmd': ['typescript-language-server'],
+\    'allowlist': ['js,ts,jsx,tsx'],
+\  },
+\  'python': {
+\    'cmd': ['python-lsp-server'],
+\    'allowlist': ['py'],
+\  },
+\  'java': {
+\    'cmd': ['jdt-language-server'],
+\    'allowlist': ['java'],
+\  },
+\  'c/c++': {
+\    'cmd': ['clangd'],
+\    'allowlist': ['c,cpp,h,hpp'],
+\  },
+\  'html': {
+\    'cmd': ['vscode-html-languageserver', '--stdio'],
+\    'allowlist': ['html,htm'],
+\  },
+\  'tailwind': {
+\    'cmd': ['tailwindcss-language-server', '--stdio'],
+\    'allowlist': ['css,scss,html,js,ts,jsx,tsx'],
+\  },
+\  'sql': {
+\    'cmd': ['sqls'],
+\    'allowlist': ['sql'],
+\  },
+\  'yaml': {
+\    'cmd': ['yaml-language-server'],
+\    'allowlist': ['yaml,yml'],
+\  },
+\  'json': {
+\    'cmd': ['vscode-json-languageserver', '--stdio'],
+\    'allowlist': ['json'],
+\  },
+\  'terraform': {
+\    'cmd': ['terraform-ls'],
+\    'allowlist': ['tf,tfvars'],
+\  }
+\}
 
 highlight LspDiagnosticsVirtualTextError guifg=Red ctermfg=Red
 highlight LspDiagnosticsVirtualTextWarning guifg=Yellow ctermfg=Yellow
