@@ -334,6 +334,10 @@ let g:lsp_settings = {
 \    'cmd': ['vscode-json-languageserver', '--stdio'],
 \    'allowlist': ['json'],
 \  },
+\  'docker': {
+\    'cmd': ['dockerfile-language-server-nodejs', '--stdio'],
+\    'allowlist': ['Dockerfile'],
+\  },
 \  'terraform': {
 \    'cmd': ['terraform-ls'],
 \    'allowlist': ['tf,tfvars'],
