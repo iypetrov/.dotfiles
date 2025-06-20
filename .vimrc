@@ -306,14 +306,6 @@ let g:lsp_settings = {
 \    'cmd': ['python-lsp-server'],
 \    'allowlist': ['py'],
 \  },
-\  'java': {
-\    'cmd': ['jdt-language-server'],
-\    'allowlist': ['java'],
-\  },
-\  'c/c++': {
-\    'cmd': ['clangd'],
-\    'allowlist': ['c,cpp,h,hpp'],
-\  },
 \  'html': {
 \    'cmd': ['vscode-html-languageserver', '--stdio'],
 \    'allowlist': ['html,htm'],
