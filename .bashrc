@@ -100,7 +100,8 @@ sa() {
 
 # devbox
 alias db="devbox"
-alias dbs="devbox shell --config /root/projects/common/dev-config/devbox.json"
+alias dbs="devbox search"
+alias dbsh="devbox shell --config /root/projects/common/dev-config/devbox.json"
 
 # git
 alias g="git"
