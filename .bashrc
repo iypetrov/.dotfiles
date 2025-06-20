@@ -84,7 +84,6 @@ alias ll='ls -la --color'
 alias cls='clear'
 alias grep="grep --color"
 alias logs="tail -f /var/log/syslog"
-alias dbs="devbox shell --config /root/projects/common/dev-config/devbox.json"
 
 kill_pids_on_port() {
     port=$1
@@ -98,6 +97,10 @@ sa() {
     ssh-add /root/.ssh/id_ed25519_personal
     ssh-add /root/.ssh/id_ed25519_work
 }
+
+# devbox
+alias db="devbox"
+alias dbs="devbox shell --config /root/projects/common/dev-config/devbox.json"
 
 # git
 alias g="git"
