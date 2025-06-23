@@ -2,7 +2,7 @@
 
 [[ ! $(command -v fzf) ]] && echo "Error: You need to have fzf installed" >&2 && return 1
 
-target="$(echo "infra003 aws" | tr ' ' '\n' | fzf --tac)"
+target="$(echo "infra003 ip812 ip812-1 aws" | tr ' ' '\n' | fzf --tac)"
 if [[ -z "${target}" ]]; then
   exit 1
 fi
