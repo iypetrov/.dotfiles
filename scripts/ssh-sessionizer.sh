@@ -11,6 +11,12 @@ case "${target}" in
   "infra003")
     ssh -i ~/.ssh/id_ed25519_work ipetrov@infra003.gas-x.de
     ;;
+  "ip812")
+    ssh root@ip812-prod-k8s-node
+    ;;
+  "ip812-1")
+    ssh root@ip812-prod-k8s-node-1
+    ;;
   "aws")
    instance_id=$(
       aws ec2 describe-instances \
