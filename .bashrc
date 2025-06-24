@@ -79,6 +79,16 @@ fi
 
 # User specific aliases and functions
 
+# fzf
+__fzf_history__() {
+  local command
+  command=$(history | fzf +s --tac | sed 's/ *[0-9]* *//')
+  READLINE_LINE="$command"
+  READLINE_POINT=${#READLINE_LINE}
+}
+
+bind -x '"\C-r": __fzf_history__'
+
 # common
 alias ll='ls -la --color'
 alias cls='clear'
