@@ -170,7 +170,7 @@ tfp() {
     if [[ "${aws_profile}" == "8" ]]; then
         terraform plan
     else
-        terraform plan -lock=false
+        terraform plan -lock=false -refresh=false
     fi
 }
 

@@ -2,7 +2,7 @@
 
 [[ ! $(command -v fzf) ]] && echo "Error: You need to have fzf installed" >&2 && return 1
 
-target="$(echo "infra003 ip812 ip812-1 aws" | tr ' ' '\n' | fzf --tac)"
+target="$(echo "infra003 ip812-prod aws" | tr ' ' '\n' | fzf --tac)"
 if [[ -z "${target}" ]]; then
   exit 1
 fi
@@ -11,11 +11,8 @@ case "${target}" in
   "infra003")
     ssh -i ~/.ssh/id_ed25519_work ipetrov@infra003.gas-x.de
     ;;
-  "ip812")
-    ssh root@ip812-prod-k8s-node
-    ;;
-  "ip812-1")
-    ssh root@ip812-prod-k8s-node-1
+  "ip812-prod")
+    ssh root@ip812-prod
     ;;
   "aws")
    instance_id=$(
