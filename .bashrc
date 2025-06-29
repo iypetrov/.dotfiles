@@ -82,7 +82,7 @@ fi
 # fzf
 __fzf_history__() {
   local command
-  command=$(history | fzf +s --tac | sed 's/ *[0-9]* *//')
+  command=$(history | awk '{$1=$1; print}' | cut -d ' ' -f 2- | awk '!seen[$0]++' | fzf +s --tac)
   READLINE_LINE="$command"
   READLINE_POINT=${#READLINE_LINE}
 }
