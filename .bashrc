@@ -79,6 +79,9 @@ fi
 
 # User specific aliases and functions
 
+# ssh keys
+eval $(keychain --eval --agents ssh id_ed25519_personal id_ed25519_work)
+
 # fzf
 __fzf_history__() {
   local command
@@ -100,12 +103,6 @@ kill_pids_on_port() {
     while read pid; do
         kill -9 ${pid}
     done < <(lsof -i :${port} | tail -n +2 | tr -s "[:space:]" " " | cut -d ' ' -f 2)
-}
-
-sa() {
-    eval "$(ssh-agent -s)"
-    ssh-add /root/.ssh/id_ed25519_personal
-    ssh-add /root/.ssh/id_ed25519_work
 }
 
 # devbox
