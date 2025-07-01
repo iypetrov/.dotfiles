@@ -198,6 +198,18 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+# Set default layout to tabbed on all workspaces
+exec_always --no-startup-id i3-msg "workspace $ws1; layout tabbed"
+exec_always --no-startup-id i3-msg "workspace $ws2; layout tabbed"
+exec_always --no-startup-id i3-msg "workspace $ws3; layout tabbed"
+exec_always --no-startup-id i3-msg "workspace $ws4; layout tabbed"
+exec_always --no-startup-id i3-msg "workspace $ws5; layout tabbed"
+exec_always --no-startup-id i3-msg "workspace $ws6; layout tabbed"
+exec_always --no-startup-id i3-msg "workspace $ws7; layout tabbed"
+exec_always --no-startup-id i3-msg "workspace $ws8; layout tabbed"
+exec_always --no-startup-id i3-msg "workspace $ws9; layout tabbed"
+exec_always --no-startup-id i3-msg "workspace $ws10; layout tabbed"
+
 # Autostart applications
 exec --no-startup-id brave-browser
 exec --no-startup-id gnome-terminal
