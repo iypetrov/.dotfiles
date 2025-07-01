@@ -185,4 +185,10 @@ bar {
 }
 
 exec --no-startup-id nitrogen --restore
+
+# makes sure you can type in English and Bulgarian, and switch between them using Alt+Shift — every time i3 is launched or reloaded
 exec_always "setxkbmap -model pc104 -layout us,bg -variant ,, -option grp:alt_shift_toggle"
+
+for_window [class="Brave-browser"] move to workspace $ws1
+for_window [class="Gnome-terminal"] move to workspace $ws2
+for_window [class="Postman"] move to workspace $ws6
