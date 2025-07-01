@@ -207,3 +207,4 @@ exec --no-startup-id postman
 assign [class="Brave-browser"] $ws1
 assign [class="Gnome-terminal"] $ws2
 assign [class="Postman"] $ws6
+assign [class="^.*"] $ws9
