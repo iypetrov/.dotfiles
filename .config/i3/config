@@ -202,9 +202,13 @@ bindsym XF86AudioPrev exec playerctl previous
 exec --no-startup-id brave-browser
 exec --no-startup-id gnome-terminal
 exec --no-startup-id postman
+exec --no-startup-id beekeeper-studio
+exec --no-startup-id idea
 
 # Assign apps to specific workspaces (verify WM_CLASS with xprop)
 assign [class="Brave-browser"] $ws1
 assign [class="Gnome-terminal"] $ws2
 assign [class="Postman"] $ws6
+assign [class="beekeeper-studio"] $ws7
+assign [class="jetbrains-idea"] $ws8
 assign [class="^.*"] $ws9
