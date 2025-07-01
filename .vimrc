@@ -300,7 +300,7 @@ let g:lsp_settings = {
 \  },
 \  'javascript': {
 \    'cmd': ['typescript-language-server'],
-\    'allowlist': ['js,ts,jsx,tsx'],
+\    'allowlist': ['js', 'ts', 'jsx', 'tsx'],
 \  },
 \  'python': {
 \    'cmd': ['python-lsp-server'],
@@ -308,11 +308,11 @@ let g:lsp_settings = {
 \  },
 \  'html': {
 \    'cmd': ['vscode-html-languageserver', '--stdio'],
-\    'allowlist': ['html,htm'],
+\    'allowlist': ['html', 'htm'],
 \  },
 \  'tailwind': {
 \    'cmd': ['tailwindcss-language-server', '--stdio'],
-\    'allowlist': ['css,scss,html,js,ts,jsx,tsx'],
+\    'allowlist': ['css', 'scss', 'html', 'js', 'ts', 'jsx', 'tsx'],
 \  },
 \  'sql': {
 \    'cmd': ['sqls'],
@@ -320,7 +320,7 @@ let g:lsp_settings = {
 \  },
 \  'yaml': {
 \    'cmd': ['yaml-language-server'],
-\    'allowlist': ['yaml,yml'],
+\    'allowlist': ['yaml', 'yml'],
 \  },
 \  'json': {
 \    'cmd': ['vscode-json-languageserver', '--stdio'],
@@ -331,8 +331,8 @@ let g:lsp_settings = {
 \    'allowlist': ['Dockerfile'],
 \  },
 \  'terraform': {
-\    'cmd': ['terraform-ls'],
-\    'allowlist': ['tf,tfvars'],
+\    'cmd': ['terraform-ls', 'serve'],
+\    'allowlist': ['tf', 'tfvars'],
 \  }
 \}
 
