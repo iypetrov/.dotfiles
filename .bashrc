@@ -85,7 +85,7 @@ eval $(keychain --eval --agents ssh id_ed25519_personal id_ed25519_work)
 # fzf
 __fzf_history__() {
   local command
-  command=$(history | awk '{$1=$1; print}' | cut -d ' ' -f 2- | awk '!seen[$0]++' | fzf +s --tac)
+  command=$(history | awk '{$1=$1; print}' | cut -d ' ' -f 2- | awk '!seen[$0]++' | fzf +s)
   READLINE_LINE="$command"
   READLINE_POINT=${#READLINE_LINE}
 }
