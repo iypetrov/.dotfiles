@@ -381,6 +381,7 @@ augroup END
 " vim-go
 let g:go_def_mapping_enabled = 0
 let g:go_fmt_command = "goimports"
+let g:go_play_browser_command = 'sudo -u ipetrov xdg-open %URL% &'
 
 augroup go_mappings
   autocmd!
