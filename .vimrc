@@ -332,7 +332,7 @@ let g:lsp_settings = {
 \  },
 \  'terraform': {
 \    'cmd': ['terraform-ls', 'serve'],
-\    'allowlist': ['tf', 'tfvars'],
+\    'allowlist': ['terraform', 'tf', 'tfvars'],
 \  }
 \}
 
