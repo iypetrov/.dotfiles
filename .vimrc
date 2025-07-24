@@ -306,30 +306,6 @@ let g:lsp_settings = {
 \    'cmd': ['python-lsp-server'],
 \    'allowlist': ['py'],
 \  },
-\  'html': {
-\    'cmd': ['vscode-html-languageserver', '--stdio'],
-\    'allowlist': ['html', 'htm'],
-\  },
-\  'tailwind': {
-\    'cmd': ['tailwindcss-language-server', '--stdio'],
-\    'allowlist': ['css', 'scss', 'html', 'js', 'ts', 'jsx', 'tsx'],
-\  },
-\  'sql': {
-\    'cmd': ['sqls'],
-\    'allowlist': ['sql'],
-\  },
-\  'yaml': {
-\    'cmd': ['yaml-language-server'],
-\    'allowlist': ['yaml', 'yml'],
-\  },
-\  'json': {
-\    'cmd': ['vscode-json-languageserver', '--stdio'],
-\    'allowlist': ['json'],
-\  },
-\  'docker': {
-\    'cmd': ['dockerfile-language-server-nodejs', '--stdio'],
-\    'allowlist': ['Dockerfile'],
-\  },
 \  'terraform': {
 \    'cmd': ['terraform-ls', 'serve'],
 \    'allowlist': ['terraform', 'tf', 'tfvars'],
@@ -403,7 +379,7 @@ function! ConvertProviderToFull(provider_short) abort
         \ 'aws': 'hashicorp/aws/latest',
         \ 'awscc': 'hashicorp/awscc/latest',
         \ 'vault': 'hashicorp/vault/latest',
-        \ 'cloudflare': 'cloudflare/cloudflare/4.52.0',
+        \ 'cloudflare': 'cloudflare/cloudflare/latest',
         \ 'github': 'integrations/github/latest',
         \ 'gitlab': 'gitlabhq/gitlab/latest',
         \ 'grafana': 'grafana/grafana/latest',
