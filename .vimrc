@@ -387,6 +387,7 @@ function! ConvertProviderToFull(provider_short) abort
         \ 'platform': 'jfrog/platform/latest',
         \ 'project': 'jfrog/project/latest',
         \ 'kubernetes': 'hashicorp/kubernetes/latest',
+        \ 'helm': 'hashicorp/helm/latest',
     \ }
     return get(providers, a:provider_short, '')
 endfunction
