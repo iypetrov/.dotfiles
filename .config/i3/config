@@ -213,6 +213,9 @@ exec_always --no-startup-id i3-msg "workspace $ws10; layout tabbed"
 # Autostart applications
 exec --no-startup-id brave-browser
 exec --no-startup-id gnome-terminal
+exec --no-startup-id notion-snap-reborn
+exec --no-startup-id spotify
+exec --no-startup-id slack
 exec --no-startup-id postman
 exec --no-startup-id beekeeper-studio
 exec --no-startup-id idea
@@ -220,6 +223,9 @@ exec --no-startup-id idea
 # Assign apps to specific workspaces (verify WM_CLASS with xprop)
 assign [class="Brave-browser"] $ws1
 assign [class="Gnome-terminal"] $ws2
+assign [class="notion-snap-reborn"] $ws3
+assign [class="Spotify"] $ws4
+assign [class="Slack"] $ws5
 assign [class="Postman"] $ws6
 assign [class="beekeeper-studio"] $ws7
 assign [class="jetbrains-idea"] $ws8
