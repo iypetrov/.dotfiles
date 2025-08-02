@@ -2,7 +2,7 @@
 
 [[ ! $(command -v fzf) ]] && echo "Error: You need to have fzf installed" >&2 && return 1
 
-prj_dir="/root/projects"
+prj_dir="/projects"
 
 last_session_file="/root/.tmux/last_session"
 if [[ ! -f "${last_session_file}" ]]; then
