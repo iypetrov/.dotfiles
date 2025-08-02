@@ -108,7 +108,7 @@ kill_pids_on_port() {
 # devbox
 alias db="devbox"
 alias dbs="devbox search"
-alias dbsh="devbox shell --config /root/projects/common/dev-config/devbox.json"
+alias dbsh="devbox shell --config /projects/common/dev-config/devbox.json"
 
 # git
 alias g="git"
