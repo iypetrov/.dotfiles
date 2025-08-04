@@ -20,7 +20,16 @@
 [mergetool "vimdiff"]
     trustExitCode = true
 
-[includeIf "gitdir:/projects/"]
+[includeIf "gitdir:/projects/common/"]
+	path = /root/.gitconfig-personal
+
+[includeIf "gitdir:/projects/ip812/"]
+	path = /root/.gitconfig-personal
+
+[includeIf "gitdir:/projects/avalon/"]
+	path = /root/.gitconfig-personal
+
+[includeIf "gitdir:/projects/personal/"]
 	path = /root/.gitconfig-personal
 
 [includeIf "gitdir:/projects/work/"]
