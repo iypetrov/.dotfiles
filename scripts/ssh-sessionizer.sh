@@ -2,7 +2,7 @@
 
 [[ ! $(command -v fzf) ]] && echo "Error: You need to have fzf installed" >&2 && return 1
 
-target="$(echo "infra003 access02 aws" | tr ' ' '\n' | fzf --tac)"
+target="$(echo "infra003 access02 qa01 aws" | tr ' ' '\n' | fzf --tac)"
 if [[ -z "${target}" ]]; then
   exit 1
 fi
@@ -13,6 +13,9 @@ case "${target}" in
     ;;
   "access02")
     ssh -i ~/.ssh/id_ed25519_work ipetrov@10.110.113.5
+    ;;
+  "qa01")
+    ssh -i ~/.ssh/id_ed25519_work adm_ipetrov@qa01.gasx.aws.ext.ssg
     ;;
   "aws")
    instance_id=$(

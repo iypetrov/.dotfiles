@@ -20,10 +20,10 @@
 [mergetool "vimdiff"]
     trustExitCode = true
 
-[includeIf "gitdir:/root/projects/"]
+[includeIf "gitdir:/projects/"]
 	path = /root/.gitconfig-personal
 
-[includeIf "gitdir:/root/projects/work/"]
+[includeIf "gitdir:/projects/work/"]
 	path = /root/.gitconfig-work
 
 [credential]
