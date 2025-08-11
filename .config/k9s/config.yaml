@@ -1,14 +1,14 @@
 k9s:
   liveViewAutoRefresh: false
   screenDumpDir: /root/.local/state/k9s/screen-dumps
-  refreshRate: 2
+  refreshRate: 1
   apiServerTimeout: 15s
   maxConnRetry: 5
   readOnly: false
   noExitOnCtrlC: false
   portForwardAddress: localhost
   ui:
-    enableMouse: false
+    enableMouse: true
     headless: false
     logoless: false
     crumbsless: false
@@ -17,6 +17,7 @@ k9s:
     noIcons: false
     defaultsToFullScreen: false
     useFullGVRTitle: false
+    skin: catppuccin-latte-transparent
   skipLatestRevCheck: false
   disablePodCounting: false
   shellPod:
