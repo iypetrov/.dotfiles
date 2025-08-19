@@ -126,6 +126,7 @@ alias bat="batcat"
 
 # go
 export PATH=$PATH:/root/go/bin
+export GOBIN=$HOME/go/bin
 
 # java
 alias mci="mvn clean install"
