@@ -26,10 +26,13 @@
 [includeIf "gitdir:/projects/ip812/"]
 	path = /root/.gitconfig-personal
 
-[includeIf "gitdir:/projects/avalon/"]
+[includeIf "gitdir:/projects/avalonpharma/"]
 	path = /root/.gitconfig-personal
 
 [includeIf "gitdir:/projects/personal/"]
+	path = /root/.gitconfig-personal
+
+[includeIf "gitdir:/projects/oss/"]
 	path = /root/.gitconfig-personal
 
 [includeIf "gitdir:/projects/work/"]
