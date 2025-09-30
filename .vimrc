@@ -298,18 +298,6 @@ let g:lsp_settings = {
 \    'cmd': ['gopls'],
 \    'allowlist': ['go'],
 \  },
-\  'javascript': {
-\    'cmd': ['typescript-language-server'],
-\    'allowlist': ['js', 'ts', 'jsx', 'tsx'],
-\  },
-\  'python': {
-\    'cmd': ['python-lsp-server'],
-\    'allowlist': ['py'],
-\  },
-\  'terraform': {
-\    'cmd': ['terraform-ls', 'serve'],
-\    'allowlist': ['terraform', 'tf', 'tfvars'],
-\  }
 \}
 
 highlight LspDiagnosticsVirtualTextError guifg=Red ctermfg=Red
