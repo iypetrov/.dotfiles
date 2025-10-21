@@ -242,6 +242,7 @@ endif
 call plug#begin()
 
 Plug 'JaySandhu/xcode-vim'
+Plug 'm104/vim-config'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
@@ -259,8 +260,9 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 set termguicolors
-set background=light
-colorscheme xcode
+set background=dark
+" colorscheme xcode
+colorscheme molokai_m104
 
 " fzf
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.3, 'relative': v:true, 'yoffset': 1.0 } }
