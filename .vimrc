@@ -260,9 +260,9 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 set termguicolors
-set background=dark
-" colorscheme xcode
-colorscheme molokai_m104
+set background=light
+colorscheme xcode
+" colorscheme molokai_m104
 
 " fzf
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.3, 'relative': v:true, 'yoffset': 1.0 } }
