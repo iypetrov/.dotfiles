@@ -156,6 +156,11 @@ drm() {
 
 # kubectl
 alias k="kubectl"
+
+kda() {
+  kubectl "$@" --dry-run=client -o yaml
+}
+
 export KUBE_EDITOR=vim
 
 # terraform
