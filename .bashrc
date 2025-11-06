@@ -157,7 +157,7 @@ drm() {
 # kubectl
 alias k="kubectl"
 
-kda() {
+kdr() {
   kubectl "$@" --dry-run=client -o yaml
 }
 
