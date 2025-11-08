@@ -8,6 +8,7 @@
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
+exec_always --no-startup-id /projects/common/.dotfiles/.config/i3/autostart.sh
 
 set $mod Mod1
 
