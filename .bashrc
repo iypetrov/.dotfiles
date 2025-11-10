@@ -109,6 +109,7 @@ kill_pids_on_port() {
 alias db="devbox"
 alias dbs="devbox search"
 alias dbsh="devbox shell --config /projects/common/dev-config/devbox.json"
+alias dbprune="devbox run -- nix store gc --extra-experimental-features nix-command"
 
 # git
 alias g="git"
