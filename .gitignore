@@ -1,0 +1,4 @@
+.config
+!.config/i3/**
+!.config/lazygit/**
+!.config/k9s/**
