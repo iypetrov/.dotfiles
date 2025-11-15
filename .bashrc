@@ -117,6 +117,9 @@ alias gc="git commit -s"
 alias gt="git tag"
 alias gp="git push"
 
+# vim
+alias vim="nvim"
+
 # networks
 alias ips="ip -br a s"
 alias nets="netstat -tulpen"
@@ -138,8 +141,6 @@ alias mdeps="mvn dependency:tree"
 mdepi() {
   mvn dependency:tree -Dincludes="$*"
 }
-
-# python
 
 # docker
 alias d="docker"
