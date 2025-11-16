@@ -1,4 +1,4 @@
--- basic
+-- mappings
 vim.scriptencoding = 'utf-8'
 vim.o.encoding = 'utf-8'
 vim.g.mapleader = ' '
@@ -61,7 +61,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     command = "set foldlevel=999999"
 })
 
--- custom
+-- packages
 local function bootstrap_pckr()
   local pckr_path = vim.fn.stdpath("data") .. "/pckr/pckr.nvim"
   if not (vim.uv or vim.loop).fs_stat(pckr_path) then
@@ -158,8 +158,46 @@ require('pckr').add{
     "nvim-lualine/lualine.nvim",
     requires = { "nvim-tree/nvim-web-devicons" },
   },
+  'neovim/nvim-lspconfig';
 }
 
 require('lualine').setup {
   options = { theme  = 'gruvbox' },
 }
+
+require('nvim-treesitter.configs').setup {
+  highlight = { enable = true },
+}
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(e)
+        local opts = { buffer = e.buf }
+
+        vim.keymap.set("i", "<C-p>", function() cmp.mapping.select_prev_item(cmp_select) end, opts)
+        vim.keymap.set("i", "<C-n>", function() cmp.mapping.select_next_item(cmp_select) end, opts)
+
+        vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+        vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end, opts)
+        vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
+        vim.keymap.set("n", "gs", function() vim.lsp.buf.signature_help() end, opts)
+
+        vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+        vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+        vim.keymap.set("n", "rr", function() vim.lsp.buf.references() end, opts)
+        vim.keymap.set("n", "rn", function() vim.lsp.buf.rename() end, opts)
+        vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, opts)
+        vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
+
+        vim.keymap.set("n", "<leader>d", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+        vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+        vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+    end
+})
+
+local terraform_doc_browser = require("terraform_doc_browser")
+terraform_doc_browser.setup()
+
+vim.lsp.enable('gopls')
+vim.lsp.enable('tsserver')
+vim.lsp.enable('terraformls')
+vim.lsp.enable('luals')
