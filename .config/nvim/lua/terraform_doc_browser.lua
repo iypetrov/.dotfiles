@@ -108,7 +108,7 @@ function M.browse_docs()
             if block_info and block_info.provider ~= "" then
                 local block_type = (block_info.block == "resource") and "resources" or "data-sources"
                 local url = string.format(
-                    "https://registry.terraform.io/providers/%s/docs/%s/%s#%s",
+                    "https://registry.terraform.io/providers/%s/docs/%s/%s#%s-1",
                     block_info.provider,
                     block_type,
                     block_info.target,
