@@ -203,23 +203,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')
-
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
 cmp.setup({
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
         end,
     },
-
     mapping = {
         ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
         ['<C-Space>'] = cmp.mapping.complete(),
     },
-
     sources = {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
