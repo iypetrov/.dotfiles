@@ -159,6 +159,13 @@ require('pckr').add{
     requires = { "nvim-tree/nvim-web-devicons" },
   },
   'neovim/nvim-lspconfig';
+  'hrsh7th/nvim-cmp';
+  'hrsh7th/cmp-nvim-lsp';
+  'hrsh7th/cmp-buffer';
+  'hrsh7th/cmp-path';
+  'hrsh7th/cmp-cmdline';
+  'L3MON4D3/LuaSnip';
+  'saadparwaiz1/cmp_luasnip';
 }
 
 require('lualine').setup {
@@ -194,10 +201,39 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 })
 
+local cmp = require('cmp')
+local luasnip = require('luasnip')
+
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
+
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            luasnip.lsp_expand(args.body)
+        end,
+    },
+
+    mapping = {
+        ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+        ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-Space>'] = cmp.mapping.complete(),
+    },
+
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+        { name = 'buffer' },
+        { name = 'path' },
+    },
+})
+
 local terraform_doc_browser = require("terraform_doc_browser")
 terraform_doc_browser.setup()
 
-vim.lsp.enable('gopls')
-vim.lsp.enable('tsserver')
-vim.lsp.enable('terraformls')
-vim.lsp.enable('luals')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+vim.lsp.enable('terraformls', { capabilities = capabilities })
+vim.lsp.enable('gopls', { capabilities = capabilities })
+vim.lsp.enable('tsserver', { capabilities = capabilities })
+vim.lsp.enable('luals', { capabilities = capabilities })
