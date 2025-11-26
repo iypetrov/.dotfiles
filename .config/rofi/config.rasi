@@ -1,0 +1,31 @@
+configuration {
+    font: "JetBrainsMono 12";
+    disabled: false;
+    dynamic: true;
+    color-enabled: true;
+    line-margin: 2;
+}
+
+* {
+    background: #E0DCCE;
+    foreground: #000000;
+    border-color: #E95420;
+    selected-background: #E8E6E0;
+    selected-foreground: #000000;
+    border-radius: 1px;
+}
+
+window {
+    width: 40%;
+    padding: 10px;
+}
+
+listview {
+    lines: 15;
+    padding: 5px;
+}
+
+element {
+    border-radius: 3px;
+    padding: 5px;
+}

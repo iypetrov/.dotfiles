@@ -14,7 +14,7 @@ floating_modifier $mod
 
 bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+q kill
-bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
@@ -128,10 +128,10 @@ exec --no-startup-id alacritty
 
 assign [class="Brave-browser"] $ws1
 assign [class="Alacritty"] $ws2
-# assign [class="notion-snap-reborn"] $ws3
-# assign [class="Spotify"] $ws4
-# assign [class="Slack"] $ws5
-# assign [class="Postman"] $ws6
-# assign [class="beekeeper-studio"] $ws7
-# assign [class="jetbrains-idea"] $ws8
+assign [class="notion-snap-reborn"] $ws3
+assign [class="Spotify"] $ws4
+assign [class="Slack"] $ws5
+assign [class="Postman"] $ws6
+assign [class="beekeeper-studio"] $ws7
+assign [class="jetbrains-idea"] $ws8
 assign [class="^.*"] $ws9
