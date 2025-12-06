@@ -60,6 +60,15 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     pattern = "*",
     command = "set foldlevel=999999"
 })
+vim.diagnostic.config({
+    virtual_text = {
+        prefix = "D",
+        spacing = 2,
+    },
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+})
 
 -- packages
 local function bootstrap_pckr()
@@ -153,7 +162,22 @@ require('pckr').add{
       vim.keymap.set("n", "<C-p>", function() harpoon:list():prev() end)
     end,
   },
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    config = function()
+        require("lsp_lines").setup()
+        vim.diagnostic.config({ virtual_text = false })
+    end
+  },
+  "ray-x/guihua.lua";
   'nvim-tree/nvim-web-devicons';
+  {
+    "ray-x/go.nvim",
+    dependencies = { "ray-x/guihua.lua" },
+    config = function()
+        require("go").setup()
+    end
+  },
   {
     "nvim-lualine/lualine.nvim",
     requires = { "nvim-tree/nvim-web-devicons" },
@@ -224,11 +248,20 @@ cmp.setup({
     },
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "go",
+    callback = function()
+        vim.keymap.set("n", "<leader>err", "<cmd>GoIfErr<CR>", { buffer = true })
+        vim.keymap.set("n", "<leader>dc", "<cmd>GoDoc<CR>", { buffer = true })
+        vim.keymap.set("n", "<leader>gt", "<cmd>GoTest<CR>", { buffer = true })
+        vim.keymap.set("n", "<leader>gr", "<cmd>GoRun<CR>", { buffer = true })
+    end,
+})
+
 local terraform_doc_browser = require("terraform_doc_browser")
 terraform_doc_browser.setup()
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
 vim.lsp.enable('terraformls', { capabilities = capabilities })
 vim.lsp.enable('gopls', { capabilities = capabilities })
 vim.lsp.enable('tsserver', { capabilities = capabilities })
