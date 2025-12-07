@@ -169,15 +169,8 @@ require('pckr').add{
         vim.diagnostic.config({ virtual_text = false })
     end
   },
-  "ray-x/guihua.lua";
   'nvim-tree/nvim-web-devicons';
-  {
-    "ray-x/go.nvim",
-    dependencies = { "ray-x/guihua.lua" },
-    config = function()
-        require("go").setup()
-    end
-  },
+  'fatih/vim-go';
   {
     "nvim-lualine/lualine.nvim",
     requires = { "nvim-tree/nvim-web-devicons" },
@@ -204,9 +197,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(e)
         local opts = { buffer = e.buf }
 
-        vim.keymap.set("i", "<C-p>", function() cmp.mapping.select_prev_item(cmp_select) end, opts)
-        vim.keymap.set("i", "<C-n>", function() cmp.mapping.select_next_item(cmp_select) end, opts)
-
         vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
         vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end, opts)
         vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
@@ -224,6 +214,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
     end
 })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "qf" },
+  callback = function()
+    vim.keymap.set("n", "<CR>", function()
+      local win = vim.api.nvim_get_current_win()
+      vim.cmd("copen")
+      vim.cmd("cc")
+      vim.api.nvim_win_close(win, true)
+    end, { buffer = true })
+  end,
+})
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')
@@ -235,8 +236,8 @@ cmp.setup({
         end,
     },
     mapping = {
-        ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-        ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+        ['<Down>'] = cmp.mapping.select_next_item(cmp_select),
+        ['<Up>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
         ['<C-Space>'] = cmp.mapping.complete(),
     },
@@ -248,11 +249,14 @@ cmp.setup({
     },
 })
 
+vim.g.go_def_mapping_enabled = 0
+vim.g.go_fmt_command = "goimports"
+vim.g.go_play_browser_command = "sudo -u ipetrov xdg-open %URL% &"
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "go",
     callback = function()
         vim.keymap.set("n", "<leader>err", "<cmd>GoIfErr<CR>", { buffer = true })
-        vim.keymap.set("n", "<leader>dc", "<cmd>GoDoc<CR>", { buffer = true })
+        vim.keymap.set("n", "<leader>dc", "<cmd>GoDocBrowser<CR>", { buffer = true })
         vim.keymap.set("n", "<leader>gt", "<cmd>GoTest<CR>", { buffer = true })
         vim.keymap.set("n", "<leader>gr", "<cmd>GoRun<CR>", { buffer = true })
     end,
