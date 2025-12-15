@@ -106,16 +106,9 @@ alias dbprune="devbox run -- nix store gc --extra-experimental-features nix-comm
 
 # git
 alias g="git"
-alias gc="git commit -s"
-alias gt="git tag"
-alias gp="git push"
 
 # vim
-alias vim="nvim"
-
-# networks
-alias ips="ip -br a s"
-alias nets="netstat -tulpen"
+alias v="nvim"
 
 # bat
 export BAT_THEME="GitHub"
@@ -137,26 +130,18 @@ mdepi() {
 
 # docker
 alias d="docker"
-alias dls="docker container ls"
-alias dps="docker ps -a"
-alias dlog="docker logs -f"
-alias dcu="docker compose up -d"
-alias dcd="docker compose down"
-alias drmv="docker volume rm $(docker volume ls -q)"
-alias dive="docker run -ti --rm  -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive"
 drm() {
   docker stop $(docker ps -aq)
   docker rm -f $(docker ps -aq)
 }
 
 # kubectl
-alias k="kubectl"
-
-kdr() {
-  kubectl "$@" --dry-run=client -o yaml
-}
-
 export KUBE_EDITOR=nvim
+
+source <(kubectl completion bash)
+
+alias k="kubectl"
+complete -o default -F __start_kubectl k
 
 # terraform
 alias tf="terraform"
