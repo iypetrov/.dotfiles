@@ -14,7 +14,7 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
+HISTSIZE=25000
 HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
@@ -83,14 +83,7 @@ fi
 eval $(keychain --eval --agents ssh id_ed25519_personal id_ed25519_work)
 
 # fzf
-__fzf_history__() {
-  local command
-  command=$(history | awk '{$1=$1; print}' | cut -d ' ' -f 2- | awk '!seen[$0]++' | fzf +s)
-  READLINE_LINE="$command"
-  READLINE_POINT=${#READLINE_LINE}
-}
-
-bind -x '"\C-r": __fzf_history__'
+eval "$(fzf --bash)"
 
 # common
 alias ll='ls -la --color'
@@ -163,7 +156,7 @@ kdr() {
   kubectl "$@" --dry-run=client -o yaml
 }
 
-export KUBE_EDITOR=vim
+export KUBE_EDITOR=nvim
 
 # terraform
 alias tf="terraform"
