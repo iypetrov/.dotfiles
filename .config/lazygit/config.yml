@@ -5,8 +5,8 @@ core:
 git:
   merging:
     args: mergetool
-  paging:
-    pager: delta --light --paging=never
-    colorArg: never
+  pagers:
+    - pager: delta --light --paging=never
+      colorArg: never
   commit:
     signOff: true
