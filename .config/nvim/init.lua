@@ -214,17 +214,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
     end
 })
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "qf" },
-  callback = function()
-    vim.keymap.set("n", "<CR>", function()
-      local win = vim.api.nvim_get_current_win()
-      vim.cmd("copen")
-      vim.cmd("cc")
-      vim.api.nvim_win_close(win, true)
-    end, { buffer = true })
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "qf" },
+--   callback = function()
+--     vim.keymap.set("n", "<CR>", function()
+--       local win = vim.api.nvim_get_current_win()
+--       vim.cmd("copen")
+--       vim.cmd("cc")
+--       vim.api.nvim_win_close(win, true)
+--     end, { buffer = true })
+--   end,
+-- })
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')
@@ -249,16 +249,26 @@ cmp.setup({
     },
 })
 
-vim.g.go_def_mapping_enabled = 0
+vim.diagnostic.config({
+  virtual_text = {
+    spacing = 4,
+    source = "if_many", -- show source if multiple LSPs
+  },
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
+
+-- vim.g.go_def_mapping_enabled = 0
 vim.g.go_fmt_command = "goimports"
+vim.g.go_fmt_autosave = 0
 vim.g.go_play_browser_command = "sudo -u ipetrov xdg-open %URL% &"
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "go",
     callback = function()
         vim.keymap.set("n", "<leader>err", "<cmd>GoIfErr<CR>", { buffer = true })
         vim.keymap.set("n", "<leader>dc", "<cmd>GoDocBrowser<CR>", { buffer = true })
-        vim.keymap.set("n", "<leader>gt", "<cmd>GoTest<CR>", { buffer = true })
-        vim.keymap.set("n", "<leader>gr", "<cmd>GoRun<CR>", { buffer = true })
     end,
 })
 
