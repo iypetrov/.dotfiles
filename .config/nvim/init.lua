@@ -86,10 +86,8 @@ local function bootstrap_pckr()
 end
 bootstrap_pckr()
 
-local cmd = require('pckr.loader.cmd')
-local keys = require('pckr.loader.keys')
 require('pckr').add{
-  'morhetz/gruvbox';
+  'morhetz/gruvbox',
   {
     'preservim/nerdtree',
     config = function()
@@ -113,7 +111,15 @@ require('pckr').add{
     end
   },
   'github/copilot.vim',
-  'nvim-treesitter/nvim-treesitter',
+   {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter.config').setup {
+        highlight = { enable = true },
+      }
+    end,
+  },
   'nvim-lua/plenary.nvim';
   {
     "nvim-telescope/telescope.nvim",
@@ -174,6 +180,9 @@ require('pckr').add{
   {
     "nvim-lualine/lualine.nvim",
     requires = { "nvim-tree/nvim-web-devicons" },
+    -- config = function()
+    --   require('lualine').setup { options = { theme = 'gruvbox' } }
+    -- end,
   },
   'neovim/nvim-lspconfig';
   'hrsh7th/nvim-cmp';
@@ -183,14 +192,6 @@ require('pckr').add{
   'hrsh7th/cmp-cmdline';
   'L3MON4D3/LuaSnip';
   'saadparwaiz1/cmp_luasnip';
-}
-
-require('lualine').setup {
-  options = { theme  = 'gruvbox' },
-}
-
-require('nvim-treesitter.configs').setup {
-  highlight = { enable = true },
 }
 
 vim.api.nvim_create_autocmd('LspAttach', {
