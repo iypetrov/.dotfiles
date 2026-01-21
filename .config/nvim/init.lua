@@ -190,7 +190,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
         vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-        vim.keymap.set("n", "rr", function() vim.lsp.buf.references() end, opts)
         vim.keymap.set("n", "rn", function() vim.lsp.buf.rename() end, opts)
         vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, opts)
         vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
@@ -200,17 +199,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
     end
 })
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = { "qf" },
---   callback = function()
---     vim.keymap.set("n", "<CR>", function()
---       local win = vim.api.nvim_get_current_win()
---       vim.cmd("copen")
---       vim.cmd("cc")
---       vim.api.nvim_win_close(win, true)
---     end, { buffer = true })
---   end,
--- })
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')
