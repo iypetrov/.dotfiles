@@ -3,7 +3,10 @@ vim.scriptencoding = 'utf-8'
 vim.o.encoding = 'utf-8'
 vim.g.mapleader = ' '
 vim.o.background = "light"
-vim.cmd("colorscheme gruvbox")
+local ok, _ = pcall(vim.cmd, "colorscheme gruvbox")
+if not ok then
+  vim.cmd("colorscheme default")
+end
 vim.o.autoread = true
 vim.o.backspace = 'indent,eol,start'
 vim.o.colorcolumn = '80'
@@ -88,14 +91,7 @@ bootstrap_pckr()
 
 require('pckr').add{
   'morhetz/gruvbox',
-  {
-    'preservim/nerdtree',
-    config = function()
-      vim.g.NERDTreeShowHidden = 1
-      vim.g.NERDTreeHijackNetrw = 0
-      vim.keymap.set('n', '<C-t>', ':NERDTreeToggle<CR>', { noremap = true, silent = true })
-    end
-  },
+
   {
     'airblade/vim-gitgutter',
     config = function()
@@ -104,22 +100,16 @@ require('pckr').add{
       vim.g.gitgutter_sign_removed = '-'
     end
   },
+
   {
     'mbbill/undotree',
     config = function()
       vim.keymap.set('n', '<leader>h', ':UndotreeToggle<CR>', { noremap = true, silent = true })
     end
   },
+
   'github/copilot.vim',
-   {
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    config = function()
-      require('nvim-treesitter.config').setup {
-        highlight = { enable = true },
-      }
-    end,
-  },
+
   'nvim-lua/plenary.nvim';
   {
     "nvim-telescope/telescope.nvim",
@@ -168,6 +158,7 @@ require('pckr').add{
       vim.keymap.set("n", "<C-p>", function() harpoon:list():prev() end)
     end,
   },
+
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     config = function()
@@ -175,15 +166,7 @@ require('pckr').add{
         vim.diagnostic.config({ virtual_text = false })
     end
   },
-  'nvim-tree/nvim-web-devicons';
-  'fatih/vim-go';
-  {
-    "nvim-lualine/lualine.nvim",
-    requires = { "nvim-tree/nvim-web-devicons" },
-    -- config = function()
-    --   require('lualine').setup { options = { theme = 'gruvbox' } }
-    -- end,
-  },
+
   'neovim/nvim-lspconfig';
   'hrsh7th/nvim-cmp';
   'hrsh7th/cmp-nvim-lsp';
@@ -192,6 +175,8 @@ require('pckr').add{
   'hrsh7th/cmp-cmdline';
   'L3MON4D3/LuaSnip';
   'saadparwaiz1/cmp_luasnip';
+
+  'fatih/vim-go';
 }
 
 vim.api.nvim_create_autocmd('LspAttach', {
