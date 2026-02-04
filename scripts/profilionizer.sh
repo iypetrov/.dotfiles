@@ -10,10 +10,6 @@ if [[ -z "${targets}" ]]; then
 fi
 
 case "${targets}" in
-  "python")
-      venv="$(pyenv virtualenvs | cut -c 3- | cut -d ' ' -f 1 | grep -v '/' | fzf)"
-      pyenv activate "${venv}"
-    ;;
   "kubens")
     kubens
     ;;
