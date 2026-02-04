@@ -107,9 +107,6 @@ alias dbprune="devbox run -- nix store gc --extra-experimental-features nix-comm
 # git
 alias g="git"
 
-# vim
-alias v="nvim"
-
 # bat
 export BAT_THEME="GitHub"
 alias bat="batcat"
@@ -136,7 +133,7 @@ drm() {
 }
 
 # kubectl
-export KUBE_EDITOR=nvim
+export KUBE_EDITOR=vim
 
 source <(kubectl completion bash)
 
