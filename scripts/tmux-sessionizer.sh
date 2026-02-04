@@ -19,13 +19,13 @@ curr_session="$(echo "${target}" | tr '.' '_')"
 
 tmux_running="$(pgrep tmux)"
 if [[ -z "$TMUX" ]] && [[ -z "${tmux_running}" ]]; then
-    tmux new-session -s "${curr_session}" -c "${prj_dir}/${target}" "nvim ${prj_dir}/${target}"
+    tmux new-session -s "${curr_session}" -c "${prj_dir}/${target}" "vim ${prj_dir}/${target}"
     tmux new-window -t "${curr_session}:2" -c "${prj_dir}/${target}"
     tmux select-window -t "${curr_session}:1"
 fi
 
 if ! tmux has-session -t="${curr_session}" 2> /dev/null; then
-    tmux new-session -ds "${curr_session}" -c "${prj_dir}/${target}" "nvim ${prj_dir}/${target}"
+    tmux new-session -ds "${curr_session}" -c "${prj_dir}/${target}" "vim ${prj_dir}/${target}"
     tmux new-window -t "${curr_session}:2" -c "${prj_dir}/${target}"
     tmux select-window -t "${curr_session}:1"
 else

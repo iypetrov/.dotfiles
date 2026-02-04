@@ -99,139 +99,6 @@ nnoremap <leader>d   :bd<cr>
 " Don't fold anything.
 autocmd BufWinEnter * set foldlevel=999999
 
-" Harpoon
-" Persistent custom marks stored in ~/.vim-marks by default
-let s:marks_file = expand('$HOME') . '/.vim-marks'
-
-" Load marks from file on startup
-function! LoadCustomTags() abort
-  if !filereadable(s:marks_file)
-    let g:custom_tags = []
-    return
-  endif
-  let lines = readfile(s:marks_file)
-  let g:custom_tags = []
-  for l in lines
-    let parts = split(l, '\t')
-    if len(parts) >= 3
-      let file = parts[0]
-      let lnum = str2nr(parts[1])
-      let text = parts[2]
-      call add(g:custom_tags, {'file': file, 'line': lnum, 'text': text})
-    endif
-  endfor
-endfunction
-
-" Save marks to file whenever g:custom_tags changes
-function! SaveCustomTags() abort
-  let lines = []
-  for tag in g:custom_tags
-    call add(lines, tag.file . "\t" . tag.line . "\t" . substitute(tag.text, '\t', '    ', 'g'))
-  endfor
-  call writefile(lines, s:marks_file)
-endfunction
-
-" Initialize storage and load existing marks
-if !exists('g:custom_tags')
-  let g:custom_tags = []
-endif
-autocmd VimEnter * call LoadCustomTags()
-
-" Toggle a mark at the current file and line
-function! ToggleCustomTag() abort
-  let file_path = expand('%:p')
-  let line_num = line('.')
-  let line_text = getline('.')
-  let idx = -1
-  for i in range(len(g:custom_tags))
-    if g:custom_tags[i].file == file_path && g:custom_tags[i].line == line_num
-      let idx = i
-      break
-    endif
-  endfor
-  if idx != -1
-    call remove(g:custom_tags, idx)
-    echo 'Removed tag at ' . file_path . ':' . line_num
-  else
-    call add(g:custom_tags, {'file': file_path, 'line': line_num, 'text': line_text})
-    echo 'Added tag at ' . file_path . ':' . line_num
-  endif
-  call SaveCustomTags()
-endfunction
-
-" Jump to previous stored mark
-function! JumpToPreviousTag() abort
-  if empty(g:custom_tags)
-    echo 'No tags found.'
-    return
-  endif
-  let cur = expand('%:p') . ':' . line('.')
-  let idx = -1
-  for i in range(len(g:custom_tags))
-    if g:custom_tags[i].file . ':' . g:custom_tags[i].line == cur
-      let idx = i
-      break
-    endif
-  endfor
-  if idx == -1
-    let idx = len(g:custom_tags)
-  endif
-  let prev = (idx - 1 + len(g:custom_tags)) % len(g:custom_tags)
-  execute 'edit ' . g:custom_tags[prev].file
-  call cursor(g:custom_tags[prev].line, 1)
-endfunction
-
-" Jump to next stored mark
-function! JumpToNextTag() abort
-  if empty(g:custom_tags)
-    echo 'No tags found.'
-    return
-  endif
-  let cur = expand('%:p') . ':' . line('.')
-  let idx = -1
-  for i in range(len(g:custom_tags))
-    if g:custom_tags[i].file . ':' . g:custom_tags[i].line == cur
-      let idx = i
-      break
-    endif
-  endfor
-  let next = (idx + 1) % len(g:custom_tags)
-  execute 'edit ' . g:custom_tags[next].file
-  call cursor(g:custom_tags[next].line, 1)
-endfunction
-
-" Show all tags in quickfix
-function! ShowAllTags() abort
-  if empty(g:custom_tags)
-    echo 'No tags found.'
-    return
-  endif
-  let qf = []
-  for tag in g:custom_tags
-    call add(qf, {'filename': tag.file, 'lnum': tag.line, 'text': tag.text})
-  endfor
-  call setqflist(qf)
-  copen
-  nnoremap <buffer> dd :call DeleteFromQuickfix()<CR>
-endfunction
-
-" Delete mark from quickfix and save
-function! DeleteFromQuickfix() abort
-  let idx = line('.') - 1
-  if idx >= 0 && idx < len(g:custom_tags)
-    call remove(g:custom_tags, idx)
-    call SaveCustomTags()
-    call setqflist([])
-    call ShowAllTags()
-  endif
-endfunction
-
-" Key mappings
-nnoremap <leader>a :call ToggleCustomTag()<CR>
-nnoremap <C-p>   :call JumpToPreviousTag()<CR>
-nnoremap <C-n>   :call JumpToNextTag()<CR>
-nnoremap <leader><leader> :call ShowAllTags()<CR>
-
 " Plugins
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -241,44 +108,40 @@ endif
 
 call plug#begin()
 
-Plug 'JaySandhu/xcode-vim'
-Plug 'm104/vim-config'
+Plug 'morhetz/gruvbox'
+
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree'
 Plug 'github/copilot.vim'
-Plug 'APZelos/blamer.nvim'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 
 set termguicolors
 set background=light
-colorscheme xcode
-" colorscheme molokai_m104
+colorscheme gruvbox
+
+" ctrlp
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden --ignore .git --ignore node_modules --ignore dist --ignore target --ignore vendor --ignore tmp --ignore .terraform  -g ""'
+let g:ctrlp_working_path_mode = 'ra'
+
+nnoremap <leader>ff :CtrlP<CR>
+nnoremap <leader>fr :CtrlPMRU<CR>
 
 " fzf
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.3, 'relative': v:true, 'yoffset': 1.0 } }
 let g:fzf_vim_relative_paths = 1
 
-nnoremap <leader>ff :call fzf#run(fzf#wrap({
-    \ 'source': 'find . -type d \( -name .git -o -name node_modules -o -name dist -o -name target -o -name vendor -o -name tmp -o -name .terraform \) -prune -o -type f -print',
-    \ 'sink': { file -> execute('e ' . file) },
-    \ 'options': '--preview="batcat --color=always --style=numbers {}" --preview-window=40%'
-\ }))<CR>
 nnoremap <leader>fp :RG<CR>
-
-" nerdtree
-let NERDTreeShowHidden=1
-let g:NERDTreeHijackNetrw=0
-nnoremap <C-t> :NERDTreeToggle<CR>
 
 " vim-gitgutter
 let g:gitgutter_sign_added = '+'
@@ -287,10 +150,6 @@ let g:gitgutter_sign_removed = '-'
 
 " undotree
 nmap <leader>h :UndotreeToggle<CR>
-
-" blamer
-let g:blamer_enabled = 0
-let g:blamer_template = '<committer>, <committer-time> • <summary>, <commit-long>'
 
 " vim-lsp
 let g:lsp_diagnostics_virtual_text_enabled = 1
@@ -342,17 +201,6 @@ augroup lsp_install
     au!
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-
-" vim-go
-let g:go_def_mapping_enabled = 0
-let g:go_fmt_command = "goimports"
-let g:go_play_browser_command = 'sudo -u ipetrov xdg-open %URL% &'
-
-augroup go_mappings
-  autocmd!
-  autocmd FileType go nmap <leader>err :GoIfErr<CR>
-  autocmd FileType go nmap <leader>dc :GoDocBrowser<CR>
 augroup END
 
 " terraform
@@ -439,4 +287,17 @@ endfunction
 augroup terraform_mappings
   autocmd!
   autocmd FileType terraform nnoremap <leader>dc :call TerraformDocBrowser()<CR><CR>
+augroup END
+
+" vim-go
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+let g:go_def_mapping_enabled = 0
+let g:go_fmt_command = "goimports"
+let g:go_play_browser_command = 'sudo -u ipetrov xdg-open %URL% &'
+
+augroup go_mappings
+  autocmd!
+  autocmd FileType go nmap <leader>err :GoIfErr<CR>
+  autocmd FileType go nmap <leader>dc :GoDocBrowser<CR>
 augroup END
