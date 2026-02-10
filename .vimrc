@@ -8,6 +8,7 @@ set backspace=2           " Makes backspace behave like you'd expect
 set colorcolumn=80        " Highlight 80 character limit
 set hidden                " Allow buffers to be backgrounded without being saved
 set number relativenumber " Show the liner numbes in realtive mode
+set cursorline            " Highlight the current line
 set ruler                 " Show the line number and column in the status bar
 set scrolloff=999         " Keep the cursor int the center of the screen
 set showmatch             " Highlight matching braces
