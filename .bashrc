@@ -117,6 +117,7 @@ export GOBIN=$HOME/go/bin
 
 # java
 alias mci="mvn clean install"
+alias mrun="mvn clean spring-boot:run -Dspring-boot.run.profiles=local -Dspring.output.ansi.enabled=always"
 alias mgen="mvn generate-sources"
 alias mresolve="mvn dependency:purge-local-repository -DreResolve=true"
 alias mdeps="mvn dependency:tree"
@@ -175,3 +176,6 @@ tfd() {
 
 # aws
 export AWS_DEFAULT_PROFILE=personal
+
+# gardener
+alias gardenertest="bash /projects/oss/gardener/hack/test.sh"
