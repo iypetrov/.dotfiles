@@ -109,7 +109,8 @@ endif
 
 call plug#begin()
 
-Plug 'vim-scripts/ansi_blows.vim'
+Plug 'zaki/zazen'
+Plug 'itchyny/lightline.vim'
 
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -129,7 +130,12 @@ call plug#end()
 
 set termguicolors
 set background=dark
-colorscheme ansi_blows
+colorscheme zazen
+
+" lightline.vim
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
 
 " ctrlp
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden --ignore .git --ignore node_modules --ignore dist --ignore target --ignore vendor --ignore tmp --ignore .terraform  -g ""'

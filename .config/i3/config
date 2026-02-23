@@ -7,7 +7,6 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec_always "setxkbmap -layout us,bg -variant ,phonetic -option grp:win_space_toggle"
 exec --no-startup-id nm-applet
-exec_always --no-startup-id /projects/common/.dotfiles/.config/polybar/launch.sh
 exec_always --no-startup-id /projects/common/.dotfiles/.config/i3/autostart.sh
 
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -44,6 +43,10 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+bar {
+      status_command i3status
+}
 
 mode "resize" {
         bindsym j resize shrink width 10 px or 10 ppt
@@ -118,21 +121,9 @@ exec_always --no-startup-id i3-msg "workspace $ws8; layout tabbed"
 exec_always --no-startup-id i3-msg "workspace $ws9; layout tabbed"
 exec_always --no-startup-id i3-msg "workspace $ws10; layout tabbed"
 
-exec --no-startup-id brave-browser
+exec --no-startup-id firefox
 exec --no-startup-id alacritty
-# exec --no-startup-id notion-snap-reborn
-# exec --no-startup-id spotify
-# exec --no-startup-id slack
-# exec --no-startup-id postman
-# exec --no-startup-id beekeeper-studio
-# exec --no-startup-id idea
 
 assign [class="Brave-browser"] $ws1
-assign [class="Alacritty"] $ws2
-assign [class="notion-snap-reborn"] $ws3
-assign [class="Spotify"] $ws4
-assign [class="Slack"] $ws5
-assign [class="Postman"] $ws6
-assign [class="beekeeper-studio"] $ws7
-assign [class="jetbrains-idea"] $ws8
+assign [class="Firefox"] $ws2
 assign [class="^.*"] $ws9
