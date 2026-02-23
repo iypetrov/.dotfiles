@@ -109,14 +109,14 @@ endif
 
 call plug#begin()
 
-Plug 'morhetz/gruvbox'
+Plug 'vim-scripts/ansi_blows.vim'
 
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree'
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
@@ -128,8 +128,8 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 set termguicolors
-set background=light
-colorscheme gruvbox
+set background=dark
+colorscheme ansi_blows
 
 " ctrlp
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden --ignore .git --ignore node_modules --ignore dist --ignore target --ignore vendor --ignore tmp --ignore .terraform  -g ""'
