@@ -78,6 +78,7 @@ if ! shopt -oq posix; then
 fi
 
 # User specific aliases and functions
+export PATH="$HOME/.local/bin:$PATH"
 
 # ssh keys
 eval $(keychain --eval --agents ssh id_ed25519_personal id_ed25519_work)
