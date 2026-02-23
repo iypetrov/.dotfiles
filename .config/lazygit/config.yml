@@ -1,12 +1,12 @@
 core:
   pager: "bat"
   pager_arguments:
-    - "--theme=gruvbox-light"
+    - "--theme=Sublime Snazzy"
 git:
   merging:
     args: mergetool
   pagers:
-    - pager: delta --light --paging=never
+    - pager: delta --dark --paging=never --syntax-theme="Sublime Snazzy"
       colorArg: never
   commit:
     signOff: true
