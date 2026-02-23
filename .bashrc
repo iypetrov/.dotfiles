@@ -87,7 +87,6 @@ eval "$(fzf --bash)"
 
 # common
 alias ll='ls -la --color'
-alias cls='clear'
 alias grep="grep --color"
 alias logs="tail -f /var/log/syslog"
 
