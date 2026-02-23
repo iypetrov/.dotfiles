@@ -128,6 +128,7 @@ mdepi() {
 
 # docker
 alias d="docker"
+alias dcu="docker-compose up -d"
 drm() {
   docker stop $(docker ps -aq)
   docker rm -f $(docker ps -aq)
