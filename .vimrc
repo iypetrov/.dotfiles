@@ -11,7 +11,7 @@ set number relativenumber " Show the liner numbes in realtive mode
 " set cursorline            " Highlight the current line
 set ruler                 " Show the line number and column in the status bar
 set scrolloff=999         " Keep the cursor int the center of the screen
-set showmatch             " Highlight matching braces
+set noshowmatch           " Don't highlight matching braces
 set showmode              " Show the current mode on the open buffer
 set splitbelow            " Splits show up below by default
 set splitright            " Splits go to the right by default
@@ -23,6 +23,7 @@ set nowrap                " If the line is too long don't split it on the new li
 " unloaded buffers or empty windows.
 set sessionoptions="curdir,folds,help,options,tabpages,winsize"
 
+let g:loaded_matchparen = 1
 syntax on                 " Enable filetype detection by syntax
 
 " Backup settings

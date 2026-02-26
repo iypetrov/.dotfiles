@@ -124,6 +124,6 @@ exec_always --no-startup-id i3-msg "workspace $ws10; layout tabbed"
 exec --no-startup-id firefox
 exec --no-startup-id alacritty
 
-assign [class="Brave-browser"] $ws1
-assign [class="Firefox"] $ws2
+assign [class="firefox_firefox"] $ws1
+assign [class="Alacritty"] $ws2
 assign [class="^.*"] $ws9
