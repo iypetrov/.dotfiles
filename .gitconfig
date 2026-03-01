@@ -26,6 +26,9 @@
 [includeIf "gitdir:/projects/ip812/"]
 	path = /root/.gitconfig-personal
 
+[includeIf "gitdir:/projects/zofiri/"]
+	path = /root/.gitconfig-personal
+
 [includeIf "gitdir:/projects/avalonpharma/"]
 	path = /root/.gitconfig-personal
 
