@@ -164,9 +164,15 @@ nmap <leader>h :UndotreeToggle<CR>
 let g:lsp_diagnostics_virtual_text_enabled = 1
 let g:lsp_diagnostics_virtual_text_align = 'after'
 let g:lsp_settings = {
-\  'go': {
+\  'gopls': {
 \    'cmd': ['gopls'],
 \    'allowlist': ['go'],
+\    'workspace_config': {
+\      'gopls': {
+\        'staticcheck': v:true,
+\        'analyses': {'unusedparams': v:true},
+\      }
+\    }
 \  },
 \}
 
@@ -202,7 +208,9 @@ function! s:on_lsp_buffer_enabled() abort
     nnoremap <buffer> <expr><c-b> lsp#scroll(-4)
 
     let g:lsp_format_sync_timeout = 1000
-    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    augroup lsp_format
+      autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    augroup END
 
     " refer to doc to add more commands
 endfunction
@@ -299,10 +307,13 @@ augroup terraform_mappings
   autocmd FileType terraform nnoremap <leader>dc :call TerraformDocBrowser()<CR><CR>
 augroup END
 
-" vim-go
+" vim-go (LSP features delegated to vim-lsp; vim-go used for non-LSP tooling only)
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 let g:go_def_mapping_enabled = 0
+let g:go_code_completion_enabled = 0
+let g:go_diagnostics_enabled = 0
+let g:go_fmt_autosave = 0
 let g:go_fmt_command = "goimports"
 let g:go_play_browser_command = 'sudo -u ipetrov xdg-open %URL% &'
 
