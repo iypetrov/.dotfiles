@@ -174,6 +174,10 @@ let g:lsp_settings = {
 \      }
 \    }
 \  },
+\  'typescript-language-server': {
+\    'cmd': ['typescript-language-server', '--stdio'],
+\    'allowlist': ['typescript', 'typescriptreact', 'javascript', 'javascriptreact'],
+\  },
 \}
 
 highlight LspDiagnosticsVirtualTextError guifg=Red ctermfg=Red
@@ -209,7 +213,7 @@ function! s:on_lsp_buffer_enabled() abort
 
     let g:lsp_format_sync_timeout = 1000
     augroup lsp_format
-      autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+      autocmd! BufWritePre *.rs,*.go,*.ts,*.tsx,*.js,*.jsx call execute('LspDocumentFormatSync')
     augroup END
 
     " refer to doc to add more commands
