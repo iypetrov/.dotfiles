@@ -8,12 +8,9 @@ if [[ -z "${target}" ]]; then
 fi
 
 case "${target}" in
-  "infra003")
-    ssh -i ~/.ssh/id_ed25519_work ipetrov@infra003.gas-x.de
-    ;;
-  "access02")
-    ssh -i ~/.ssh/id_ed25519_work ipetrov@10.110.113.5
-    ;;
+  # "example")
+  #   ssh -i ~/.ssh/id_ed25519_personal ipetrov@example.com
+  #   ;;
   "aws")
    instance_id=$(
       aws ec2 describe-instances \
